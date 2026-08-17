@@ -1291,12 +1291,23 @@ describe('search', () => {
 import { CONTINENTS, COUNTRIES, countryName, pickerLabel, zoneLabel, type Continent, type CountryCode, type ZoneId } from './catalog'
 import type { Locale } from './types'
 
-export interface SearchEntry { zoneId: ZoneId; country: CountryCode; continent: Continent; label: string; haystack: string[] }
+export interface SearchEntry {
+  zoneId: ZoneId
+  country: CountryCode
+  continent: Continent
+  label: string
+  // Match tiers, kept separate so ranking never depends on positions inside a deduped array.
+  countryNames: string[]
+  zoneLabels: string[]
+  cities: string[]
+  extras: string[]        // id, aliases, country code, offset strings
+  haystack: string[]      // union of the four above; backs the substring tier
+}
 export interface SearchGroup { key: 'pinned' | Continent; entries: SearchEntry[] }
 export interface SearchResult { groups: SearchGroup[]; truncated: boolean; total: number }
 
 export function normalize(s: string): string {
-  return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim()
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim()
 }
 
 function offsetStrings(minutes: number): string[] {
@@ -1305,6 +1316,8 @@ function offsetStrings(minutes: number): string[] {
   const core = `${sign}${Math.floor(abs / 60)}${abs % 60 ? `:${String(abs % 60).padStart(2, '0')}` : ''}`
   return [`utc${core}`, `gmt${core}`, core]
 }
+
+const dedupe = (xs: string[]) => [...new Set(xs.map(normalize))]
 
 const indexCache = new Map<Locale, SearchEntry[]>()
 
@@ -1317,13 +1330,18 @@ export function buildSearchIndex(locale: Locale): SearchEntry[] {
     countryName(a.code, locale).localeCompare(countryName(b.code, locale), locale))
   for (const c of countriesSorted) {
     for (const z of c.zones) {
-      const hay = new Set<string>([
-        countryName(c.code, locale), countryName(c.code, 'en-US'),
-        zoneLabel(z, locale), zoneLabel(z, 'en-US'),
-        ...z.cities, z.id, ...z.aliases, c.code,
-        ...offsetStrings(z.winter), ...offsetStrings(z.summer),
-      ].map(normalize))
-      entries.push({ zoneId: z.id, country: c.code, continent: c.continent, label: pickerLabel(z, locale), haystack: [...hay] })
+      const countryNames = dedupe([countryName(c.code, locale), countryName(c.code, 'en-US')])
+      const zoneLabels = dedupe([zoneLabel(z, locale), zoneLabel(z, 'en-US')])
+      const cities = dedupe([...z.cities])
+      const extras = dedupe([z.id, ...z.aliases, c.code, ...offsetStrings(z.winter), ...offsetStrings(z.summer)])
+      entries.push({
+        zoneId: z.id,
+        country: c.code,
+        continent: c.continent,
+        label: pickerLabel(z, locale),
+        countryNames, zoneLabels, cities, extras,
+        haystack: [...new Set([...countryNames, ...zoneLabels, ...cities, ...extras])],
+      })
     }
   }
   indexCache.set(locale, entries)
@@ -1332,10 +1350,9 @@ export function buildSearchIndex(locale: Locale): SearchEntry[] {
 
 /** Lower is better: 0 country-name prefix · 1 zone-label prefix · 2 city prefix · 3 any substring. */
 function score(e: SearchEntry, token: string): number {
-  const [country, countryEn, zone, zoneEn, ...rest] = e.haystack
-  if (country.startsWith(token) || countryEn.startsWith(token)) return 0
-  if (zone.startsWith(token) || zoneEn.startsWith(token)) return 1
-  if (rest.some((h) => h.startsWith(token))) return 2
+  if (e.countryNames.some((h) => h.startsWith(token))) return 0
+  if (e.zoneLabels.some((h) => h.startsWith(token))) return 1
+  if (e.cities.some((h) => h.startsWith(token))) return 2
   if (e.haystack.some((h) => h.includes(token))) return 3
   return Infinity
 }
@@ -1367,12 +1384,18 @@ export function search(index: SearchEntry[], query: string, opts: { pinned: Zone
   })
   scored.sort((a, b) => a.s - b.s || a.i - b.i)
   const total = scored.length
-  const kept = scored.slice(0, limit).map((x) => x.e)
-  const groups: SearchGroup[] = []
-  for (const c of CONTINENTS) {
-    const entries = kept.filter((e) => e.continent === c)
-    if (entries.length) groups.push({ key: c, entries })
+  const kept = scored.slice(0, limit)
+  // Groups are ordered by their best-ranked member, so the closest match is always the first row
+  // of the first group. Continent grouping must never outrank relevance (spec §4.3 requires both).
+  const byContinent = new Map<Continent, { best: number; entries: SearchEntry[] }>()
+  for (const { e, s } of kept) {
+    const g = byContinent.get(e.continent)
+    if (g) g.entries.push(e)
+    else byContinent.set(e.continent, { best: s, entries: [e] })
   }
+  const groups: SearchGroup[] = [...byContinent.entries()]
+    .sort((a, b) => a[1].best - b[1].best || CONTINENTS.indexOf(a[0]) - CONTINENTS.indexOf(b[0]))
+    .map(([key, g]) => ({ key, entries: g.entries }))
   return { groups, truncated: total > limit, total }
 }
 ```
@@ -1703,8 +1726,9 @@ Implements spec §7. The store never reads the browser environment itself: `main
   export const useConverterStore: UseBoundStore<StoreApi<ConverterState>>   // zustand hook
   export function initialConverterState(): Pick<ConverterState, 'initialized'|'home'|'homeHint'|'from'|'to'|'prefs'|'recents'>
   export function resetConverterStore(): void                                 // tests: clear storage + state
-  export function selectPinned(s: ConverterState): ZoneId[]                    // home + recents' zones, dedup, max 6
-  export function selectParsedTime(s: ConverterState): ReturnType<typeof parseTime>
+  export function pinnedZones(home: ZoneId, recents: readonly RecentEntry[]): ZoneId[]   // home + recents' zones, dedup, max 6
+  export function selectPinned(s: ConverterState): ZoneId[]                    // test-facing wrapper over pinnedZones
+  export function selectParsedTime(s: ConverterState): ReturnType<typeof parseTime>       // test-facing; components memoize parseTime themselves
   export function selectEffectiveDate(s: ConverterState, now: Date): ISODate   // s.from.date ?? today in from zone
   ```
 
@@ -1998,12 +2022,23 @@ export function resetConverterStore(): void {
   useConverterStore.setState(initialConverterState())
 }
 
-export function selectPinned(s: ConverterState): ZoneId[] {
-  const out: ZoneId[] = [s.home]
-  for (const r of s.recents) for (const z of [r.from, r.to]) if (!out.includes(z) && out.length < MAX_PINNED) out.push(z)
+/**
+ * Pure helper. Components must call this through useMemo over `home` + `recents` rather than
+ * passing `selectPinned` to `useConverterStore`: zustand 5 feeds the selector to
+ * useSyncExternalStore, which requires a cached snapshot, and this builds a fresh array per call.
+ */
+export function pinnedZones(home: ZoneId, recents: readonly RecentEntry[]): ZoneId[] {
+  const out: ZoneId[] = [home]
+  for (const r of recents) for (const z of [r.from, r.to]) if (!out.includes(z) && out.length < MAX_PINNED) out.push(z)
   return out
 }
 
+/** Test-facing convenience over `pinnedZones`; never pass this to `useConverterStore`. */
+export function selectPinned(s: ConverterState): ZoneId[] {
+  return pinnedZones(s.home, s.recents)
+}
+
+/** Test-facing convenience; components memoize `parseTime(from.time)` themselves (see pinnedZones). */
 export function selectParsedTime(s: ConverterState) {
   return parseTime(s.from.time)
 }
@@ -2166,7 +2201,7 @@ export function useNow(intervalMs = 30_000): Date {
 
 `src/hooks/useTheme.test.ts`:
 ```ts
-import { renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { resetConverterStore, useConverterStore } from '../store/converter'
 import { resolveTheme, useTheme } from './useTheme'
@@ -2183,7 +2218,9 @@ describe('useTheme', () => {
     vi.spyOn(window, 'matchMedia').mockImplementation((q) => ({ matches: q.includes('dark'), media: q, onchange: null, addEventListener: () => {}, removeEventListener: () => {}, addListener: () => {}, removeListener: () => {}, dispatchEvent: () => false }) as MediaQueryList)
     renderHook(() => useTheme())
     expect(document.documentElement.dataset.theme).toBe('dark') // system + dark OS
-    useConverterStore.getState().setPref('theme', 'light')
+    // act(): React 19 does not flush external-store updates synchronously, so without it the
+    // effect has not re-run when the next line asserts.
+    act(() => { useConverterStore.getState().setPref('theme', 'light') })
     expect(document.documentElement.dataset.theme).toBe('light')
   })
 })
@@ -2253,7 +2290,7 @@ import userEvent, { type UserEvent } from '@testing-library/user-event'
 import { vi } from 'vitest'
 import App from '../App'
 import { clock } from '../store/clock'
-import { initialConverterState, resetConverterStore, useConverterStore } from '../store/converter'
+import { initialConverterState, resetConverterStore, STORAGE_KEY, useConverterStore } from '../store/converter'
 
 export interface RenderOpts { browserIana?: string; navigatorLanguage?: string; now?: string; search?: string; keepStorage?: boolean }
 
@@ -2265,6 +2302,7 @@ function freezeClock(iso: string) {
 
 export function renderApp(opts: RenderOpts = {}): { user: UserEvent } & RenderResult {
   const o = { ...DEFAULTS, ...opts }
+  cleanup() // a test may render the app twice (e.g. opening a shared URL); never leave two trees mounted
   freezeClock(o.now)
   if (!o.keepStorage) resetConverterStore()
   useConverterStore.getState().bootstrap({ browserIana: o.browserIana, navigatorLanguage: o.navigatorLanguage, search: o.search })
@@ -2272,10 +2310,18 @@ export function renderApp(opts: RenderOpts = {}): { user: UserEvent } & RenderRe
   return { user, ...render(<App />) }
 }
 
-/** Simulates a page reload: unmount, reset in-memory state, rehydrate from localStorage, bootstrap, render. */
+/**
+ * Simulates a page reload: fresh in-memory state, untouched storage, rehydrate, bootstrap, render.
+ * The saved payload is captured and restored around the reset because zustand's persist middleware
+ * writes on every setState — resetting first would overwrite storage with defaults and rehydrate
+ * would read those defaults back, silently destroying the state under test.
+ */
 export async function reloadApp(opts: RenderOpts = {}): Promise<{ user: UserEvent } & RenderResult> {
   cleanup()
+  const saved = localStorage.getItem(STORAGE_KEY)
   useConverterStore.setState(initialConverterState())
+  if (saved === null) localStorage.removeItem(STORAGE_KEY)
+  else localStorage.setItem(STORAGE_KEY, saved)
   await useConverterStore.persist.rehydrate()
   return renderApp({ ...opts, keepStorage: true })
 }
@@ -2572,7 +2618,9 @@ export function ZonePicker({ id, label, value, onChange, locale, pinned, now, t,
           onKeyDown={onKeyDown}
           onBlur={close}
         />
-        <span className={styles.offset} data-testid={`${id}-offset`}>{offsetLabel}</span>
+        {/* aria-hidden: the offset must stay out of the field's and each option's accessible name,
+            which every test and every screen-reader announcement matches on exactly. */}
+        <span className={styles.offset} data-testid={`${id}-offset`} aria-hidden="true">{offsetLabel}</span>
       </div>
       {open && (
         <ul id={listId} role="listbox" aria-labelledby={labelId} className={styles.list}>
@@ -2593,7 +2641,7 @@ export function ZonePicker({ id, label, value, onChange, locale, pinned, now, t,
                     onClick={() => select(entry)}
                   >
                     <span>{entry.label}</span>
-                    <span className={styles.optionOffset}>{currentOffsetLabel(offsetAt(entry.zoneId, now.getTime()))}</span>
+                    <span className={styles.optionOffset} aria-hidden="true">{currentOffsetLabel(offsetAt(entry.zoneId, now.getTime()))}</span>
                   </li>
                 ))}
               </ul>
@@ -2693,9 +2741,10 @@ describe('TimeInput', () => {
 ```
 `src/components/TimeInput/TimeInput.tsx`:
 ```tsx
-import { useId } from 'react'
+import { useId, useMemo } from 'react'
+import { parseTime } from '../../domain/timeParse'
 import { useT } from '../../hooks/useT'
-import { selectParsedTime, useConverterStore } from '../../store/converter'
+import { useConverterStore } from '../../store/converter'
 import styles from './TimeInput.module.css'
 
 export function TimeInput() {
@@ -2703,7 +2752,9 @@ export function TimeInput() {
   const id = useId()
   const time = useConverterStore((s) => s.from.time)
   const hourFormat = useConverterStore((s) => s.prefs.hourFormat)
-  const parsed = useConverterStore(selectParsedTime)
+  // Derived outside the store subscription: parseTime returns a fresh object, which zustand 5
+  // would treat as a changed snapshot on every render.
+  const parsed = useMemo(() => parseTime(time), [time])
   const setTime = useConverterStore((s) => s.setTime)
   const commitRecent = useConverterStore((s) => s.commitRecent)
   const invalid = !parsed.ok && parsed.reason === 'invalid'
@@ -2931,19 +2982,21 @@ describe('NowLine', () => {
 ```
 `src/components/ResultDisplay/ResultDisplay.tsx`:
 ```tsx
+import { useMemo } from 'react'
 import { dayOffsetKey, formatDateLine, formatTime } from '../../domain/format'
+import { parseTime, type ParseResult } from '../../domain/timeParse'
 import { convert, type ConvertResult } from '../../domain/tz'
 import type { ISODate } from '../../domain/types'
 import { useNow } from '../../hooks/useNow'
 import { useLocale, useT } from '../../hooks/useT'
-import { selectEffectiveDate, selectParsedTime, useConverterStore } from '../../store/converter'
-import type { ParseResult } from '../../domain/timeParse'
+import { selectEffectiveDate, useConverterStore } from '../../store/converter'
 import styles from './ResultDisplay.module.css'
 
 /** Derived, never stored (INV-3). */
 export function useConversion(): { result: ConvertResult | null; parsed: ParseResult; effectiveDate: ISODate } {
   const now = useNow()
-  const parsed = useConverterStore(selectParsedTime)
+  const time = useConverterStore((s) => s.from.time)
+  const parsed = useMemo(() => parseTime(time), [time])
   const effectiveDate = useConverterStore((s) => selectEffectiveDate(s, now))
   const from = useConverterStore((s) => s.from.zone)
   const to = useConverterStore((s) => s.to.zone)
@@ -3296,10 +3349,10 @@ describe('Feature: Preferences', () => {
 ```
 `src/components/Converter/Converter.tsx`:
 ```tsx
-import { useId, type RefObject } from 'react'
+import { useId, useMemo, type RefObject } from 'react'
 import { useNow } from '../../hooks/useNow'
 import { useLocale, useT } from '../../hooks/useT'
-import { selectPinned, useConverterStore } from '../../store/converter'
+import { pinnedZones, useConverterStore } from '../../store/converter'
 import { DateRow } from '../DateRow/DateRow'
 import { NowLine } from '../NowLine/NowLine'
 import { ResultDisplay } from '../ResultDisplay/ResultDisplay'
@@ -3315,7 +3368,9 @@ function Panel({ which, fromInputRef }: { which: 'from' | 'to'; fromInputRef?: R
   const headingId = useId()
   const zone = useConverterStore((s) => (which === 'from' ? s.from.zone : s.to.zone))
   const home = useConverterStore((s) => s.home)
-  const pinned = useConverterStore(selectPinned)
+  const recents = useConverterStore((s) => s.recents)
+  // pinnedZones builds a fresh array; memoize it instead of subscribing with it (zustand 5).
+  const pinned = useMemo(() => pinnedZones(home, recents), [home, recents])
   const setZone = useConverterStore((s) => (which === 'from' ? s.setFromZone : s.setToZone))
   const commitRecent = useConverterStore((s) => s.commitRecent)
   const isHome = zone === home
@@ -3358,9 +3413,10 @@ export function Converter({ fromInputRef }: { fromInputRef?: RefObject<HTMLInput
 ```
 `src/components/Header/Header.tsx`:
 ```tsx
+import { useMemo } from 'react'
 import { useNow } from '../../hooks/useNow'
 import { useLocale, useT } from '../../hooks/useT'
-import { selectPinned, useConverterStore } from '../../store/converter'
+import { pinnedZones, useConverterStore } from '../../store/converter'
 import type { Theme } from '../../domain/types'
 import { ZonePicker } from '../ZonePicker/ZonePicker'
 import styles from './Header.module.css'
@@ -3374,7 +3430,8 @@ export function Header() {
   const now = useNow()
   const home = useConverterStore((s) => s.home)
   const setHome = useConverterStore((s) => s.setHome)
-  const pinned = useConverterStore(selectPinned)
+  const recents = useConverterStore((s) => s.recents)
+  const pinned = useMemo(() => pinnedZones(home, recents), [home, recents])
   const prefs = useConverterStore((s) => s.prefs)
   const setPref = useConverterStore((s) => s.setPref)
   return (
@@ -3400,9 +3457,10 @@ export function Header() {
 ```
 `src/components/HomeHint/HomeHint.tsx`:
 ```tsx
+import { useMemo } from 'react'
 import { useNow } from '../../hooks/useNow'
 import { useLocale, useT } from '../../hooks/useT'
-import { selectPinned, useConverterStore } from '../../store/converter'
+import { pinnedZones, useConverterStore } from '../../store/converter'
 import { ZonePicker } from '../ZonePicker/ZonePicker'
 
 export function HomeHint() {
@@ -3413,7 +3471,8 @@ export function HomeHint() {
   const home = useConverterStore((s) => s.home)
   const setHome = useConverterStore((s) => s.setHome)
   const dismiss = useConverterStore((s) => s.dismissHomeHint)
-  const pinned = useConverterStore(selectPinned)
+  const recents = useConverterStore((s) => s.recents)
+  const pinned = useMemo(() => pinnedZones(home, recents), [home, recents])
   if (!show) return null
   return (
     <div role="status" aria-label={t('home')} style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap', padding: '10px 14px', marginBottom: 12, background: 'var(--surface)', border: '1px solid var(--border-home)', borderRadius: 'var(--radius-card)' }}>
@@ -3551,7 +3610,7 @@ Append I2 to `src/acceptance/input.test.tsx` (inside the existing `describe`; it
 
 `src/hooks/useUrlSync.test.ts`:
 ```ts
-import { renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { resetConverterStore, useConverterStore } from '../store/converter'
 import { useUrlSync } from './useUrlSync'
@@ -3561,8 +3620,11 @@ describe('useUrlSync', () => {
   it('mirrors from/to/time/date into the query string with replaceState', () => {
     renderHook(() => useUrlSync())
     expect(window.location.search).toBe('?from=America%2FCosta_Rica&to=America%2FDenver')
-    useConverterStore.getState().setTime('15:30')
-    useConverterStore.getState().setDate('2026-01-15')
+    // act(): the effect that rewrites the URL runs after React flushes the store update.
+    act(() => {
+      useConverterStore.getState().setTime('15:30')
+      useConverterStore.getState().setDate('2026-01-15')
+    })
     expect(window.location.search).toBe('?t=15%3A30&d=2026-01-15&from=America%2FCosta_Rica&to=America%2FDenver')
   })
 })
@@ -3786,7 +3848,7 @@ git commit -m "feat(recents): recent conversions chips with reload and clear (S3
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
   })
 ```
-Note: `{Enter}` selects the *active* option; after typing "phil" the first (active) row is Philippines because `search` ranks the country-name prefix first.
+Note: `{Enter}` selects the *active* option. After typing "phil" the first (active) row is Philippines because `search` ranks country-name prefixes above city prefixes **and orders the continent groups by their best-ranked member**, so Asia's group (Manila, tier 0) renders above the Americas group (Philipsburg/Philadelphia, tier 2).
 
 - [ ] **Step 2: Implement**
 
@@ -3855,7 +3917,7 @@ import { expect, test } from '@playwright/test'
 test.describe('smoke', () => {
   test('convert, swap, share and reopen the shared link', async ({ page, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write'])
-    await page.goto('/')
+    await page.goto('./')
     await expect(page.getByRole('combobox', { name: 'From' })).toHaveValue('🇨🇷 Costa Rica')
     const from = page.getByRole('combobox', { name: 'From' })
     await from.click()
@@ -3881,7 +3943,7 @@ test.describe('smoke', () => {
 
   test('mobile: cards stack and picker opens as a sheet', async ({ page, isMobile }) => {
     test.skip(!isMobile, 'mobile project only')
-    await page.goto('/')
+    await page.goto('./')
     const from = page.getByRole('combobox', { name: 'From' })
     const to = page.getByRole('combobox', { name: 'To' })
     const a = await from.boundingBox(); const b = await to.boundingBox()
@@ -3895,7 +3957,7 @@ test.describe('smoke', () => {
   })
 
   test('theme toggle persists across reload', async ({ page }) => {
-    await page.goto('/')
+    await page.goto('./')
     const html = page.locator('html')
     await page.getByRole('button', { name: /theme/i }).click() // system → dark
     await expect(html).toHaveAttribute('data-theme', 'dark')
