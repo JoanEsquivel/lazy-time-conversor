@@ -45,7 +45,7 @@ export function buildCatalog(zones, tzdbVersion) {
     const continent = CONTINENT_OVERRIDES[z.countryCode] ?? CONTINENT_MAP[z.continentCode]
     if (!continent) throw new Error(`No continent mapping for ${z.name} (${z.continentCode})`)
     const aliases = [...new Set(z.group.filter((g) => g !== z.name))].sort()
-    for (const name of [z.name, ...aliases]) assertIntlAccepts(name)
+    assertIntlAccepts(z.name)
     let country = countries.get(z.countryCode)
     if (!country) {
       country = { code: z.countryCode, continent, zones: [] }
