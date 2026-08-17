@@ -109,7 +109,7 @@ src/App.tsx, src/main.tsx, src/styles/{tokens,global}.css
 
 **Invariants**
 - **INV-1 Ambient time in two files only.** Argument-less `new Date()` / `Date.now()` may appear only in `src/store/clock.ts` (`now(): Date`) and `src/hooks/useNow.ts`. Everything else takes `now: Date` as a parameter or reads `clock.now()`. Tests replace `clock.now` (`vi.spyOn`) to freeze time.
-- **INV-2 Domain is pure.** `src/domain/` imports only its siblings and the generated JSON. No React, no zustand, no `window`, no `localStorage`, no `navigator`. `detectHomeZone(browserIana)` and `detectLang(navigatorLanguage)` receive browser values as arguments; the caller in `store`/`i18n` reads `Intl`/`navigator`.
+- **INV-2 Domain is pure.** `src/domain/` imports only its siblings and the generated JSON. No React, no zustand, no `window`, no `localStorage`, no `navigator`. `detectHomeZone(browserIana)` and `detectLang(navigatorLanguage)` receive browser values as arguments; `src/main.tsx` is the sole bootstrap site that reads `Intl.DateTimeFormat().resolvedOptions().timeZone` and `navigator.language` and passes them into the store.
 - **INV-3 The result is derived, never stored.** `convert()` runs at render from `from` + `to` + `time` + `date`. Nothing in the store or URL contains a converted value.
 - **INV-4 Never build a calendar date from a UTC string.** No `toISOString().slice(0,10)`. Dates are `YYYY-MM-DD` strings produced by `Intl` parts for the relevant zone.
 - **INV-5 The catalog is the only source of zones.** Store, URL and UI hold `ZoneId`s (representative IANA names) that must satisfy `isZoneId`; aliases are normalized at the boundary (`zoneForIana`) and never stored. `tz.ts` receives IANA strings and knows nothing about countries.

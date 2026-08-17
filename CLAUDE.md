@@ -1,10 +1,10 @@
 # CLAUDE.md — Lazy Time Converter
 
-> **Status: finished, tested, deployed.** All 22 tasks of the implementation plan are complete. 152 unit/acceptance tests (23 files) and 14 Playwright tests (9 run, 5 skipped by cross-project guards) pass; `npm run verify` and `npm run e2e` are both green; CI/deploy workflow is in place at `.github/workflows/deploy.yml`.
+> **Status: finished and tested, not yet deployed.** All 22 tasks of the implementation plan are complete. 152 unit/acceptance tests (23 files) and 14 Playwright tests (9 run, 5 skipped by cross-project guards) pass; `npm run verify` and `npm run e2e` are both green; the deploy pipeline exists at `.github/workflows/deploy.yml` but has never run — there is no git remote yet. Before the site is live someone still has to: create the GitHub repo, `git remote add origin …` and push `main`, then in *Settings → Pages* set **Source: GitHub Actions**.
 
 ## What this is
 
-A static React web app that converts a wall-clock time between any two country · time-zone pairs in the world (home zone auto-detected from the browser, editable), with a searchable picker, live "now" clocks, 24h/12h, EN/ES, light/dark/system theme, copy result, shareable URL and recent conversions. Zero runtime dependencies beyond React and Zustand — time math and country/zone names come from the browser's `Intl` API; the country→zone catalog is generated at build time from `@vvo/tzdb`. Deployed to GitHub Pages by GitHub Actions.
+A static React web app that converts a wall-clock time between any two country · time-zone pairs in the world (home zone auto-detected from the browser, editable), with a searchable picker, live "now" clocks, 24h/12h, EN/ES, light/dark/system theme, copy result, shareable URL and recent conversions. Zero runtime dependencies beyond React and Zustand — time math and country/zone names come from the browser's `Intl` API; the country→zone catalog is generated at build time from `@vvo/tzdb`. Designed to deploy to GitHub Pages via GitHub Actions (see status line above for what's still pending).
 
 ## Where to look (read in this order)
 
