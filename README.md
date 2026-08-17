@@ -4,9 +4,9 @@ A small, modern browser tool that converts a wall-clock time between the user's 
 
 ## Live
 
-`https://<your-github-username>.github.io/lazy-time-conversor/`
+**https://joanesquivel.github.io/lazy-time-conversor/**
 
-(Goes live once the repository is pushed to GitHub and *Settings → Pages* is set to **Source: GitHub Actions**.)
+Deployed automatically from `main` by [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): every push runs the catalog-drift check, typecheck, 153 tests, a production build and the Playwright smoke suite before the site is published.
 
 ![Lazy Time Converter — desktop, dark theme](docs/screenshot.png)
 
@@ -29,7 +29,7 @@ A small, modern browser tool that converts a wall-clock time between the user's 
 | Command | What it does |
 |---|---|
 | `npm run dev` | Vite dev server |
-| `npm run verify` | Typecheck + unit/acceptance tests (152 tests, 23 files) — the definition of done |
+| `npm run verify` | Typecheck + unit/acceptance tests (153 tests, 23 files) — the definition of done |
 | `npm run e2e` | Playwright smoke suite against a production preview build |
 | `npm run gen:catalog` | Regenerate `src/domain/catalog.generated.json` from `@vvo/tzdb` |
 | `npm run catalog:check` | Regenerate the catalog and fail if it differs from the committed file |

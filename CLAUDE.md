@@ -1,6 +1,6 @@
 # CLAUDE.md — Lazy Time Converter
 
-> **Status: finished and tested, not yet deployed.** All 22 tasks of the implementation plan are complete. 152 unit/acceptance tests (23 files) and 14 Playwright tests (9 run, 5 skipped by cross-project guards) pass; `npm run verify` and `npm run e2e` are both green; the deploy pipeline exists at `.github/workflows/deploy.yml` but has never run — there is no git remote yet. Before the site is live someone still has to: create the GitHub repo, `git remote add origin …` and push `main`, then in *Settings → Pages* set **Source: GitHub Actions**.
+> **Status: live.** All 22 tasks of the implementation plan are complete and merged to `main`. The site is deployed at **https://joanesquivel.github.io/lazy-time-conversor/**; `.github/workflows/deploy.yml` redeploys it on every push to `main` after the catalog-drift check, typecheck, 153 tests, build and Playwright smoke all pass. Local gates: `npm run verify` and `npm run e2e`.
 
 ## What this is
 
@@ -14,16 +14,35 @@ A static React web app that converts a wall-clock time between any two country �
 
 ## Working in this repo now
 
-The implementation is done. If you're picking up follow-on work: read this file and spec §5 (invariants) + §11 (scenarios) first, run `npm run verify` to confirm the baseline is still green, then make your change and re-verify before committing.
+The implementation is done and live. For any follow-on work:
+
+1. Read this file, then spec §5 (invariants) and §11 (the acceptance-scenario contract).
+2. Run `npm run verify` first, to confirm the baseline is green before you touch anything. If it is already red, fix that before starting — do not stack a change on a broken baseline.
+3. **Write the test first.** A bug fix starts with a failing test that reproduces it; a feature starts with the acceptance scenario. This repo was built that way and every test in it earns its place.
+4. Change the code, re-run `npm run verify`, and run `npm run e2e` if you touched anything the browser sees.
+5. Update the spec in the same commit if you changed behaviour it describes. The spec is the product authority — if code and spec disagree, one of them is a bug.
+
+**A change to a time-zone rule, a format string or the catalog is never "obvious".** Verify it against real `Intl` output with a throwaway `node -e` before you trust it. Several defects in this repo's history were expectations that looked right and were arithmetically wrong — including one in the spec itself.
+
+### Automated guards (`.claude/`)
+
+Two project hooks run automatically; both are advisory-by-design and neither replaces `npm run verify`:
+
+| Hook | When | What it does |
+|---|---|---|
+| `.claude/hooks/check-invariants.sh` | After every Write/Edit | Blocks and explains when the file just written breaks INV-1, INV-2, INV-4 or INV-6, or hand-edits the generated catalog. Silent otherwise. |
+| `.claude/hooks/verify-reminder.sh` | When a turn ends | Reminds you that `npm run verify` is the definition of done, if the turn left uncommitted changes under `src/`, `scripts/` or `e2e/`. |
+
+They are regex guards, not proofs: they catch the specific mistakes this codebase actually made. Passing them means nothing was *obviously* violated — INV-3 and INV-5 are not mechanically checkable and remain your responsibility. If a hook fires on something legitimate, fix the hook rather than working around it, and say why in the commit.
 
 ## Commands
 
 | Command | What it does |
 |---|---|
 | `npm run dev` | Vite dev server (`http://localhost:5173/lazy-time-conversor/`) |
-| `npm run verify` | `typecheck` + `vitest run` — **the definition of done**. Currently: 152 tests passing across 23 files. |
+| `npm run verify` | `typecheck` + `vitest run` — **the definition of done**. Currently: 153 tests passing across 23 files. |
 | `npm run typecheck` | `tsc -b --noEmit` (never use bare `npx tsc --noEmit` at the root — the solution `tsconfig.json` checks zero files) |
-| `npm test` | all unit + acceptance tests (same 152/23 as above) |
+| `npm test` | all unit + acceptance tests (same 153/23 as above) |
 | `npm run test:watch` | Vitest in watch mode |
 | `npm run gen:catalog` | regenerate `src/domain/catalog.generated.json` from `@vvo/tzdb` (244 countries, 305 zones) |
 | `npm run catalog:check` | regenerate the catalog and fail (`git diff --exit-code`) if the committed JSON drifted |
