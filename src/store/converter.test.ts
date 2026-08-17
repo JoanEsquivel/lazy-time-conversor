@@ -107,6 +107,18 @@ describe('persistence', () => {
     expect(raw.state.initialized).toBe(true)
     expect(raw.version).toBe(1)
   })
+  it('survives a structurally malformed payload without losing the valid fields', () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, state: {
+      initialized: true, home: 'Asia/Kolkata', homeHint: false,
+      from: { zone: 'America/Denver' }, to: { zone: 'America/Costa_Rica' },
+      prefs: 'not-an-object', recents: { nope: true },
+    } }))
+    expect(() => useConverterStore.persist.rehydrate()).not.toThrow()
+    expect(s().home).toBe('Asia/Kolkata')
+    expect(s().from.zone).toBe('America/Denver')
+    expect(s().recents).toEqual([])
+    expect(s().prefs).toEqual({ hourFormat: '24h', lang: 'en', theme: 'system' })
+  })
   it('drops unknown zones on rehydrate', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, state: {
       initialized: true, home: 'Nowhere/Land', homeHint: false, from: { zone: 'America/Boise' }, to: { zone: 'Bogus/Zone' },

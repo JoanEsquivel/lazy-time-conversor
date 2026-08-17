@@ -124,7 +124,11 @@ export const useConverterStore = create<ConverterState>()(
       merge: (persisted, current) => {
         const p = (persisted ?? {}) as Partial<ReturnType<typeof initialConverterState>> & { from?: { zone?: string }; to?: { zone?: string } }
         const home = safeZone(p.home, DEFAULT_HOME)
-        const recents = (p.recents ?? []).filter((r) => isZoneId(r.from) && isZoneId(r.to))
+        // Array.isArray / object guards, not `?? []`: zustand runs merge inside its hydration
+        // promise chain, so a TypeError here rejects it and the `set` never happens — a single
+        // malformed field would silently discard home, from, to and prefs as well.
+        const recents = (Array.isArray(p.recents) ? p.recents : []).filter((r) => isZoneId(r.from) && isZoneId(r.to))
+        const prefs = p.prefs && typeof p.prefs === 'object' && !Array.isArray(p.prefs) ? p.prefs : {}
         return {
           ...current,
           initialized: p.initialized ?? current.initialized,
@@ -132,7 +136,7 @@ export const useConverterStore = create<ConverterState>()(
           homeHint: p.homeHint ?? current.homeHint,
           from: { ...current.from, zone: safeZone(p.from?.zone, home) },
           to: { zone: safeZone(p.to?.zone, home) },
-          prefs: { ...current.prefs, ...(p.prefs ?? {}) },
+          prefs: { ...current.prefs, ...prefs },
           recents,
         }
       },
