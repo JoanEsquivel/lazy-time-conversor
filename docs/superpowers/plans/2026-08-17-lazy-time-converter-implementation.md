@@ -978,11 +978,12 @@ describe('parseTime', () => {
     ['15:30', '15:30'], ['1530', '15:30'], ['930', '09:30'], ['9:5', '09:05'], ['9', '09:00'], ['0:00', '00:00'],
     ['3:30 pm', '15:30'], ['3:30pm', '15:30'], ['3pm', '15:00'], ['3 PM', '15:00'], ['3p', '15:00'],
     ['12am', '00:00'], ['12pm', '12:00'], ['12:30 a.m.', '00:30'], ['  7:45 AM ', '07:45'], ['23:59', '23:59'],
+    ['3.30', '03:30'], ['3.30 pm', '15:30'],
   ])('accepts %s → %s', (raw, expected) => {
     expect(parseTime(raw)).toEqual({ ok: true, time: expected })
   })
 
-  it.each(['24:00', '25:00', '13pm', '0pm', '3:60', 'abc', '15:3x', '1:2:3', '99999'])('rejects %s', (raw) => {
+  it.each(['24:00', '25:00', '13pm', '0pm', '3:60', 'abc', '15:3x', '1:2:3', '1.2.3', '1.2.3.4', '3.', '99999'])('rejects %s', (raw) => {
     expect(parseTime(raw)).toEqual({ ok: false, reason: 'invalid' })
   })
 
@@ -1009,13 +1010,16 @@ const pad = (n: number) => String(n).padStart(2, '0')
 /** Accepts 15:30 · 1530 · 930 · 9:5 · 3:30 pm · 3pm · 12am; returns zero-padded 24h HH:mm. */
 export function parseTime(raw: string): ParseResult {
   if (raw.trim() === '') return { ok: false, reason: 'empty' }
-  let s = raw.toLowerCase().replace(/[\s.]/g, '')
+  let s = raw.toLowerCase().trim()
+  // Strip the meridiem first, dots and all. Only then may a dot mean "hours:minutes" —
+  // stripping every dot up front would turn "1.2.3" into the valid-looking "123".
   let meridiem: 'am' | 'pm' | undefined
-  const mer = /(am|pm|a|p)$/.exec(s)
+  const mer = /\s*([ap])\.?\s*(m\.?)?\s*$/.exec(s)
   if (mer) {
-    meridiem = mer[1].startsWith('a') ? 'am' : 'pm'
-    s = s.slice(0, -mer[1].length)
+    meridiem = mer[1] === 'a' ? 'am' : 'pm'
+    s = s.slice(0, mer.index)
   }
+  s = s.replace(/\s+/g, '').replace(/\./g, ':')
   let h: number
   let min: number
   if (/^\d{3,4}$/.test(s)) {

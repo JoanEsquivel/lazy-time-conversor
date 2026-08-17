@@ -138,11 +138,11 @@ Algorithm (all via `Intl.DateTimeFormat('en-US', { timeZone, hourCycle: 'h23', y
 
 `parseTime(raw: string): { ok: true; time: HHMM } | { ok: false; reason: 'empty' | 'invalid' }`
 
-Accepted (case/space-insensitive): `15:30`, `1530`, `930`, `9:5`, `3:30 pm`, `3:30pm`, `3pm`, `3 PM`, `12am` (→ `00:00`), `12pm` (→ `12:00`), `0:00`; invalid: `24:00`, `25:00`, `13pm`, `3:60`. Output is always zero-padded `HH:mm`.
+Accepted (case/space-insensitive): `15:30`, `1530`, `930`, `9:5`, `9`, `3:30 pm`, `3:30pm`, `3pm`, `3 PM`, `3p`, `12am` (→ `00:00`), `12pm` (→ `12:00`), `12:30 a.m.` (→ `00:30`), `0:00`. A dot separates hours from minutes exactly like a colon (`3.30` → `03:30`), which is why the meridiem is stripped **before** dots are interpreted — otherwise `12:30 a.m.` and `1.2.3` become indistinguishable. Invalid: `24:00`, `25:00`, `13pm`, `0pm`, `3:60`, `1:2:3` and its dotted twin `1.2.3`, `3.`, `abc`, `15:3x`, `99999`. Output is always zero-padded `HH:mm`.
 
 ### 6.3 `format.ts`
 
-- `formatTime(time: HHMM, hourFormat: '24h' | '12h', locale): string` — `15:30` / `3:30 PM` (12h uses `Intl` so ES gives `3:30 p. m.`).
+- `formatTime(time: HHMM, hourFormat: '24h' | '12h', locale): string` — `15:30` / `3:30 PM` (12h goes through `Intl`, so es-CR gives `3:30 p.\u00A0m.` — note the **non-breaking space** ICU puts before `m.`; tests must compare against `Intl` output or the escaped literal, never a typed-out space).
 - `formatDateLine(date: ISODate, locale): string` — `Mon, Aug 17` / `lun, 17 ago` via `Intl.DateTimeFormat(locale, { weekday: 'short', month: 'short', day: 'numeric' })`.
 - `dayOffsetLabel(offset, t)` → t('day.same') / t('day.next') / t('day.prev') → "same day" / "next day (+1)" / "previous day (−1)".
 - `copyText(state, result, t, locale)` → `15:30 Mountain Time (United States) → 15:30 Central Standard Time (Costa Rica) · Mon, Aug 17, 2026` (zone labels via `zoneLabel`; single-zone countries still show their `Intl` label here because the text stands alone).
