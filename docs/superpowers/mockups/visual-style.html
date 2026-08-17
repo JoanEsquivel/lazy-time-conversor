@@ -1,0 +1,130 @@
+<h2>Which visual style should layout A have?</h2>
+<p class="subtitle">Same structure (two cards + swap), three different personalities. Each shows the light theme large and a dark-theme strip below it. Pick the direction — I'll refine details after.</p>
+
+<style>
+  .st { border-radius:14px; padding:16px; }
+  .st .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .st .brand { font-weight:700; font-size:14px; letter-spacing:-.01em; }
+  .st .pill { display:inline-block; border-radius:999px; padding:2px 9px; margin-left:4px; font-size:10px; }
+  .st .row { display:flex; gap:10px; align-items:stretch; }
+  .st .card { flex:1; border-radius:12px; padding:12px; }
+  .st .lbl { font-size:9px; text-transform:uppercase; letter-spacing:.1em; opacity:.6; }
+  .st .sel { border-radius:8px; padding:6px 9px; font-size:11px; margin-top:5px; }
+  .st .big { font-size:40px; font-weight:700; line-height:1.05; margin:8px 0 2px; font-variant-numeric:tabular-nums; letter-spacing:-.03em; }
+  .st .sub { font-size:10px; opacity:.7; }
+  .st .now { font-size:10px; opacity:.5; margin-top:8px; }
+  .st .swap { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; flex:none; align-self:center; }
+  .st .chips { display:flex; gap:6px; margin-top:12px; align-items:center; flex-wrap:wrap; }
+  .st .chip { font-size:10px; border-radius:999px; padding:3px 9px; }
+  .st .btn { font-size:10px; border-radius:7px; padding:4px 9px; display:inline-block; }
+  .st .badge { font-size:8px; border-radius:4px; padding:1px 5px; margin-left:4px; font-weight:700; }
+  .strip { display:flex; gap:8px; margin-top:8px; border-radius:10px; padding:10px; align-items:center; }
+  .strip .mini { flex:1; border-radius:8px; padding:8px; }
+  .strip .mini .b { font-size:20px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .strip .lbl { font-size:8px; text-transform:uppercase; letter-spacing:.1em; opacity:.6; }
+
+  /* 1: Clean SaaS */
+  .s1 { background:#f6f7f9; color:#0f172a; font-family:-apple-system,"Inter",system-ui,sans-serif; }
+  .s1 .pill { background:#fff; border:1px solid #e2e6ee; color:#475569; }
+  .s1 .card { background:#fff; border:1px solid #e2e6ee; box-shadow:0 1px 2px rgba(15,23,42,.04); }
+  .s1 .card.home { background:#eef4ff; border-color:#c7d7fe; }
+  .s1 .sel { background:#f8fafc; border:1px solid #e2e6ee; }
+  .s1 .big.res { color:#2563eb; }
+  .s1 .swap { background:#2563eb; color:#fff; box-shadow:0 4px 12px rgba(37,99,235,.35); }
+  .s1 .chip, .s1 .btn { background:#fff; border:1px solid #e2e6ee; color:#475569; }
+  .s1 .badge { background:#dbeafe; color:#1d4ed8; }
+  .d1 { background:#0b1220; color:#e2e8f0; }
+  .d1 .mini { background:#111a2e; border:1px solid #1e293b; }
+  .d1 .mini.home { background:#0f1f3d; border-color:#1e3a8a; }
+  .d1 .b.res { color:#60a5fa; }
+
+  /* 2: Warm editorial */
+  .s2 { background:#f7f1e6; color:#2a2320; font-family:-apple-system,system-ui,sans-serif; }
+  .s2 .brand { font-family:Georgia,"Times New Roman",serif; font-weight:600; font-style:italic; }
+  .s2 .pill { background:#fffaf0; border:1px solid #e3d6bf; color:#6b5c4a; }
+  .s2 .card { background:#fffaf0; border:1px solid #e3d6bf; }
+  .s2 .card.home { background:#ede4d2; border-color:#cdbb99; }
+  .s2 .sel { background:#f7f1e6; border:1px solid #e3d6bf; }
+  .s2 .big { font-family:Georgia,"Times New Roman",serif; font-weight:500; letter-spacing:-.01em; }
+  .s2 .big.res { color:#8a3b2a; }
+  .s2 .swap { background:#2a2320; color:#f7f1e6; }
+  .s2 .chip, .s2 .btn { background:#fffaf0; border:1px solid #e3d6bf; color:#6b5c4a; }
+  .s2 .badge { background:#8a3b2a; color:#fff; }
+  .d2 { background:#1c1714; color:#efe6d6; }
+  .d2 .mini { background:#25201b; border:1px solid #3a322a; }
+  .d2 .mini.home { background:#2e2620; border-color:#5a4a3a; }
+  .d2 .b { font-family:Georgia,serif; font-weight:500; }
+  .d2 .b.res { color:#e0876f; }
+
+  /* 3: Midnight tech */
+  .s3 { background:#0e1016; color:#e6e8ef; font-family:-apple-system,system-ui,sans-serif; }
+  .s3 .brand { background:linear-gradient(90deg,#7c8cff,#3ee0c8); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .s3 .pill { background:#171a24; border:1px solid #262b3a; color:#a3a9bb; }
+  .s3 .card { background:#151823; border:1px solid #262b3a; }
+  .s3 .card.home { background:linear-gradient(160deg,#171c33,#12222b); border-color:#2f3d66; }
+  .s3 .sel { background:#0e1016; border:1px solid #262b3a; }
+  .s3 .big { font-family:ui-monospace,"SF Mono",Menlo,monospace; font-weight:600; letter-spacing:-.04em; }
+  .s3 .big.res { color:#3ee0c8; text-shadow:0 0 18px rgba(62,224,200,.35); }
+  .s3 .swap { background:linear-gradient(135deg,#7c8cff,#3ee0c8); color:#0e1016; }
+  .s3 .chip, .s3 .btn { background:#171a24; border:1px solid #262b3a; color:#a3a9bb; }
+  .s3 .badge { background:#3ee0c8; color:#0e1016; }
+  .d3 { background:#f5f6fa; color:#1a1d2a; }
+  .d3 .mini { background:#fff; border:1px solid #e0e3ec; }
+  .d3 .mini.home { background:#eaf7f4; border-color:#9fe3d6; }
+  .d3 .b { font-family:ui-monospace,Menlo,monospace; }
+  .d3 .b.res { color:#0f9d86; }
+</style>
+
+<div class="cards" style="grid-template-columns:1fr">
+
+  <div class="card" data-choice="clean-saas" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="st s1">
+        <div class="top"><span class="brand">Lazy Time Converter</span><span><span class="pill">🏠 Costa Rica</span><span class="pill">24h · 12h</span><span class="pill">EN · ES</span><span class="pill">☀ ☾</span></span></div>
+        <div class="row">
+          <div class="card"><div class="lbl">From</div><div class="sel">🇺🇸 United States ▾</div><div class="sel">Mountain Time (MT) ▾</div><div class="big">15:30</div><div class="sub">Sun, Aug 17 · <span class="btn">📅</span> <span class="btn">Now</span></div><div class="now">now there 08:52</div></div>
+          <div class="swap">⇄</div>
+          <div class="card home"><div class="lbl">To <span class="badge">HOME</span></div><div class="sel">🇨🇷 Costa Rica ▾</div><div class="sel">Central Standard (CST) ▾</div><div class="big res">15:30</div><div class="sub">Sun, Aug 17 · same day</div><div class="now">now here 08:52</div></div>
+        </div>
+        <div class="chips"><span class="lbl">Recent</span><span class="chip">15:30 MT → CR</span><span class="chip">09:00 IST → CR</span><span class="chip">20:00 CR → PHT</span><span style="flex:1"></span><span class="btn">Copy</span><span class="btn">Share link</span></div>
+      </div>
+      <div class="strip d1"><span class="lbl">Dark</span><div class="mini"><div class="lbl">From · MT</div><div class="b">15:30</div></div><div class="mini home"><div class="lbl">To · Home</div><div class="b res">15:30</div></div></div>
+    </div>
+    <div class="card-body"><h3>1 — Clean SaaS</h3><p>Neutral greys, one blue accent, soft cards, system sans. Familiar, calm, very readable. Home card tinted blue.</p></div>
+  </div>
+
+  <div class="card" data-choice="warm-editorial" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="st s2">
+        <div class="top"><span class="brand">Lazy Time Converter</span><span><span class="pill">🏠 Costa Rica</span><span class="pill">24h · 12h</span><span class="pill">EN · ES</span><span class="pill">☀ ☾</span></span></div>
+        <div class="row">
+          <div class="card"><div class="lbl">From</div><div class="sel">🇺🇸 United States ▾</div><div class="sel">Mountain Time (MT) ▾</div><div class="big">15:30</div><div class="sub">Sun, Aug 17 · <span class="btn">📅</span> <span class="btn">Now</span></div><div class="now">now there 08:52</div></div>
+          <div class="swap">⇄</div>
+          <div class="card home"><div class="lbl">To <span class="badge">HOME</span></div><div class="sel">🇨🇷 Costa Rica ▾</div><div class="sel">Central Standard (CST) ▾</div><div class="big res">15:30</div><div class="sub">Sun, Aug 17 · same day</div><div class="now">now here 08:52</div></div>
+        </div>
+        <div class="chips"><span class="lbl">Recent</span><span class="chip">15:30 MT → CR</span><span class="chip">09:00 IST → CR</span><span class="chip">20:00 CR → PHT</span><span style="flex:1"></span><span class="btn">Copy</span><span class="btn">Share link</span></div>
+      </div>
+      <div class="strip d2"><span class="lbl">Dark</span><div class="mini"><div class="lbl">From · MT</div><div class="b">15:30</div></div><div class="mini home"><div class="lbl">To · Home</div><div class="b res">15:30</div></div></div>
+    </div>
+    <div class="card-body"><h3>2 — Warm editorial</h3><p>Cream paper tones, terracotta accent, serif digits. Feels crafted and personal rather than corporate.</p></div>
+  </div>
+
+  <div class="card" data-choice="midnight-tech" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:0">
+      <div class="st s3">
+        <div class="top"><span class="brand">Lazy Time Converter</span><span><span class="pill">🏠 Costa Rica</span><span class="pill">24h · 12h</span><span class="pill">EN · ES</span><span class="pill">☀ ☾</span></span></div>
+        <div class="row">
+          <div class="card"><div class="lbl">From</div><div class="sel">🇺🇸 United States ▾</div><div class="sel">Mountain Time (MT) ▾</div><div class="big">15:30</div><div class="sub">Sun, Aug 17 · <span class="btn">📅</span> <span class="btn">Now</span></div><div class="now">now there 08:52</div></div>
+          <div class="swap">⇄</div>
+          <div class="card home"><div class="lbl">To <span class="badge">HOME</span></div><div class="sel">🇨🇷 Costa Rica ▾</div><div class="sel">Central Standard (CST) ▾</div><div class="big res">15:30</div><div class="sub">Sun, Aug 17 · same day</div><div class="now">now here 08:52</div></div>
+        </div>
+        <div class="chips"><span class="lbl">Recent</span><span class="chip">15:30 MT → CR</span><span class="chip">09:00 IST → CR</span><span class="chip">20:00 CR → PHT</span><span style="flex:1"></span><span class="btn">Copy</span><span class="btn">Share link</span></div>
+      </div>
+      <div class="strip d3"><span class="lbl">Light</span><div class="mini"><div class="lbl">From · MT</div><div class="b">15:30</div></div><div class="mini home"><div class="lbl">To · Home</div><div class="b res">15:30</div></div></div>
+    </div>
+    <div class="card-body"><h3>3 — Midnight tech</h3><p>Dark-first, indigo→teal gradient accent, monospace digits with a soft glow. Feels like a developer tool / dashboard. (Light theme shown in the strip.)</p></div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">Click your pick and tell me in the terminal — mixing is fine (e.g. "1 but with 3's monospace digits").</p>

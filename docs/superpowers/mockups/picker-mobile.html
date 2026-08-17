@@ -1,0 +1,114 @@
+<h2>How should the country / zone picker work?</h2>
+<p class="subtitle">Shown at phone width in the Midnight style, so you also see how the two cards stack on mobile. All three keep the swap button between the cards.</p>
+
+<style>
+  .ph { width:250px; margin:0 auto; background:#0e1016; color:#e6e8ef; border-radius:22px; padding:14px 12px; font-family:-apple-system,system-ui,sans-serif; border:6px solid #23262f; }
+  .ph .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:10px; }
+  .ph .brand { font-weight:700; font-size:12px; background:linear-gradient(90deg,#7c8cff,#3ee0c8); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .ph .pill { border-radius:999px; padding:2px 6px; margin-left:3px; background:#171a24; border:1px solid #262b3a; color:#a3a9bb; font-size:9px; }
+  .ph .card { background:#151823; border:1px solid #262b3a; border-radius:12px; padding:10px; }
+  .ph .card.home { background:linear-gradient(160deg,#171c33,#12222b); border-color:#2f3d66; }
+  .ph .lbl { font-size:8px; text-transform:uppercase; letter-spacing:.1em; opacity:.55; }
+  .ph .sel { background:#0e1016; border:1px solid #262b3a; border-radius:8px; padding:6px 8px; font-size:10px; margin-top:5px; display:flex; justify-content:space-between; }
+  .ph .big { font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:32px; font-weight:600; letter-spacing:-.04em; margin:6px 0 2px; }
+  .ph .big.res { color:#3ee0c8; text-shadow:0 0 16px rgba(62,224,200,.35); }
+  .ph .sub { font-size:9px; opacity:.65; }
+  .ph .swap { width:30px; height:30px; border-radius:50%; margin:-8px auto; position:relative; z-index:2; background:linear-gradient(135deg,#7c8cff,#3ee0c8); color:#0e1016; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .ph .btn { font-size:9px; border-radius:6px; padding:3px 7px; background:#171a24; border:1px solid #262b3a; color:#a3a9bb; display:inline-block; }
+  .ph .badge { font-size:7px; border-radius:3px; padding:1px 4px; margin-left:3px; background:#3ee0c8; color:#0e1016; font-weight:700; }
+  .ph .chips { display:flex; gap:5px; margin-top:10px; flex-wrap:wrap; }
+  .ph .chip { font-size:9px; border-radius:999px; padding:2px 7px; background:#171a24; border:1px solid #262b3a; color:#a3a9bb; }
+  .ph .tabs { display:flex; gap:4px; margin-top:6px; }
+  .ph .tab { flex:1; text-align:center; font-size:12px; padding:5px 0; border-radius:8px; background:#0e1016; border:1px solid #262b3a; }
+  .ph .tab.on { border-color:#3ee0c8; background:#12222b; }
+  .ph .zones { display:flex; gap:4px; flex-wrap:wrap; margin-top:6px; }
+  .ph .zone { font-size:8px; border-radius:999px; padding:2px 6px; background:#0e1016; border:1px solid #262b3a; color:#a3a9bb; }
+  .ph .zone.on { border-color:#3ee0c8; color:#3ee0c8; }
+  .ph .drop { background:#151823; border:1px solid #3ee0c8; border-radius:10px; margin-top:4px; padding:6px; font-size:9px; box-shadow:0 8px 24px rgba(0,0,0,.5); }
+  .ph .drop .it { padding:4px 6px; border-radius:6px; display:flex; justify-content:space-between; }
+  .ph .drop .it.on { background:#12222b; color:#3ee0c8; }
+  .ph .drop .grp { opacity:.5; font-size:8px; text-transform:uppercase; letter-spacing:.1em; padding:4px 6px 1px; }
+</style>
+
+<div class="cards">
+
+  <!-- A: two dropdowns -->
+  <div class="card" data-choice="two-selects" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1d27; padding:14px">
+      <div class="ph">
+        <div class="top"><span class="brand">Lazy Time</span><span><span class="pill">🏠 CR</span><span class="pill">24h</span><span class="pill">EN</span><span class="pill">☾</span></span></div>
+        <div class="card">
+          <div class="lbl">From</div>
+          <div class="sel"><span>🇺🇸 United States</span><span>▾</span></div>
+          <div class="sel"><span>Mountain Time (MT)</span><span>▾</span></div>
+          <div class="big">15:30</div>
+          <div class="sub">Sun, Aug 17 · <span class="btn">📅</span> <span class="btn">Now</span></div>
+        </div>
+        <div class="swap">⇄</div>
+        <div class="card home">
+          <div class="lbl">To <span class="badge">HOME</span></div>
+          <div class="sel"><span>🇨🇷 Costa Rica</span><span>▾</span></div>
+          <div class="sel"><span>Central Standard (CST)</span><span>▾</span></div>
+          <div class="big res">15:30</div>
+          <div class="sub">Sun, Aug 17 · same day</div>
+        </div>
+        <div class="chips"><span class="chip">15:30 MT → CR</span><span class="chip">09:00 IST → CR</span></div>
+      </div>
+    </div>
+    <div class="card-body"><h3>A — Two dropdowns</h3><p>Country select, then zone select (zone select hides itself when a country has only one zone — Costa Rica, India, Philippines). Simplest to build and test; native accessibility.</p></div>
+  </div>
+
+  <!-- B: combined searchable -->
+  <div class="card" data-choice="combobox" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1d27; padding:14px">
+      <div class="ph">
+        <div class="top"><span class="brand">Lazy Time</span><span><span class="pill">🏠 CR</span><span class="pill">24h</span><span class="pill">EN</span><span class="pill">☾</span></span></div>
+        <div class="card">
+          <div class="lbl">From</div>
+          <div class="sel" style="border-color:#3ee0c8"><span>🔍 mou<span style="opacity:.4">ntain</span></span><span>✕</span></div>
+          <div class="drop">
+            <div class="grp">🇺🇸 United States</div>
+            <div class="it on"><span>Mountain Time (MT)</span><span>UTC−6</span></div>
+            <div class="it"><span>Mountain – Arizona (no DST)</span><span>UTC−7</span></div>
+          </div>
+          <div class="big" style="opacity:.35">15:30</div>
+        </div>
+        <div class="swap">⇄</div>
+        <div class="card home">
+          <div class="lbl">To <span class="badge">HOME</span></div>
+          <div class="sel"><span>🇨🇷 Costa Rica · CST</span><span>▾</span></div>
+          <div class="big res">15:30</div>
+          <div class="sub">Sun, Aug 17 · same day</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"><h3>B — One searchable picker</h3><p>Single combobox per card: type a country, zone or abbreviation ("mou", "IST", "phil") and pick from a grouped list. One field instead of two; scales best when many countries are added. More custom component work (keyboard nav, a11y).</p></div>
+  </div>
+
+  <!-- C: flag tabs + zone chips -->
+  <div class="card" data-choice="tabs-chips" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1d27; padding:14px">
+      <div class="ph">
+        <div class="top"><span class="brand">Lazy Time</span><span><span class="pill">🏠 CR</span><span class="pill">24h</span><span class="pill">EN</span><span class="pill">☾</span></span></div>
+        <div class="card">
+          <div class="lbl">From</div>
+          <div class="tabs"><div class="tab">🇨🇷</div><div class="tab on">🇺🇸</div><div class="tab">🇮🇳</div><div class="tab">🇵🇭</div></div>
+          <div class="zones"><span class="zone">ET</span><span class="zone">CT</span><span class="zone on">MT</span><span class="zone">AZ</span><span class="zone">PT</span><span class="zone">AK</span><span class="zone">HI</span></div>
+          <div class="big">15:30</div>
+          <div class="sub">Sun, Aug 17 · <span class="btn">📅</span> <span class="btn">Now</span></div>
+        </div>
+        <div class="swap">⇄</div>
+        <div class="card home">
+          <div class="lbl">To <span class="badge">HOME</span></div>
+          <div class="tabs"><div class="tab on">🇨🇷</div><div class="tab">🇺🇸</div><div class="tab">🇮🇳</div><div class="tab">🇵🇭</div></div>
+          <div class="big res">15:30</div>
+          <div class="sub">Sun, Aug 17 · same day</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"><h3>C — Flag tabs + zone chips</h3><p>One tap per country, one tap per zone, everything visible — fastest for 4 countries. Doesn't scale past ~6 countries without becoming a scroll strip (would switch to a dropdown then).</p></div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">Click one and tell me in the terminal. Also say if the mobile stacking looks right to you.</p>

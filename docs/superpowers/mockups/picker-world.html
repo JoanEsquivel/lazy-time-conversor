@@ -1,0 +1,164 @@
+<h2>With ~250 countries, how should the country picker work?</h2>
+<p class="subtitle">Three interactive mocks of the <b>From</b> card (Midnight style). Each one actually opens — click the country control inside the mock to try it. Pick the one that feels right, then tell me in the terminal.</p>
+
+<style>
+  .wrap { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:18px; }
+  .pk { background:#0e1016; color:#e6e8ef; border-radius:16px; padding:14px; font-family:-apple-system,system-ui,sans-serif; border:1px solid #262b3a; min-height:420px; position:relative; }
+  .pk .card { background:#151823; border:1px solid #262b3a; border-radius:12px; padding:12px; }
+  .pk .lbl { font-size:9px; text-transform:uppercase; letter-spacing:.1em; opacity:.55; }
+  .pk .ctl { background:#0e1016; border:1px solid #262b3a; border-radius:8px; padding:8px 10px; font-size:12px; margin-top:6px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; color:#e6e8ef; width:100%; font-family:inherit; text-align:left; }
+  .pk .ctl:focus, .pk .ctl.open { outline:none; border-color:#3ee0c8; }
+  .pk .big { font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:36px; font-weight:600; letter-spacing:-.04em; margin:10px 0 2px; }
+  .pk .sub { font-size:10px; opacity:.65; }
+  .pk select { width:100%; margin-top:6px; background:#0e1016; color:#e6e8ef; border:1px solid #262b3a; border-radius:8px; padding:8px 10px; font-size:12px; font-family:inherit; }
+  .pk select:focus { outline:none; border-color:#3ee0c8; }
+  .pk .drop { position:absolute; left:26px; right:26px; background:#151823; border:1px solid #3ee0c8; border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,.6); z-index:5; max-height:230px; overflow:auto; display:none; }
+  .pk .drop.on { display:block; }
+  .pk .drop .grp { font-size:9px; text-transform:uppercase; letter-spacing:.1em; opacity:.5; padding:8px 10px 2px; position:sticky; top:0; background:#151823; }
+  .pk .drop .it { padding:6px 10px; font-size:12px; display:flex; justify-content:space-between; cursor:pointer; }
+  .pk .drop .it:hover, .pk .drop .it.on { background:#12222b; color:#3ee0c8; }
+  .pk .drop .it small { opacity:.5; }
+  .pk .search { display:flex; gap:6px; align-items:center; background:#0e1016; border:1px solid #3ee0c8; border-radius:8px; padding:8px 10px; margin-top:6px; }
+  .pk .search input { background:transparent; border:0; color:#e6e8ef; font-size:12px; flex:1; outline:none; font-family:inherit; }
+  .pk .tabs { display:flex; gap:4px; margin-top:6px; }
+  .pk .tab { flex:1; text-align:center; font-size:10px; padding:5px 0; border-radius:8px; background:#0e1016; border:1px solid #262b3a; cursor:pointer; }
+  .pk .tab.on { border-color:#3ee0c8; background:#12222b; color:#3ee0c8; }
+  .pk .zones { display:flex; gap:4px; flex-wrap:wrap; margin-top:6px; }
+  .pk .zone { font-size:9px; border-radius:999px; padding:3px 7px; background:#0e1016; border:1px solid #262b3a; color:#a3a9bb; }
+  .pk .zone.on { border-color:#3ee0c8; color:#3ee0c8; }
+  .pk .note { font-size:10px; opacity:.55; margin-top:10px; }
+  .pick-title { margin:10px 0 4px; font-size:14px; }
+  .pick-desc { font-size:12px; opacity:.75; margin:0 0 6px; }
+</style>
+
+<div class="options wrap" style="display:grid">
+
+  <!-- A: native selects with optgroups -->
+  <div>
+    <div class="pk">
+      <div class="card">
+        <div class="lbl">From</div>
+        <select onclick="event.stopPropagation()" onchange="var z=this.closest('.card').querySelector('.zoneA'); z.style.display=(this.value==='US'||this.value==='BR'||this.value==='CA'||this.value==='RU'||this.value==='MX')?'block':'none'">
+          <optgroup label="📌 Pinned">
+            <option value="CR">🇨🇷 Costa Rica · home</option>
+            <option value="US" selected>🇺🇸 United States</option>
+            <option value="IN">🇮🇳 India</option>
+            <option value="PH">🇵🇭 Philippines</option>
+          </optgroup>
+          <optgroup label="Africa">
+            <option>🇪🇬 Egypt</option><option>🇰🇪 Kenya</option><option>🇲🇦 Morocco</option><option>🇳🇬 Nigeria</option><option>🇿🇦 South Africa</option><option disabled>… 50 more</option>
+          </optgroup>
+          <optgroup label="Americas">
+            <option>🇦🇷 Argentina</option><option value="BR">🇧🇷 Brazil</option><option value="CA">🇨🇦 Canada</option><option>🇨🇱 Chile</option><option>🇨🇴 Colombia</option><option value="MX">🇲🇽 Mexico</option><option>🇵🇦 Panama</option><option>🇵🇪 Peru</option><option disabled>… 45 more</option>
+          </optgroup>
+          <optgroup label="Asia">
+            <option>🇨🇳 China</option><option>🇯🇵 Japan</option><option>🇰🇷 South Korea</option><option>🇸🇬 Singapore</option><option>🇦🇪 United Arab Emirates</option><option>🇻🇳 Vietnam</option><option disabled>… 45 more</option>
+          </optgroup>
+          <optgroup label="Europe">
+            <option>🇫🇷 France</option><option>🇩🇪 Germany</option><option>🇮🇹 Italy</option><option>🇳🇱 Netherlands</option><option>🇵🇹 Portugal</option><option value="RU">🇷🇺 Russia</option><option>🇪🇸 Spain</option><option>🇬🇧 United Kingdom</option><option disabled>… 45 more</option>
+          </optgroup>
+          <optgroup label="Oceania">
+            <option>🇦🇺 Australia</option><option>🇫🇯 Fiji</option><option>🇳🇿 New Zealand</option><option disabled>… 20 more</option>
+          </optgroup>
+        </select>
+        <select class="zoneA" onclick="event.stopPropagation()">
+          <option>Eastern Time (ET)</option><option>Central Time (CT)</option><option selected>Mountain Time (MT)</option><option>Mountain Standard Time – Arizona</option><option>Pacific Time (PT)</option><option>Alaska Time</option><option>Hawaii-Aleutian Time</option><option>Hawaii-Aleutian Standard Time – Aleutians</option>
+        </select>
+        <div class="big">15:30</div>
+        <div class="sub">Mon, Aug 17 · now there 08:52</div>
+      </div>
+      <div class="note">Real native selects. On desktop: type "ger" to jump to Germany. On iOS/Android you get the system wheel/list. Zone select appears only for multi-zone countries (try Brazil, Canada, Russia).</div>
+    </div>
+    <div class="option" data-choice="A-native-optgroups" onclick="toggleSelect(this)">
+      <div class="letter">A</div>
+      <div class="content"><h3>Native selects + continent groups + Pinned</h3><p>Zero custom widgets, best accessibility for free, minimal change to the approved design. Long list, but native type-ahead and mobile pickers handle it.</p></div>
+    </div>
+  </div>
+
+  <!-- B: searchable combobox -->
+  <div>
+    <div class="pk" id="pkB">
+      <div class="card">
+        <div class="lbl">From</div>
+        <div class="search" onclick="event.stopPropagation()">
+          <span>🔍</span>
+          <input id="qB" placeholder="Search country or time zone…" oninput="filterB(this.value)" onfocus="document.getElementById('dropB').classList.add('on')">
+          <span style="opacity:.5;font-size:11px">⌘K</span>
+        </div>
+        <div class="drop on" id="dropB" onclick="event.stopPropagation()">
+          <div class="grp">📌 Pinned</div>
+          <div class="it" data-s="costa rica home cr"><span>🇨🇷 Costa Rica <small>· home</small></span><small>UTC−6</small></div>
+          <div class="it on" data-s="united states usa mountain time mt"><span>🇺🇸 United States · Mountain Time</span><small>UTC−6</small></div>
+          <div class="it" data-s="united states usa eastern time et"><span>🇺🇸 United States · Eastern Time</span><small>UTC−4</small></div>
+          <div class="it" data-s="india ist"><span>🇮🇳 India</span><small>UTC+5:30</small></div>
+          <div class="it" data-s="philippines pht"><span>🇵🇭 Philippines</span><small>UTC+8</small></div>
+          <div class="grp">Europe</div>
+          <div class="it" data-s="germany central european time cet berlin"><span>🇩🇪 Germany</span><small>UTC+2</small></div>
+          <div class="it" data-s="spain central european time cet madrid"><span>🇪🇸 Spain · Central European Time</span><small>UTC+2</small></div>
+          <div class="it" data-s="spain western european time canary"><span>🇪🇸 Spain · Western European Time (Canary)</span><small>UTC+1</small></div>
+          <div class="it" data-s="united kingdom uk london gmt bst"><span>🇬🇧 United Kingdom</span><small>UTC+1</small></div>
+          <div class="grp">Americas</div>
+          <div class="it" data-s="brazil brasilia time sao paulo"><span>🇧🇷 Brazil · Brasilia Time</span><small>UTC−3</small></div>
+          <div class="it" data-s="mexico central time ciudad de mexico"><span>🇲🇽 Mexico · Central Time</span><small>UTC−6</small></div>
+          <div class="grp">Asia</div>
+          <div class="it" data-s="japan tokyo jst"><span>🇯🇵 Japan</span><small>UTC+9</small></div>
+          <div class="it" data-s="singapore sgt"><span>🇸🇬 Singapore</span><small>UTC+8</small></div>
+          <div class="grp">Africa</div>
+          <div class="it" data-s="south africa sast johannesburg"><span>🇿🇦 South Africa</span><small>UTC+2</small></div>
+          <div class="it" data-s="nigeria lagos wat"><span>🇳🇬 Nigeria</span><small>UTC+1</small></div>
+          <div class="grp">Oceania</div>
+          <div class="it" data-s="australia eastern time sydney aest"><span>🇦🇺 Australia · Eastern Time</span><small>UTC+10</small></div>
+          <div class="it" data-s="new zealand nzst auckland"><span>🇳🇿 New Zealand</span><small>UTC+12</small></div>
+        </div>
+        <div class="big" style="opacity:.35">15:30</div>
+        <div class="sub">Mon, Aug 17 · now there 08:52</div>
+      </div>
+      <div class="note">Type "spa", "cet", "mountain", "sing" — the list filters live across countries <em>and</em> zones (each entry = country · zone, so no second dropdown). Keyboard: ↑↓ Enter Esc.</div>
+    </div>
+    <div class="option" data-choice="B-searchable" onclick="toggleSelect(this)">
+      <div class="letter">B</div>
+      <div class="content"><h3>Searchable combobox (country · zone in one field)</h3><p>Fastest at 250 countries / 331 zones; one field instead of two. Custom accessible component (roles, keyboard, virtualization not needed at 331 rows). Changes the approved two-dropdown design.</p></div>
+    </div>
+  </div>
+
+  <!-- C: continent tabs + searchable country + zone chips -->
+  <div>
+    <div class="pk">
+      <div class="card">
+        <div class="lbl">From</div>
+        <div class="tabs" onclick="event.stopPropagation(); [...this.children].forEach(t=>t.classList.remove('on')); event.target.classList.add('on')">
+          <div class="tab">📌</div><div class="tab">Africa</div><div class="tab on">Americas</div><div class="tab">Asia</div><div class="tab">Europe</div><div class="tab">Oceania</div>
+        </div>
+        <select onclick="event.stopPropagation()">
+          <option>🇦🇷 Argentina</option><option>🇧🇷 Brazil</option><option>🇨🇦 Canada</option><option>🇨🇱 Chile</option><option>🇨🇴 Colombia</option><option>🇨🇷 Costa Rica · home</option><option>🇲🇽 Mexico</option><option>🇵🇦 Panama</option><option>🇵🇪 Peru</option><option selected>🇺🇸 United States</option><option disabled>… ~45 more in Americas</option>
+        </select>
+        <div class="zones" onclick="event.stopPropagation(); if(event.target.classList.contains('zone')){[...this.children].forEach(z=>z.classList.remove('on')); event.target.classList.add('on')}">
+          <span class="zone">ET</span><span class="zone">CT</span><span class="zone on">MT</span><span class="zone">MT–AZ</span><span class="zone">PT</span><span class="zone">AK</span><span class="zone">HI</span><span class="zone">HI–Aleut.</span>
+        </div>
+        <div class="big">15:30</div>
+        <div class="sub">Mon, Aug 17 · now there 08:52</div>
+      </div>
+      <div class="note">Continent tabs shrink the country list to ~50; zones stay one tap away as chips (falls back to a select when a country has more than 8 zones — Russia, Canada).</div>
+    </div>
+    <div class="option" data-choice="C-tabs-select-chips" onclick="toggleSelect(this)">
+      <div class="letter">C</div>
+      <div class="content"><h3>Continent tabs + country select + zone chips</h3><p>Everything visible and tappable; shorter lists per continent. More UI surface (tabs + chips), takes more vertical space on mobile.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function filterB(q){
+    q=q.toLowerCase().trim();
+    document.querySelectorAll('#dropB .it').forEach(it=>{ it.style.display = (!q || it.dataset.s.includes(q)) ? 'flex' : 'none'; });
+    document.querySelectorAll('#dropB .grp').forEach(g=>{
+      let n=g.nextElementSibling, any=false;
+      while(n && !n.classList.contains('grp')){ if(n.style.display!=='none') any=true; n=n.nextElementSibling; }
+      g.style.display = any ? 'block' : 'none';
+    });
+  }
+  document.addEventListener('click', ()=>{ /* keep B open in the mock */ });
+</script>
+
+<p class="subtitle" style="margin-top:14px">Try each mock, then click A, B or C below it and tell me in the terminal (mixes welcome, e.g. "A on mobile, B on desktop").</p>

@@ -39,7 +39,7 @@ Release 1 ships **every country and territory in the tz database (247), grouped 
 | Testing | ATDD: Given/When/Then scenarios (§11) → Vitest + RTL against `<App/>`; unit tests for domain; Playwright smoke in CI |
 | Stack | React 19 · TypeScript strict · Vite · Vitest · React Testing Library · Zustand (persist) · CSS Modules · Playwright — same as `agile-todo-app` |
 
-Approved mockups (reference only, not shipped): `.superpowers/brainstorm/7949-1786982731/content/{layout,visual-style,picker-world}.html` (`picker-mobile.html` shows the mobile stacking; its two-dropdown option is superseded).
+Approved mockups (reference only, not shipped): `docs/superpowers/mockups/{layout,visual-style,picker-world}.html` (open in a browser; `picker-mobile.html` shows the mobile stacking — its two-dropdown option is superseded by `picker-world.html` option B). Note: these are content fragments from the brainstorming companion, so they render unstyled-but-legible without the companion frame.
 
 ## 4. Catalog (generated data + runtime API)
 
@@ -62,7 +62,7 @@ interface CatalogZone {
 }
 ```
 
-Generator rules: drop `continentCode === 'AN'`; map `NA`/`SA` → `AM`; apply `scripts/catalog.overrides.mjs` (continent overrides per country, e.g. none required at launch — table exists so political choices are explicit; zone exclusions if ever needed); ids/aliases must all be in `Intl.supportedValuesOf('timeZone')` of the generating Node — otherwise the generator fails; output is deterministic (stable sort, no timestamps) so `git diff --exit-code` works in CI. Expected size ≈ 25 KB raw / ≈ 6 KB gzipped.
+Generator rules: drop `continentCode === 'AN'`; map `NA`/`SA` → `AM`; apply `scripts/catalog.overrides.mjs` (continent overrides per country, e.g. none required at launch — table exists so political choices are explicit; zone exclusions if ever needed); every id and alias must be accepted by `new Intl.DateTimeFormat(undefined, { timeZone })` in the generating Node (aliases such as `US/Mountain` are accepted but not listed by `Intl.supportedValuesOf`) — otherwise the generator fails; output is deterministic (stable sort, no timestamps) so `git diff --exit-code` works in CI. Expected size ≈ 25 KB raw / ≈ 6 KB gzipped.
 
 ### 4.2 Runtime API `src/domain/catalog.ts`
 
@@ -77,7 +77,7 @@ export function zoneById(id: ZoneId): Zone
 export function countryOf(id: ZoneId): Country
 export function zoneForIana(iana: string): Zone | undefined   // matches id OR alias → America/Boise ⇒ America/Denver
 export function countryName(code: CountryCode, locale: Locale): string      // Intl.DisplayNames(type:'region'), memoized
-export function zoneLabel(zone: Zone, locale: Locale): string               // Intl timeZoneName:'longGeneric' at Jul 15 of current year, memoized; falls back to id tail ("Denver") if Intl returns a GMT±hh string
+export function zoneLabel(zone: Zone, locale: Locale): string               // Intl timeZoneName:'longGeneric' at a fixed reference instant (2026-07-15T12:00Z — generic names do not depend on the date), memoized; falls back to id tail ("Denver") if Intl returns a GMT±hh string
 export function continentName(c: Continent, t): string                      // i18n key continent.AF …
 export function pickerLabel(zone: Zone, locale: Locale): string             // "🇺🇸 United States · Mountain Time" | "🇨🇷 Costa Rica" (single-zone country ⇒ no zone suffix)
 export function buildSearchIndex(locale: Locale): SearchEntry[]             // one entry per zone; see 4.3
@@ -358,7 +358,7 @@ Feature: Picker
     And "🇨🇷 Costa Rica" has no zone suffix while the United States lists 8 zone rows
 
   Scenario K5 Catalog sanity (unit + acceptance)
-    Then the catalog has ≥ 240 countries, every zone id/alias is accepted by Intl, and converting 12:00 from Costa Rica to every catalog zone succeeds
+    Then the catalog has ≥ 240 countries, every zone id/alias is accepted by `Intl.DateTimeFormat`, and converting 12:00 from Costa Rica to every catalog zone succeeds
 
 Feature: Input
   Scenario I1 Flexible time formats
@@ -386,7 +386,7 @@ Feature: Preferences
 
   Scenario P2 Spanish
     When I switch language to ES
-    Then labels read "Desde" / "Hasta", the From picker reads "🇺🇸 Estados Unidos · hora de las Montañas Rocosas", the day line reads "lun, 17 ago", and the preference survives reload
+    Then labels read "Desde" / "Hasta", the From picker starts with "🇺🇸 Estados Unidos · " followed by `zoneLabel(America/Denver, "es-CR")` (Spanish zone labels are locale-variant, so tests compare against Intl, never a literal), the day line reads "lun, 17 ago", and the preference survives reload
 
   Scenario P3 Theme
     When I cycle the theme toggle
@@ -420,7 +420,7 @@ Feature: Sharing & recents
     Then it moves to the front and the list has no duplicate
 ```
 
-**Unit-test contract (domain):** `tz.convert` for every scenario above plus gap/overlap rules (§10); `offsetAt` for `America/Denver` on 2026-03-08 01:59/03:00 local; India `+05:30`; `timeParse` table; `url` encode/decode incl. invalid params and alias normalization; `format` in en/es; `catalog`: ids unique, every id/alias ∈ `Intl.supportedValuesOf('timeZone')`, every country ≥ 1 zone, continents ⊂ {AF,AM,AS,EU,OC}, `zoneForIana` for id/alias/unknown, `zoneLabel` never returns a `GMT±` string, `pickerLabel` single- vs multi-zone; `search`: normalization (diacritics), token AND-matching, ranking, cap 50, empty-query grouping and pinned order. **Generator test** (`scripts/gen-catalog.test.mjs`, runs in Vitest node environment): output equals the committed JSON byte-for-byte.
+**Unit-test contract (domain):** `tz.convert` for every scenario above plus gap/overlap rules (§10); `offsetAt` for `America/Denver` on 2026-03-08 01:59/03:00 local; India `+05:30`; `timeParse` table; `url` encode/decode incl. invalid params and alias normalization; `format` in en/es; `catalog`: ids unique, every id/alias accepted by `Intl.DateTimeFormat`, every country ≥ 1 zone, continents ⊂ {AF,AM,AS,EU,OC}, `zoneForIana` for id/alias/unknown, `zoneLabel` never returns a `GMT±` string, `pickerLabel` single- vs multi-zone; `search`: normalization (diacritics), token AND-matching, ranking, cap 50, empty-query grouping and pinned order. **Generator test** (`scripts/gen-catalog.test.mjs`, runs in Vitest node environment): output equals the committed JSON byte-for-byte.
 
 **Playwright smoke (CI, against `vite preview`, Chromium):** (1) load → search "mou" → pick US Mountain → type 15:30 → assert result → swap → Share → open the shared URL in a new page and assert state; (2) mobile viewport 390×844: cards stacked, picker opens as a sheet, conversion works; (3) theme toggle changes `data-theme` and persists after reload.
 
@@ -440,5 +440,5 @@ World-clock "one input, many outputs" view · curated "Popular" group per contin
 
 - `Intl.supportedValuesOf('timeZone')` → 417 zones. tz `zone.tab` → 247 countries / 418 zones. `@vvo/tzdb` 6.198 → 315 curated groups over 247 countries (continents OC 42 · NA 64 · SA 20 · AN 10 · EU 65 · AF 59 · AS 55).
 - Grouping by `timeZoneName:'longGeneric'` + winter/summer offsets → 331 labels, **0** GMT-fallbacks, **0** duplicate labels within a country. US 8 (Eastern, Central, Mountain, Mountain Standard [Phoenix], Pacific, Alaska, Hawaii-Aleutian ×2), Russia 19, Canada 11, Mexico 6, Brazil 4, Spain 2, most countries 1.
-- `Intl.DisplayNames(['es'],{type:'region'})` → "Estados Unidos", "Alemania", "Sudáfrica", "Filipinas". `longGeneric` in es → "hora de las Montañas Rocosas", "hora de Europa central".
+- `Intl.DisplayNames(['es'],{type:'region'})` → "Estados Unidos", "Alemania", "Sudáfrica", "Filipinas". `longGeneric` in es-CR → "hora de la montaña", "hora de Europa central" (plain `es` gives "hora de las Montañas Rocosas" — labels vary by locale variant).
 - Conclusion: world coverage costs a ~25 KB generated JSON and a build-time devDependency; no runtime dependency, no hand-written names.
