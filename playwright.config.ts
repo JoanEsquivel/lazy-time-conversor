@@ -4,6 +4,7 @@ export default defineConfig({
   testDir: 'e2e',
   timeout: 30_000,
   retries: process.env.CI ? 1 : 0,
+  reporter: [['list'], ['html', { open: 'never' }]],
   use: { baseURL: 'http://localhost:4173/lazy-time-conversor/', trace: 'retain-on-failure', timezoneId: 'America/Costa_Rica', locale: 'en-US' },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
