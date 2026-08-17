@@ -358,7 +358,7 @@ Feature: Picker
     And "🇨🇷 Costa Rica" has no zone suffix while the United States lists 8 zone rows
 
   Scenario K5 Catalog sanity (unit + acceptance)
-    Then the catalog has ≥ 240 countries, every zone id/alias is accepted by `Intl.DateTimeFormat`, and converting 12:00 from Costa Rica to every catalog zone succeeds
+    Then the catalog has ≥ 240 countries, every zone id (aliases are lookup keys and are deliberately not validated) is accepted by `Intl.DateTimeFormat`, and converting 12:00 from Costa Rica to every catalog zone succeeds
 
 Feature: Input
   Scenario I1 Flexible time formats
