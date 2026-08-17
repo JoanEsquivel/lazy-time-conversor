@@ -47,6 +47,16 @@ describe('wallToInstant', () => {
     const inst = wallToInstant('Europe/Berlin', '2026-03-29', '02:30')
     expect(wallParts('Europe/Berlin', inst)).toMatchObject({ h: 3, min: 30 })
   })
+  it('southern-hemisphere gap shifts forward (Sydney 2026-10-04 02:30 → 03:30 AEDT)', () => {
+    const inst = wallToInstant('Australia/Sydney', '2026-10-04', '02:30')
+    expect(wallParts('Australia/Sydney', inst)).toMatchObject({ h: 3, min: 30 })
+    expect(offsetAt('Australia/Sydney', inst)).toBe(660)
+  })
+  it('southern-hemisphere overlap picks the first occurrence (Sydney 2026-04-05 02:30 → AEDT)', () => {
+    const inst = wallToInstant('Australia/Sydney', '2026-04-05', '02:30')
+    expect(offsetAt('Australia/Sydney', inst)).toBe(660)
+    expect(inst).toBe(Date.UTC(2026, 3, 4, 15, 30))
+  })
   it('fall-back overlap picks the first occurrence (MDT)', () => {
     const inst = wallToInstant(DENVER, '2026-11-01', '01:30')
     expect(offsetAt(DENVER, inst)).toBe(-360)
