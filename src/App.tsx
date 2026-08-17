@@ -5,6 +5,7 @@ import { Header } from './components/Header/Header'
 import { HomeHint } from './components/HomeHint/HomeHint'
 import { RecentList } from './components/RecentList/RecentList'
 import { Toast } from './components/Toast/Toast'
+import { useShortcuts } from './hooks/useShortcuts'
 import { useTheme } from './hooks/useTheme'
 import { useUrlSync } from './hooks/useUrlSync'
 
@@ -12,6 +13,7 @@ export default function App() {
   useTheme()
   useUrlSync()
   const fromInputRef = useRef<HTMLInputElement | null>(null)
+  useShortcuts(fromInputRef)
   return (
     <main style={{ maxWidth: 960, margin: '0 auto', padding: '16px 16px 48px' }}>
       <Header />

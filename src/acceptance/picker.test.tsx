@@ -56,4 +56,15 @@ describe('Feature: Picker', () => {
       expect(() => convert({ date: '2026-08-17', time: '12:00', from: 'America/Costa_Rica', to: z.id })).not.toThrow()
     }
   })
+  it('K3 ⌘K focuses the From picker; keyboard-only selection; Esc restores', async () => {
+    const { user } = renderApp()
+    await user.keyboard('{Meta>}k{/Meta}')
+    expect(picker('from')).toHaveFocus()
+    await user.keyboard('phil{Enter}')
+    expect(picker('from')).toHaveValue('🇵🇭 Philippines')
+    await user.click(picker('from'))
+    await user.keyboard('jap{Escape}')
+    expect(picker('from')).toHaveValue('🇵🇭 Philippines')
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+  })
 })
