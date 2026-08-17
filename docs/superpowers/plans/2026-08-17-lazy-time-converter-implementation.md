@@ -1858,6 +1858,18 @@ describe('persistence', () => {
     expect(raw.state.initialized).toBe(true)
     expect(raw.version).toBe(1)
   })
+  it('survives a structurally malformed payload without losing the valid fields', () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, state: {
+      initialized: true, home: 'Asia/Kolkata', homeHint: false,
+      from: { zone: 'America/Denver' }, to: { zone: 'America/Costa_Rica' },
+      prefs: 'not-an-object', recents: { nope: true },
+    } }))
+    expect(() => useConverterStore.persist.rehydrate()).not.toThrow()
+    expect(s().home).toBe('Asia/Kolkata')
+    expect(s().from.zone).toBe('America/Denver')
+    expect(s().recents).toEqual([])
+    expect(s().prefs).toEqual({ hourFormat: '24h', lang: 'en', theme: 'system' })
+  })
   it('drops unknown zones on rehydrate', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, state: {
       initialized: true, home: 'Nowhere/Land', homeHint: false, from: { zone: 'America/Boise' }, to: { zone: 'Bogus/Zone' },
@@ -2005,7 +2017,11 @@ export const useConverterStore = create<ConverterState>()(
       merge: (persisted, current) => {
         const p = (persisted ?? {}) as Partial<ReturnType<typeof initialConverterState>> & { from?: { zone?: string }; to?: { zone?: string } }
         const home = safeZone(p.home, DEFAULT_HOME)
-        const recents = (p.recents ?? []).filter((r) => isZoneId(r.from) && isZoneId(r.to))
+        // Array.isArray / object guards, not `?? []`: zustand runs merge inside its hydration
+        // promise chain, so a TypeError here rejects it and the `set` never happens — a single
+        // malformed field would silently discard home, from, to and prefs as well.
+        const recents = (Array.isArray(p.recents) ? p.recents : []).filter((r) => isZoneId(r.from) && isZoneId(r.to))
+        const prefs = p.prefs && typeof p.prefs === 'object' && !Array.isArray(p.prefs) ? p.prefs : {}
         return {
           ...current,
           initialized: p.initialized ?? current.initialized,
@@ -2013,7 +2029,7 @@ export const useConverterStore = create<ConverterState>()(
           homeHint: p.homeHint ?? current.homeHint,
           from: { ...current.from, zone: safeZone(p.from?.zone, home) },
           to: { zone: safeZone(p.to?.zone, home) },
-          prefs: { ...current.prefs, ...(p.prefs ?? {}) },
+          prefs: { ...current.prefs, ...prefs },
           recents,
         }
       },
@@ -2450,16 +2466,20 @@ describe('ZonePicker', () => {
     expect(input).toHaveValue('🇺🇸 United States · Mountain Time')
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
   })
-  it('keyboard: ArrowDown/Enter selects; Escape restores; aria-activedescendant tracks', async () => {
+  it('keyboard: the top match is pre-highlighted, Enter selects it, Escape restores', async () => {
     const onChange = vi.fn()
     const user = userEvent.setup()
     render(<Harness onChange={onChange} />)
     const input = screen.getByRole('combobox')
     await user.click(input)
     await user.type(input, 'phil')
-    await user.keyboard('{ArrowDown}')
+    // Typing pre-highlights the best match. 'phil' also matches the cities Philipsburg and
+    // Philadelphia, but those score as city-prefix hits, so their continent group ranks below Asia.
     const active = input.getAttribute('aria-activedescendant')!
     expect(document.getElementById(active)).toHaveTextContent('Philippines')
+    await user.keyboard('{ArrowDown}')
+    expect(document.getElementById(input.getAttribute('aria-activedescendant')!)).not.toHaveTextContent('Philippines')
+    await user.keyboard('{ArrowUp}')
     await user.keyboard('{Enter}')
     expect(onChange).toHaveBeenCalledWith('Asia/Manila')
     await user.click(input)
@@ -2571,6 +2591,9 @@ export function ZonePicker({ id, label, value, onChange, locale, pinned, now, t,
 
   useEffect(() => {
     if (!open) return
+    // Highlight the current value while browsing; when a query filters it out, fall back to the
+    // top-ranked match so "type a few letters, press Enter" selects the best match. Never leave
+    // the list with nothing active — Enter would then silently do nothing.
     const i = options.findIndex((o) => o.zoneId === value)
     setActive(i >= 0 ? i : 0)
   }, [open, options, value])
@@ -3852,7 +3875,7 @@ git commit -m "feat(recents): recent conversions chips with reload and clear (S3
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
   })
 ```
-Note: `{Enter}` selects the *active* option. After typing "phil" the first (active) row is Philippines because `search` ranks country-name prefixes above city prefixes **and orders the continent groups by their best-ranked member**, so Asia's group (Manila, tier 0) renders above the Americas group (Philipsburg/Philadelphia, tier 2).
+Note: `{Enter}` selects the *active* option, and typing pre-highlights the top-ranked match, so no ArrowDown is needed. After typing "phil" that row is Philippines because `search` ranks country-name prefixes above city prefixes **and orders the continent groups by their best-ranked member**, so Asia's group (Manila, tier 0) renders above the Americas group (Philipsburg/Philadelphia, tier 2).
 
 - [ ] **Step 2: Implement**
 
