@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { clipboardText, picker, pickZone, renderApp, resultTime, timeInput, typeTime } from './harness'
+import { clipboardText, picker, pickZone, reloadApp, renderApp, resultTime, timeInput, typeTime } from './harness'
 
 async function c1() {
   const r = renderApp()
@@ -30,5 +30,39 @@ describe('Feature: Sharing', () => {
     await user.click(screen.getByRole('button', { name: 'Copy result' }))
     expect(clipboardText()).toBe('15:30 Mountain Time (United States) → 15:30 Central Standard Time (Costa Rica) · Mon, Aug 17, 2026')
     expect(screen.getByRole('status')).toHaveTextContent('Copied ✓')
+  })
+})
+
+describe('Feature: Recents', () => {
+  it('S3 lists newest first, reload restores, clear persists', async () => {
+    const { user } = renderApp()
+    await pickZone(user, 'from', 'mou', '🇺🇸 United States · Mountain Time')
+    await pickZone(user, 'to', 'costa', '🇨🇷 Costa Rica')
+    await typeTime(user, '15:30{Enter}')
+    await pickZone(user, 'from', 'costa', '🇨🇷 Costa Rica')
+    await pickZone(user, 'to', 'india', '🇮🇳 India')
+    await typeTime(user, '20:00{Enter}')
+    const chips = () => screen.getAllByRole('button', { name: /→/ }).map((b) => b.textContent)
+    expect(chips()[0]).toBe('20:00 🇨🇷 Costa Rica → 🇮🇳 India')
+    expect(chips()).toContain('15:30 🇺🇸 Mountain Time → 🇨🇷 Costa Rica')
+    await user.click(screen.getByRole('button', { name: '15:30 🇺🇸 Mountain Time → 🇨🇷 Costa Rica' }))
+    expect(picker('from')).toHaveValue('🇺🇸 United States · Mountain Time')
+    expect(timeInput()).toHaveValue('15:30')
+    expect(resultTime()).toBe('15:30')
+    await user.click(screen.getByRole('button', { name: 'Clear' }))
+    expect(screen.queryByRole('button', { name: /→/ })).not.toBeInTheDocument()
+    await reloadApp()
+    expect(screen.queryByRole('button', { name: /→/ })).not.toBeInTheDocument()
+  })
+  it('S4 caps at 8 and dedupes to the front', async () => {
+    const { user } = renderApp()
+    for (let h = 1; h <= 9; h++) await typeTime(user, `0${h}:00{Enter}`)
+    const chips = () => screen.getAllByRole('button', { name: /→/ }).map((b) => b.textContent!)
+    expect(chips()).toHaveLength(8)
+    expect(chips()[0]).toMatch(/^09:00/)
+    await typeTime(user, '03:00{Enter}')
+    expect(chips()[0]).toMatch(/^03:00/)
+    expect(chips().filter((c) => c.startsWith('03:00'))).toHaveLength(1)
+    expect(chips()).toHaveLength(8)
   })
 })

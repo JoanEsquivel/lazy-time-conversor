@@ -3,6 +3,7 @@ import { ActionsRow } from './components/ActionsRow/ActionsRow'
 import { Converter } from './components/Converter/Converter'
 import { Header } from './components/Header/Header'
 import { HomeHint } from './components/HomeHint/HomeHint'
+import { RecentList } from './components/RecentList/RecentList'
 import { Toast } from './components/Toast/Toast'
 import { useTheme } from './hooks/useTheme'
 import { useUrlSync } from './hooks/useUrlSync'
@@ -17,6 +18,7 @@ export default function App() {
       <HomeHint />
       <Converter fromInputRef={fromInputRef} />
       <ActionsRow />
+      <RecentList />
       <Toast />
     </main>
   )
