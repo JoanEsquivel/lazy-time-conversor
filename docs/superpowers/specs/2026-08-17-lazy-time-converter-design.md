@@ -308,7 +308,7 @@ Feature: Conversion
   Scenario C2 US Mountain to Costa Rica in standard time
     Given From = US/Mountain, To = Costa Rica, time "15:30"
     When I open the date picker and set 2026-01-15
-    Then the result shows "14:30" and "Thu, Jan 15"
+    Then the result shows "16:30" and "Thu, Jan 15"
 
   Scenario C3 Reverse with swap
     Given C1

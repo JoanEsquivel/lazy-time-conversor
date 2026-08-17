@@ -22,7 +22,7 @@
 - Definition of done for every task: `npm run verify` (typecheck + all tests) is green before committing. Commit after every task with the message given.
 - Working directory: `/Users/ix-00233/Documents/GitHub/lazy-time-conversor` (git repo already initialised on `main`; `docs/` and `.gitignore` committed). Node 24 locally; CI uses Node 22.
 - Vite `base` is `/lazy-time-conversor/`. Storage key `ltc:v1`. Breakpoint 720px.
-- Test facts: US DST 2026 = 2026-03-08 → 2026-11-01. Costa Rica UTC−6 all year. India +05:30. Philippines +08:00. Arizona −07:00 all year. **2026-08-17 is a Monday.**
+- Test facts: US DST 2026 = 2026-03-08 → 2026-11-01. Costa Rica UTC−6 all year. India +05:30. Philippines +08:00. Arizona −07:00 all year. **2026-08-17 is a Monday.** Costa Rica is level with US Mountain in summer (both −06:00) and **one hour ahead** of it in winter (Denver −07:00), so 15:30 Denver is 15:30 in Costa Rica in August and 16:30 in January.
 - Locale strings: `en` → `'en-US'`, `es` → `'es-CR'`. Spanish *zone* labels are locale-variant — tests compare to `zoneLabel(zone,'es-CR')`, never a Spanish literal.
 
 ---
@@ -803,7 +803,7 @@ describe('convert (spec §11 scenarios)', () => {
       .toEqual({ date: '2026-08-17', time: '15:30', dayOffset: 0, fromOffset: '-06:00', toOffset: '-06:00' })
   })
   it('C2 US Mountain → Costa Rica in standard time', () => {
-    expect(convert({ date: '2026-01-15', time: '15:30', from: DENVER, to: CR })).toMatchObject({ time: '14:30', date: '2026-01-15', dayOffset: 0 })
+    expect(convert({ date: '2026-01-15', time: '15:30', from: DENVER, to: CR })).toMatchObject({ time: '16:30', date: '2026-01-15', dayOffset: 0 })
   })
   it('C4 Costa Rica → India crosses midnight forward', () => {
     expect(convert({ date: '2026-08-17', time: '20:00', from: CR, to: IN })).toMatchObject({ time: '07:30', date: '2026-08-18', dayOffset: 1, toOffset: '+05:30' })
@@ -3146,7 +3146,7 @@ describe('Feature: Conversion', () => {
     const { user } = await setupC1()
     await user.click(screen.getByRole('button', { name: 'Pick a date' }))
     fireEvent.change(screen.getByLabelText('Pick a date', { selector: 'input' }), { target: { value: '2026-01-15' } })
-    expect(resultTime()).toBe('14:30')
+    expect(resultTime()).toBe('16:30')
     expect(resultDate()).toBe('Thu, Jan 15 · same day')
   })
   it('C3 reverse with swap keeps the typed time', async () => {
@@ -3928,7 +3928,7 @@ test.describe('smoke', () => {
     await to.fill('costa')
     await page.getByRole('option', { name: '🇨🇷 Costa Rica' }).click()
     await page.getByRole('textbox', { name: 'Time' }).fill('15:30')
-    await expect(page.getByTestId('result-time')).toHaveText(/15:30|14:30/) // DST-dependent on the run date
+    await expect(page.getByTestId('result-time')).toHaveText(/15:30|16:30/) // 15:30 during US DST, 16:30 in US standard time
     await page.getByRole('button', { name: 'Swap direction' }).click()
     await expect(page.getByRole('combobox', { name: 'From' })).toHaveValue('🇨🇷 Costa Rica')
     await page.getByRole('button', { name: 'Share link' }).click()
