@@ -23,4 +23,12 @@ describe('Feature: Input', () => {
     expect(nowLine('from')).toBe('now there 08:52')
     expect(nowLine('to')).toBe('now here 08:52')
   })
+  it('I2 invalid time shows an error, --:--, and disables Copy/Share', async () => {
+    const { user } = renderApp()
+    await typeTime(user, '25:99')
+    expect(screen.getByRole('alert')).toHaveTextContent('Enter a time like 15:30 or 3:30 pm')
+    expect(resultTime()).toBe('--:--')
+    expect(screen.getByRole('button', { name: 'Copy result' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Share link' })).toBeDisabled()
+  })
 })

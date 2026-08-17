@@ -20,6 +20,9 @@ export function renderApp(opts: RenderOpts = {}): { user: UserEvent } & RenderRe
   if (!o.keepStorage) resetConverterStore()
   useConverterStore.getState().bootstrap({ browserIana: o.browserIana, navigatorLanguage: o.navigatorLanguage, search: o.search })
   const user = userEvent.setup()
+  // userEvent.setup() unconditionally replaces navigator.clipboard with its own copy/paste stub,
+  // shadowing the vi.fn() mock installed in test/setup.ts. Re-spy so clipboardText() keeps working.
+  vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined)
   return { user, ...render(<App />) }
 }
 
