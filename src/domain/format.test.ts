@@ -6,7 +6,7 @@ describe('format', () => {
     expect(formatTime('15:30', '24h', 'en-US')).toBe('15:30')
     expect(formatTime('15:30', '12h', 'en-US')).toBe('3:30 PM')
     expect(formatTime('00:05', '12h', 'en-US')).toBe('12:05 AM')
-    expect(formatTime('15:30', '12h', 'es-CR')).toBe('3:30 p. m.')
+    expect(formatTime('15:30', '12h', 'es-CR')).toBe('3:30 p.\u00A0m.')
   })
   it('formats date lines per locale (never via UTC-string slicing)', () => {
     expect(formatDateLine('2026-08-17', 'en-US')).toBe('Mon, Aug 17')

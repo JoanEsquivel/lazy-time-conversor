@@ -61,7 +61,7 @@ export function ZonePicker({ id, label, value, onChange, locale, pinned, now, t,
 
   useEffect(() => {
     if (open && active >= 0) document.getElementById(optId(active))?.scrollIntoView({ block: 'nearest' })
-  }, [active, open]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [active, open])
 
   const openList = () => { if (!open) { setQuery(''); setOpen(true) } }
   const close = () => { setOpen(false); setQuery('') }
@@ -112,11 +112,11 @@ export function ZonePicker({ id, label, value, onChange, locale, pinned, now, t,
       </div>
       {open && (
         <ul id={listId} role="listbox" aria-labelledby={labelId} className={styles.list}>
-          {groups.length === 0 && <li className={styles.hint} aria-live="polite">{t('picker.noMatches', { query })}</li>}
+          {groups.length === 0 && <li role="presentation" className={styles.hint} aria-live="polite">{t('picker.noMatches', { query })}</li>}
           {groups.map((g) => (
             <li key={g.key} role="group" aria-label={g.label}>
               <div className={styles.groupLabel} aria-hidden="true">{g.label}</div>
-              <ul className={styles.group}>
+              <ul role="presentation" className={styles.group}>
                 {g.entries.map(({ entry, index }) => (
                   <li
                     key={`${g.key}-${entry.zoneId}`}
@@ -135,7 +135,7 @@ export function ZonePicker({ id, label, value, onChange, locale, pinned, now, t,
               </ul>
             </li>
           ))}
-          {result.truncated && <li className={styles.hint}>{t('picker.keepTyping')}</li>}
+          {result.truncated && <li role="presentation" className={styles.hint}>{t('picker.keepTyping')}</li>}
         </ul>
       )}
     </div>

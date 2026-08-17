@@ -60,6 +60,9 @@ export function countryByCode(code: CountryCode): Country {
 export function countryOf(id: ZoneId): Country {
   return countryByCode(zoneById(id).country)
 }
+// Ids must win over aliases: dozens of catalog aliases are also real zone ids of other zones
+// (e.g. `Europe/Amsterdam` is the Netherlands' own id and also an alias of `Europe/Brussels`) —
+// checking aliasIndex first would misroute those ids to the wrong zone.
 export function zoneForIana(iana: string): Zone | undefined {
   return zoneIndex.get(iana) ?? aliasIndex.get(iana)
 }

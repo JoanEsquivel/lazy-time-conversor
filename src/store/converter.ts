@@ -103,6 +103,9 @@ export const useConverterStore = create<ConverterState>()(
         const s = get()
         const parsed = parseTime(s.from.time)
         if (!parsed.ok) return
+        // A conversion from a zone to itself is never worth remembering — result equals input,
+        // and stamping one on every zone-change keystroke would fill the list with noise.
+        if (s.from.zone === s.to.zone) return
         set({ recents: pushRecent(s.recents, { from: s.from.zone, to: s.to.zone, time: parsed.time, date: s.from.date }) })
       },
       loadRecent: (e) => set((s) => ({
@@ -127,7 +130,7 @@ export const useConverterStore = create<ConverterState>()(
         // Array.isArray / object guards, not `?? []`: zustand runs merge inside its hydration
         // promise chain, so a TypeError here rejects it and the `set` never happens — a single
         // malformed field would silently discard home, from, to and prefs as well.
-        const recents = (Array.isArray(p.recents) ? p.recents : []).filter((r) => isZoneId(r.from) && isZoneId(r.to))
+        const recents = (Array.isArray(p.recents) ? p.recents : []).filter((r) => r && isZoneId(r.from) && isZoneId(r.to))
         const prefs = p.prefs && typeof p.prefs === 'object' && !Array.isArray(p.prefs) ? p.prefs : {}
         return {
           ...current,
@@ -163,11 +166,6 @@ export function pinnedZones(home: ZoneId, recents: readonly RecentEntry[]): Zone
 /** Test-facing convenience over `pinnedZones`; never pass this to `useConverterStore`. */
 export function selectPinned(s: ConverterState): ZoneId[] {
   return pinnedZones(s.home, s.recents)
-}
-
-/** Test-facing convenience; components memoize `parseTime(from.time)` themselves (see pinnedZones). */
-export function selectParsedTime(s: ConverterState) {
-  return parseTime(s.from.time)
 }
 
 export function selectEffectiveDate(s: ConverterState, now: Date): ISODate {

@@ -10,6 +10,9 @@ beforeEach(() => {
   vi.spyOn(clock, 'now').mockImplementation(() => new Date('2026-08-17T14:52:00Z'))
   useConverterStore.getState().bootstrap({ browserIana: 'America/Costa_Rica' })
   useConverterStore.getState().setFromZone('America/Denver')
+  // Keep From/To distinct: bootstrap's default To is already America/Denver, and commitRecent
+  // now skips same-zone conversions, so the "Now" test below needs a To that differs from From.
+  useConverterStore.getState().setToZone('America/Costa_Rica')
 })
 
 describe('DateRow', () => {

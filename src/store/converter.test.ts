@@ -81,7 +81,14 @@ describe('recents', () => {
     expect(s().recents.filter((r) => r.time === '03:00')).toHaveLength(1)
     expect(s().recents).toHaveLength(8)
   })
+  it('commitRecent is a no-op when from and to are the same zone', () => {
+    s().setFromZone('America/Costa_Rica'); s().setToZone('America/Costa_Rica'); s().setTime('09:00')
+    s().commitRecent()
+    expect(s().recents).toEqual([])
+  })
   it('loadRecent restores from/to/time/date and re-commits to the front', () => {
+    // To defaults to America/Denver after bootstrap; move it aside so From=Denver below isn't a same-zone no-op.
+    s().setToZone('Asia/Kolkata')
     s().setFromZone('America/Denver'); s().setTime('15:30'); s().commitRecent()
     s().setFromZone('Asia/Manila'); s().setTime('08:00'); s().commitRecent()
     s().loadRecent(s().recents[1])
@@ -89,6 +96,8 @@ describe('recents', () => {
     expect(s().recents[0]).toMatchObject({ from: 'America/Denver', time: '15:30' })
   })
   it('clearRecents empties the list; selectPinned = home + recents zones (max 6)', () => {
+    // To defaults to America/Denver after bootstrap; point it at home so From=Denver below isn't a same-zone no-op.
+    s().setToZone('America/Costa_Rica')
     s().setFromZone('America/Denver'); s().setTime('15:30'); s().commitRecent()
     expect(selectPinned(s())).toEqual(['America/Costa_Rica', 'America/Denver'])
     s().clearRecents()
@@ -111,7 +120,7 @@ describe('persistence', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, state: {
       initialized: true, home: 'Asia/Kolkata', homeHint: false,
       from: { zone: 'America/Denver' }, to: { zone: 'America/Costa_Rica' },
-      prefs: 'not-an-object', recents: { nope: true },
+      prefs: 'not-an-object', recents: [null],
     } }))
     expect(() => useConverterStore.persist.rehydrate()).not.toThrow()
     expect(s().home).toBe('Asia/Kolkata')

@@ -17,16 +17,14 @@ describe('gen-catalog', () => {
     expect([...continents].sort()).toEqual(['AF', 'AM', 'AS', 'EU', 'OC'])
   })
 
-  it('has unique zone ids, every id/alias accepted by Intl, and every country has a zone', () => {
+  it('has unique zone ids, every id accepted by Intl, and every country has a zone', () => {
     const ids = new Set()
     for (const c of catalog.countries) {
       expect(c.zones.length).toBeGreaterThan(0)
       for (const z of c.zones) {
         expect(ids.has(z.id)).toBe(false)
         ids.add(z.id)
-        for (const name of [z.id]) {
-          expect(() => new Intl.DateTimeFormat('en-US', { timeZone: name })).not.toThrow()
-        }
+        expect(() => new Intl.DateTimeFormat('en-US', { timeZone: z.id })).not.toThrow()
       }
     }
   })

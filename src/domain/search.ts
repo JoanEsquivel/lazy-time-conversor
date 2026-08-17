@@ -17,7 +17,7 @@ export interface SearchGroup { key: 'pinned' | Continent; entries: SearchEntry[]
 export interface SearchResult { groups: SearchGroup[]; truncated: boolean; total: number }
 
 export function normalize(s: string): string {
-  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim()
+  return s.normalize('NFD').replace(/[\u0300-\u036F]/g, '').toLowerCase().replace(/\s+/g, ' ').trim()
 }
 
 function offsetStrings(minutes: number): string[] {

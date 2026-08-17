@@ -39,12 +39,16 @@ describe('Feature: Recents', () => {
     await pickZone(user, 'from', 'mou', '🇺🇸 United States · Mountain Time')
     await pickZone(user, 'to', 'costa', '🇨🇷 Costa Rica')
     await typeTime(user, '15:30{Enter}')
+    // From now matches the still-set To (Costa Rica → Costa Rica): commitRecent's same-zone guard
+    // must skip both this zone change and the time edit below before To moves off Costa Rica.
     await pickZone(user, 'from', 'costa', '🇨🇷 Costa Rica')
-    await pickZone(user, 'to', 'india', '🇮🇳 India')
     await typeTime(user, '20:00{Enter}')
+    await pickZone(user, 'to', 'india', '🇮🇳 India')
     const chips = () => screen.getAllByRole('button', { name: /→/ }).map((b) => b.textContent)
-    expect(chips()[0]).toBe('20:00 🇨🇷 Costa Rica → 🇮🇳 India')
-    expect(chips()).toContain('15:30 🇺🇸 Mountain Time → 🇨🇷 Costa Rica')
+    expect(chips()).toEqual([
+      '20:00 🇨🇷 Costa Rica → 🇮🇳 India',
+      '15:30 🇺🇸 Mountain Time → 🇨🇷 Costa Rica',
+    ])
     await user.click(screen.getByRole('button', { name: '15:30 🇺🇸 Mountain Time → 🇨🇷 Costa Rica' }))
     expect(picker('from')).toHaveValue('🇺🇸 United States · Mountain Time')
     expect(timeInput()).toHaveValue('15:30')
