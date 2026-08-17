@@ -8,13 +8,16 @@ const pad = (n: number) => String(n).padStart(2, '0')
 /** Accepts 15:30 · 1530 · 930 · 9:5 · 3:30 pm · 3pm · 12am; returns zero-padded 24h HH:mm. */
 export function parseTime(raw: string): ParseResult {
   if (raw.trim() === '') return { ok: false, reason: 'empty' }
-  let s = raw.toLowerCase().replace(/[\s.]/g, '')
+  let s = raw.toLowerCase().trim()
+  // Strip the meridiem first, dots and all. Only then may a dot mean "hours:minutes" —
+  // stripping every dot up front would turn "1.2.3" into the valid-looking "123".
   let meridiem: 'am' | 'pm' | undefined
-  const mer = /(am|pm|a|p)$/.exec(s)
+  const mer = /\s*([ap])\.?\s*(m\.?)?\s*$/.exec(s)
   if (mer) {
-    meridiem = mer[1].startsWith('a') ? 'am' : 'pm'
-    s = s.slice(0, -mer[1].length)
+    meridiem = mer[1] === 'a' ? 'am' : 'pm'
+    s = s.slice(0, mer.index)
   }
+  s = s.replace(/\s+/g, '').replace(/\./g, ':')
   let h: number
   let min: number
   if (/^\d{3,4}$/.test(s)) {
