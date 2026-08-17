@@ -1,0 +1,6 @@
+.wrap { display: flex; flex-direction: column; gap: 4px; }
+.label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+.input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-control); padding: 8px 12px; font-size: var(--digits-size); line-height: 1.1; }
+.input:focus { border-color: var(--accent-b); outline: none; }
+.input[aria-invalid='true'] { border-color: var(--danger); }
+.error { margin: 0; font-size: 12px; color: var(--danger); }

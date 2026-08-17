@@ -4,5 +4,7 @@ dist/
 test-results/
 playwright-report/
 blob-report/
+screenshots/
 .DS_Store
 *.local
+*.tsbuildinfo
