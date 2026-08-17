@@ -142,7 +142,7 @@ Accepted (case/space-insensitive): `15:30`, `1530`, `930`, `9:5`, `9`, `3:30 pm`
 
 ### 6.3 `format.ts`
 
-- `formatTime(time: HHMM, hourFormat: '24h' | '12h', locale): string` — `15:30` / `3:30 PM` (12h goes through `Intl`, so es-CR gives `3:30 p.\u00A0m.` — note the **non-breaking space** ICU puts before `m.`; tests must compare against `Intl` output or the escaped literal, never a typed-out space).
+- `formatTime(time: HHMM, hourFormat: '24h' | '12h', locale): string` — `15:30` / `3:30 PM` (12h goes through `Intl`, so es-CR gives `3:30 p.<nbsp>m.` — ICU puts a **no-break space** before `m.`, and which one it picks varies by CLDR release (U+00A0 on some Node builds, U+202F on newer ones, including GitHub's runners). Tests must normalise `[\u00A0\u202F]` to a plain space before comparing; pinning either code point makes the suite fail on a different runner).
 - `formatDateLine(date: ISODate, locale): string` — `Mon, Aug 17` / `lun, 17 ago` via `Intl.DateTimeFormat(locale, { weekday: 'short', month: 'short', day: 'numeric' })`.
 - `dayOffsetLabel(offset, t)` → t('day.same') / t('day.next') / t('day.prev') → "same day" / "next day (+1)" / "previous day (−1)".
 - `copyText(state, result, t, locale)` → `15:30 Mountain Time (United States) → 15:30 Central Standard Time (Costa Rica) · Mon, Aug 17, 2026` (zone labels via `zoneLabel`; single-zone countries still show their `Intl` label here because the text stands alone).

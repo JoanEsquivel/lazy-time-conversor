@@ -1,12 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import { copyText, currentOffsetLabel, dayOffsetKey, formatDateFull, formatDateLine, formatTime, recentLabel } from './format'
 
+const noBreakToSpace = (s: string) => s.replace(/[\u00A0\u202F]/g, ' ')
+
 describe('format', () => {
   it('formats time in 24h and 12h per locale', () => {
     expect(formatTime('15:30', '24h', 'en-US')).toBe('15:30')
     expect(formatTime('15:30', '12h', 'en-US')).toBe('3:30 PM')
     expect(formatTime('00:05', '12h', 'en-US')).toBe('12:05 AM')
-    expect(formatTime('15:30', '12h', 'es-CR')).toBe('3:30 p.\u00A0m.')
+    // ICU changed the separator before the meridiem marker between CLDR releases
+    // (U+00A0 here, U+202F on newer builds such as GitHub's runners), so normalise the
+    // no-break space instead of pinning a byte sequence that differs per Node build.
+    expect(noBreakToSpace(formatTime('15:30', '12h', 'es-CR'))).toBe('3:30 p. m.')
   })
   it('formats date lines per locale (never via UTC-string slicing)', () => {
     expect(formatDateLine('2026-08-17', 'en-US')).toBe('Mon, Aug 17')
