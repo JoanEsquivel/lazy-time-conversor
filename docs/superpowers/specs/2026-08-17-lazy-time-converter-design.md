@@ -1,0 +1,362 @@
+# Lazy Time Converter — Design Spec
+
+**Date:** 2026-08-17 · **Status:** Approved (interactive design + architecture approved with Joan on 2026-08-17) · **Release:** 1
+
+## 1. Purpose
+
+A small, modern browser tool that converts a wall-clock time between the user's **home** time zone (auto-detected from the browser, editable) and a specific **country + zone** elsewhere — in either direction. Canonical use: "I'm in Costa Rica, a meeting is at 15:30 US Mountain — what time is that for me?" and the reverse.
+
+Release 1 ships four countries (Costa Rica, United States, India, Philippines). The catalog is data, so adding a country later is a one-entry change, not a code change.
+
+## 2. Goals and non-goals
+
+**Goals**
+- Convert `time (+ optional date)` from `country/zone A` to `country/zone B`, DST-correct.
+- Home zone auto-detected, overridable, remembered.
+- Modern, friendly UI: two-card From/To layout with a swap button; live "now" clocks; 24h/12h; EN/ES; light/dark/system theme; copy result; shareable URL; recent conversions.
+- Static site, zero backend, zero runtime dependencies for time math (native `Intl`).
+- Deployed to GitHub Pages by GitHub Actions; every push runs typecheck + tests + build + browser smoke before deploy.
+
+**Non-goals (release 1)** — see §13 "Later" for the parked list
+- Multiple targets at once (world-clock view), meeting planners, calendar integration, PWA/offline, accounts or sync, arbitrary IANA zone entry, more than the four countries.
+
+## 3. Decisions (approved)
+
+| Topic | Decision |
+|---|---|
+| Platform | Browser SPA, no backend, GitHub Pages via GitHub Actions |
+| Home zone | Auto-detect from `Intl.DateTimeFormat().resolvedOptions().timeZone`; editable in header; persisted |
+| Input | Time only by default (date = today in the source zone); optional date picker; result shows same / next (+1) / previous (−1) day |
+| Layout | **A** — two cards (From · swap · To), horizontal ≥ 720px, stacked below |
+| Visual style | **Midnight tech** — dark-first; indigo→teal gradient accent; monospace tabular digits with soft glow; light theme is the inverted palette |
+| Picker | Two native dropdowns per card: country, then zone (zone select hidden when the country has one zone) |
+| Countries | 🇨🇷 Costa Rica · 🇺🇸 United States (7 zones) · 🇮🇳 India · 🇵🇭 Philippines |
+| Format / language | 24h default, 12h toggle; EN/ES toggle, default from browser language |
+| Extras in R1 | Live "now" per panel + **Now** button; theme; Copy + Share link; Recents (max 8) |
+| TZ engine | Native `Intl` API only |
+| Testing | ATDD: Given/When/Then scenarios (§11) → Vitest + RTL against `<App/>`; unit tests for domain; Playwright smoke in CI |
+| Stack | React 19 · TypeScript strict · Vite · Vitest · React Testing Library · Zustand (persist) · CSS Modules · Playwright — same as `agile-todo-app` |
+
+Approved mockups (kept for reference, not shipped): `.superpowers/brainstorm/7949-1786982731/content/{layout,visual-style,picker-mobile}.html`.
+
+## 4. Catalog (data)
+
+`src/domain/catalog.ts` exports `COUNTRIES: Country[]` in display order. Zone `id`s are globally unique, lowercase, URL-safe.
+
+| Country | code | flag | zone id | label (en) | IANA | abbr |
+|---|---|---|---|---|---|---|
+| Costa Rica | CR | 🇨🇷 | `cr` | Costa Rica Time | America/Costa_Rica | CR |
+| United States | US | 🇺🇸 | `us-et` | Eastern Time | America/New_York | ET |
+| | | | `us-ct` | Central Time | America/Chicago | CT |
+| | | | `us-mt` | Mountain Time | America/Denver | MT |
+| | | | `us-az` | Mountain Time – Arizona (no DST) | America/Phoenix | AZ |
+| | | | `us-pt` | Pacific Time | America/Los_Angeles | PT |
+| | | | `us-ak` | Alaska Time | America/Anchorage | AK |
+| | | | `us-hi` | Hawaii Time | Pacific/Honolulu | HI |
+| India | IN | 🇮🇳 | `in` | India Standard Time | Asia/Kolkata | IST |
+| Philippines | PH | 🇵🇭 | `ph` | Philippine Time | Asia/Manila | PHT |
+
+```ts
+export type CountryCode = 'CR' | 'US' | 'IN' | 'PH'
+export type ZoneId = 'cr' | 'us-et' | 'us-ct' | 'us-mt' | 'us-az' | 'us-pt' | 'us-ak' | 'us-hi' | 'in' | 'ph'
+export interface Zone    { id: ZoneId; iana: string; abbr: string; labelKey: string }
+export interface Country { code: CountryCode; flag: string; nameKey: string; zones: readonly Zone[] }
+export function zoneById(id: ZoneId): Zone
+export function countryOf(id: ZoneId): Country
+export function zoneForIana(iana: string): Zone | undefined   // exact IANA match; used by home detection
+```
+
+**Adding a country** = append one `Country` entry + `nameKey`/`labelKey` strings in `en.ts` and `es.ts` + a `zoneForIana` alias if the browser reports a different IANA name (e.g. `Asia/Calcutta` → `in`). Nothing else changes; catalog tests assert uniqueness of ids and IANA validity.
+
+## 5. Architecture
+
+Dependencies point one way — an import that reverses an arrow is a bug.
+
+```
+src/domain/       pure TS: catalog.ts, tz.ts, timeParse.ts, format.ts, url.ts, types.ts   → nothing
+src/i18n/         en.ts, es.ts, index.ts (t, useT, detectLang)                             → nothing (react for the hook)
+src/store/        converter.ts (zustand + persist), clock.ts                                → domain
+src/hooks/        useNow.ts, useTheme.ts, useUrlSync.ts                                    → store, domain, react
+src/components/   Header/, Converter/, ZonePicker/, TimeInput/, DateRow/, SwapButton/,
+                  ResultDisplay/, ActionsRow/, RecentList/, Toast/                          → store, domain, hooks, i18n, react
+src/acceptance/   *.test.tsx — ATDD scenarios rendering <App/> with a fixed clock          → everything (tests only)
+src/App.tsx, src/main.tsx, src/styles/{tokens,global}.css
+```
+
+**Invariants**
+- **INV-1 Ambient time in two files only.** Argument-less `new Date()` / `Date.now()` may appear only in `src/store/clock.ts` (`now(): Date`) and `src/hooks/useNow.ts`. Everything else takes `now: Date` as a parameter or reads `clock.now()`. Tests replace `clock.now` (`vi.spyOn`) to freeze time.
+- **INV-2 Domain is pure.** `src/domain/` imports only its siblings. No React, no zustand, no `window`, no `localStorage`, no `navigator`. `detectHomeZone` and `detectLang` receive the browser value as an argument (`detectHomeZone(browserIana: string)`); the caller in `store`/`i18n` reads `Intl`/`navigator`.
+- **INV-3 The result is derived, never stored.** `convert()` runs at render from `from` + `to` + `time` + `date`. Nothing in the store or URL contains a converted value.
+- **INV-4 Never build a calendar date from a UTC string.** No `toISOString().slice(0,10)`. Dates are `YYYY-MM-DD` strings produced by `Intl` parts for the relevant zone.
+- **INV-5 Catalog is the only source of zones.** UI, URL and store refer to zones by `ZoneId`; IANA strings appear only in `catalog.ts` and inside `tz.ts` calls.
+
+## 6. Domain API
+
+### 6.1 `tz.ts`
+
+```ts
+export interface ConvertInput  { date: ISODate; time: HHMM; from: string /*IANA*/; to: string /*IANA*/ }
+export interface ConvertResult { date: ISODate; time: HHMM; dayOffset: -1 | 0 | 1; fromOffset: string; toOffset: string }
+export function convert(input: ConvertInput): ConvertResult
+export function nowIn(iana: string, now: Date): { date: ISODate; time: HHMM; seconds: number }
+export function offsetAt(iana: string, instantMs: number): number          // minutes east of UTC
+export function wallToInstant(iana: string, date: ISODate, time: HHMM): number  // epoch ms
+export function formatOffset(minutes: number): string                          // "+05:30", "-06:00"
+```
+
+Algorithm (all via `Intl.DateTimeFormat('en-US', { timeZone, hourCycle: 'h23', year, month, day, hour, minute, second }).formatToParts`):
+- `offsetAt`: format the instant in the zone, rebuild it with `Date.UTC(parts)`, offset = (rebuilt − instant) / 60000.
+- `wallToInstant`: `guess = Date.UTC(y, m-1, d, h, min)`; `o1 = offsetAt(guess)`; `c1 = guess − o1·60000`; `o2 = offsetAt(c1)`; `c2 = guess − o2·60000`. Keep the candidates whose zone wall time round-trips to the requested wall time. Two valid (fall-back overlap) → **the earlier instant** (first occurrence). None valid (spring-forward gap) → **`c2`**, i.e. the wall time is shifted forward by the gap size (02:30 → 03:30). One valid → that one.
+- `convert`: `instant = wallToInstant(from, date, time)`; target parts = zone wall time of `instant` in `to`; `dayOffset` = calendar-day difference between target date and input date, clamped to −1..1 (a wall-time conversion can never differ by more than one day). `fromOffset`/`toOffset` = `formatOffset(offsetAt(...))` at that instant.
+
+### 6.2 `timeParse.ts`
+
+`parseTime(raw: string): { ok: true; time: HHMM } | { ok: false; reason: 'empty' | 'invalid' }`
+
+Accepted (case/space-insensitive): `15:30`, `1530`, `930`, `9:5`, `3:30 pm`, `3:30pm`, `3pm`, `3 PM`, `12am` (→ `00:00`), `12pm` (→ `12:00`), `0:00`, `24:00` is invalid, `25:00`/`13pm`/`3:60` invalid. Output is always zero-padded `HH:mm`.
+
+### 6.3 `format.ts`
+
+- `formatTime(time: HHMM, hourFormat: '24h' | '12h', locale): string` — `15:30` / `3:30 PM` (12h uses `Intl` so ES gives `3:30 p. m.`).
+- `formatDateLine(date: ISODate, locale): string` — `Mon, Aug 17` / `lun, 17 ago` via `Intl.DateTimeFormat(locale, { weekday: 'short', month: 'short', day: 'numeric' })`.
+- `dayOffsetLabel(offset, t)` → t('day.same') / t('day.next') / t('day.prev') → "same day" / "next day (+1)" / "previous day (−1)".
+- `copyText(state, result, t, locale)` → `15:30 Mountain Time (United States) → 15:30 Costa Rica Time (Costa Rica) · Mon, Aug 17, 2026`.
+- `recentLabel(entry)` → `15:30 US·MT → CR` (single-zone countries show only the country code: `20:00 CR → IN`).
+
+### 6.4 `url.ts`
+
+Query scheme: `?t=15:30&d=2026-08-17&from=us-mt&to=cr` (`d` omitted when date is "today"; `t` omitted when empty).
+
+- `encodeUrlState({ time, date, from, to }): string` — returns the query string (no leading `?` if empty).
+- `decodeUrlState(search: string): Partial<UrlState>` — ignores unknown keys, drops any invalid value individually (unknown zone id, unparsable time, invalid date) and returns only the valid parts. Never throws.
+- Behaviour: on first render, decoded URL values **override** persisted `from`/`to`/`time`/`date`; afterwards the URL is rewritten with `history.replaceState` on every relevant store change (`useUrlSync`). Prefs and home are never in the URL.
+
+## 7. Store (`src/store/converter.ts`)
+
+Zustand with `persist`, storage key `ltc:v1`, `version: 1`.
+
+```ts
+interface ConverterState {
+  home: ZoneId
+  from: { zone: ZoneId; time: string /* raw input */; date: ISODate | null /* null = today in `from` zone */ }
+  to:   { zone: ZoneId }
+  prefs: { hourFormat: '24h' | '12h'; lang: 'en' | 'es'; theme: 'light' | 'dark' | 'system' }
+  recents: RecentEntry[]            // RecentEntry = { from: ZoneId; to: ZoneId; time: HHMM; date: ISODate | null }
+  homeHint: boolean                 // true when detection failed and the hint hasn't been dismissed
+  // actions
+  setFromZone(z: ZoneId): void; setToZone(z: ZoneId): void
+  setTime(raw: string): void; setDate(d: ISODate | null): void
+  useNow(now: Date): void          // fills time+date from nowIn(from zone)
+  swap(): void                     // exchanges from.zone and to.zone; keeps time/date
+  setHome(z: ZoneId): void; dismissHomeHint(): void
+  setPref<K>(k: K, v: Prefs[K]): void
+  commitRecent(): void             // pushes current (if time valid) to recents: dedupe by from+to+time+date, newest first, max 8
+  loadRecent(e: RecentEntry): void; clearRecents(): void
+}
+```
+
+- **Initial state** (no persisted data): `home = detectHomeZone(browserIana) ?? 'cr'`; `homeHint = detection failed`; `from.zone = home`; `to.zone = home === 'cr' ? 'us-mt' : 'cr'`; `time = ''`; `date = null`; `prefs = { '24h', detectLang(navigator.language), 'system' }`; `recents = []`.
+- **Persisted** (partialize): `home`, `from.zone`, `to.zone`, `prefs`, `recents`, `homeHint`. **Not persisted:** `from.time`, `from.date` (a stale date a week later is worse than empty; the URL carries them for sharing).
+- `commitRecent` is called on: TimeInput commit (Enter or blur with a valid time), Now, swap, loadRecent, and zone change while the time is valid.
+- Changing `home` never changes `from`/`to`; it only moves the HOME badge.
+
+## 8. UI
+
+### 8.1 Component tree
+
+```
+App
+├─ Header            brand (gradient text) · HomeBadge · HourFormatToggle · LangToggle · ThemeToggle
+├─ HomeHint          one-line dismissible banner shown only while homeHint is true
+├─ Converter         CSS grid: [SourcePanel][SwapButton][TargetPanel]; grid-template-columns 1fr auto 1fr ≥720px, single column below (swap centered between)
+│  ├─ SourcePanel    label "From" (+ HOME badge if from.zone === home) · ZonePicker · TimeInput · DateRow · NowLine ("now there 08:52")
+│  ├─ SwapButton     round gradient button, aria-label "Swap direction"
+│  └─ TargetPanel    label "To" (+ HOME badge if to.zone === home) · ZonePicker · ResultDisplay · NowLine ("now here 08:52")
+├─ ActionsRow        Copy result · Share link  (disabled while time invalid/empty)
+├─ RecentList        "Recent" + up to 8 chips + "Clear"; hidden when empty
+└─ Toast             "Copied ✓" for 1.5 s, aria-live polite
+```
+
+- **ZonePicker**: `<select>` country (flag + localized name) then `<select>` zone (localized label). Zone select is not rendered when the country has a single zone. Changing country selects that country's first zone. Both are native selects styled with tokens.
+- **TimeInput**: `<input inputmode="numeric">`, placeholder `15:30` (or `3:30 pm` in 12h). Parses on every change for live result; commits recent on Enter/blur. Invalid non-empty input → `aria-invalid`, helper text `t('time.invalid')` ("Enter a time like 15:30 or 3:30 pm"). Empty → no error, result shows `--:--`.
+- **DateRow**: shows `formatDateLine(effectiveDate)`; 📅 button toggles a native `<input type="date">`; a small "×" resets to today when an explicit date is set; **Now** button calls `useNow(clock.now())`.
+- **ResultDisplay**: big digits `formatTime(result.time)` (or `--:--`), line 2 `formatDateLine(result.date) · dayOffsetLabel`, line 3 offsets `MT UTC−06:00 → CR UTC−06:00`. Wrapped in `aria-live="polite"`.
+- **NowLine**: `useNow(30_000)` tick; text `t('now.there')`/`t('now.here')` — "here" when that panel is the home zone, "there" otherwise.
+- **HomeBadge** (header): `🏠 Costa Rica ▾` opens a popover with the same ZonePicker bound to `home`.
+- **Toggles**: segmented controls; `aria-pressed`. Theme toggle cycles light → dark → system with icon ☀ / ☾ / ◐.
+
+### 8.2 Visual tokens (`src/styles/tokens.css`)
+
+| Token | Dark (default) | Light |
+|---|---|---|
+| `--bg` | `#0e1016` | `#f5f6fa` |
+| `--surface` | `#151823` | `#ffffff` |
+| `--surface-home` | `linear-gradient(160deg,#171c33,#12222b)` | `#eaf7f4` |
+| `--border` | `#262b3a` | `#e0e3ec` |
+| `--border-home` | `#2f3d66` | `#9fe3d6` |
+| `--text` | `#e6e8ef` | `#1a1d2a` |
+| `--text-muted` | `#a3a9bb` | `#5b6272` |
+| `--accent-a` / `--accent-b` | `#7c8cff` / `#3ee0c8` | same |
+| `--result` | `#3ee0c8` + `text-shadow 0 0 18px rgba(62,224,200,.35)` | `#0f9d86`, no glow |
+| `--font-ui` | `-apple-system, "Inter", system-ui, sans-serif` | |
+| `--font-digits` | `ui-monospace, "SF Mono", Menlo, Consolas, monospace`, `font-variant-numeric: tabular-nums` | |
+| radius | cards 12px · controls 8px · pills 999px | |
+| digits size | 56px desktop / 40px mobile · weight 600 · letter-spacing −0.04em | |
+| breakpoint | 720px | |
+
+Theme is applied as `data-theme="light|dark"` on `<html>`; `system` resolves via `matchMedia('(prefers-color-scheme: dark)')` and re-applies on change. Focus rings: 2px `--accent-b` outline offset 2px. Respect `prefers-reduced-motion` (no glow pulse, no swap rotation).
+
+## 9. i18n
+
+`src/i18n/en.ts` and `es.ts` export the same `Record<Key, string>` shape (typed from `en`). `useT()` returns `t(key, vars?)`. `detectLang(navigatorLanguage: string): 'en' | 'es'` → `es` if it starts with `es`, else `en`. Locale passed to `Intl` = `'es-CR'` / `'en-US'`.
+
+Keys (initial): `app.title`, `from`, `to`, `home`, `home.hint`, `home.hint.dismiss`, `swap`, `now`, `now.here`, `now.there`, `time.placeholder`, `time.invalid`, `date.pick`, `date.today`, `day.same`, `day.next`, `day.prev`, `copy`, `copy.done`, `share`, `share.done`, `recent`, `recent.clear`, `theme.light`, `theme.dark`, `theme.system`, `format.24h`, `format.12h`, `country.CR`, `country.US`, `country.IN`, `country.PH`, `zone.cr`, `zone.us-et`, … `zone.ph`.
+
+## 10. Error handling & edge cases
+
+| Situation | Behaviour |
+|---|---|
+| Browser zone not in catalog (e.g. Europe/Madrid) | home = `cr`, `homeHint = true`, banner "We couldn't match your time zone — pick your home zone" with the picker; dismissible |
+| Invalid time text | inline error, result `--:--`, Copy/Share disabled, no recent committed |
+| Empty time | no error, result `--:--`, Copy/Share disabled |
+| Spring-forward gap (e.g. 02:30 on 2026-03-08 in `us-mt`) | interpreted as 03:30 MDT (shift forward) |
+| Fall-back overlap (01:30 on 2026-11-01 in `us-mt`) | first occurrence (MDT) |
+| Bad/unknown URL params | each invalid param ignored individually; the rest applied |
+| `localStorage` unavailable / corrupt JSON | zustand persist falls back to in-memory defaults; app still works |
+| Clipboard API unavailable | Copy/Share fall back to a selectable text field in the toast |
+| Same zone on both sides | allowed; result equals input, "same day" |
+
+## 11. Acceptance scenarios (ATDD contract)
+
+Each scenario becomes one RTL test in `src/acceptance/`, rendering `<App/>` with `clock.now` frozen and `Intl.DateTimeFormat().resolvedOptions().timeZone` mocked as noted. Facts used: US DST 2026 runs 2026-03-08 → 2026-11-01; Costa Rica UTC−6 all year; India UTC+5:30; Philippines UTC+8; Arizona UTC−7 all year.
+
+```gherkin
+Feature: Home zone
+  Scenario A1 Home auto-detected from browser
+    Given the browser zone is "America/Costa_Rica" and no saved state
+    When the app loads
+    Then the header shows home "🇨🇷 Costa Rica" and the From panel carries the HOME badge
+
+  Scenario A2 Home not in catalog
+    Given the browser zone is "Europe/Madrid"
+    When the app loads
+    Then home is Costa Rica and a hint banner invites me to choose my home zone
+    When I choose United States / Pacific Time in the banner
+    Then the header shows home "🇺🇸 United States · Pacific Time" and the banner disappears
+
+  Scenario A3 Home is editable and persisted
+    Given the app loaded with home Costa Rica
+    When I change home to India via the header badge and reload
+    Then home is India and the From/To selection is unchanged
+
+Feature: Conversion
+  Scenario C1 US Mountain to Costa Rica during DST
+    Given today is 2026-08-17 (frozen clock)
+    When I select From = United States / Mountain Time, To = Costa Rica and type "15:30"
+    Then the result shows "15:30", "Mon, Aug 17" and "same day"
+
+  Scenario C2 US Mountain to Costa Rica in standard time
+    Given From = US/Mountain, To = Costa Rica, time "15:30"
+    When I open the date picker and set 2026-01-15
+    Then the result shows "14:30" and "Thu, Jan 15"
+
+  Scenario C3 Reverse with swap
+    Given C1
+    When I press Swap
+    Then From = Costa Rica, To = US/Mountain, the input still shows "15:30" and the result shows "15:30"
+
+  Scenario C4 Costa Rica to India crosses midnight forward
+    Given today is 2026-08-17, From = Costa Rica, To = India
+    When I type "20:00"
+    Then the result shows "07:30", "Tue, Aug 18" and "next day (+1)"
+
+  Scenario C5 Philippines to Costa Rica crosses midnight backward
+    Given today is 2026-08-17, From = Philippines, To = Costa Rica
+    When I type "08:00"
+    Then the result shows "18:00", "Sun, Aug 16" and "previous day (−1)"
+
+  Scenario C6 Arizona ignores DST
+    Given today is 2026-08-17, From = US/Mountain – Arizona, To = Costa Rica
+    When I type "15:30"
+    Then the result shows "16:30"
+
+  Scenario C7 Zone select hidden for single-zone countries
+    When From country is Costa Rica
+    Then no zone select is rendered in the From panel
+    When From country is United States
+    Then a zone select with 7 options is rendered
+
+Feature: Input
+  Scenario I1 Flexible time formats
+    When I type "3:30 pm" | "1530" | "3pm"
+    Then the input is accepted and the result corresponds to 15:30 | 15:30 | 15:00
+
+  Scenario I2 Invalid time
+    When I type "25:99"
+    Then an inline error is shown, the result shows "--:--" and Copy/Share are disabled
+
+  Scenario I3 Now button
+    Given the frozen clock is 2026-08-17T14:52:00Z, From = US/Mountain
+    When I press Now
+    Then the input shows "08:52" and the date shows "Mon, Aug 17"
+
+  Scenario I4 Live now clocks
+    Given the frozen clock is 2026-08-17T14:52:00Z, From = US/Mountain, To = Costa Rica (home)
+    Then the From panel shows "now there 08:52" and the To panel shows "now here 08:52"
+
+Feature: Preferences
+  Scenario P1 12h toggle
+    Given C1
+    When I switch to 12h
+    Then the input placeholder/result show "3:30 PM" and the preference survives reload
+
+  Scenario P2 Spanish
+    When I switch language to ES
+    Then labels read "Desde" / "Hasta", the country reads "Estados Unidos", the day line reads "lun, 17 ago", and the preference survives reload
+
+  Scenario P3 Theme
+    When I cycle the theme toggle
+    Then <html data-theme> goes dark → light → follows system, and the preference survives reload
+
+Feature: Sharing & recents
+  Scenario S1 Share link round-trip
+    Given C1
+    When I press Share link
+    Then the clipboard receives a URL containing "t=15:30", "from=us-mt", "to=cr" and a "Copied" toast appears
+    When the app loads with that URL
+    Then the same From/To/time are shown
+
+  Scenario S2 Copy result
+    Given C1
+    When I press Copy
+    Then the clipboard receives "15:30 Mountain Time (United States) → 15:30 Costa Rica Time (Costa Rica) · Mon, Aug 17, 2026"
+
+  Scenario S3 Recents
+    Given I converted 15:30 US/MT → CR (committed with Enter) and 20:00 CR → IN
+    Then the Recent list shows "20:00 CR → IN" first and "15:30 US·MT → CR" second
+    When I click "15:30 US·MT → CR"
+    Then From/To/time are restored and the result shows "15:30"
+    When I press Clear
+    Then the list is empty and stays empty after reload
+
+  Scenario S4 Recents cap and dedupe
+    Given 9 distinct committed conversions
+    Then only the newest 8 are listed
+    When I commit one that already exists
+    Then it moves to the front and the list has no duplicate
+```
+
+**Unit-test contract (domain):** `tz.convert` for every scenario above plus gap/overlap rules (§10); `offsetAt` for `us-mt` on 2026-03-08 01:59/03:00 local; India `+05:30`; `timeParse` table; `url` encode/decode incl. invalid params; `format` in en/es; `catalog` uniqueness and `zoneForIana` incl. aliases.
+
+**Playwright smoke (CI, against `vite preview`, Chromium):** (1) load → convert 15:30 US/MT → CR → swap → Share → open the shared URL in a new page and assert state; (2) mobile viewport 390×844: cards stacked, swap between them, conversion works; (3) theme toggle changes `data-theme` and persists after reload.
+
+## 12. Build, CI, deploy
+
+- `package.json` scripts: `dev`, `build` (`tsc -b && vite build`), `preview`, `test` (`vitest run`), `test:watch`, `typecheck` (`tsc -b --noEmit`), `verify` (`typecheck && test`), `e2e` (`playwright test`).
+- `vite.config.ts`: `base: '/lazy-time-conversor/'`, vitest `environment: 'jsdom'`, `setupFiles: ['src/test/setup.ts']` (jest-dom, clipboard mock, `matchMedia` mock).
+- `.github/workflows/deploy.yml` (modelled on agile-todo-app): on push to `main` + `workflow_dispatch` — `actions/checkout@v4`, `setup-node@v4` (Node 20, npm cache), `npm ci`, `npm run verify`, `npm run build`, `npx playwright install --with-deps chromium`, `npm run e2e` (webServer = `vite preview`), `configure-pages` + `upload-pages-artifact` (dist) → `deploy-pages`. Pull requests run the same job without the deploy step.
+- **Definition of done:** `npm run verify` green · one acceptance test per scenario in §11 · `npm run e2e` green · deploy workflow green · site loads at `https://<user>.github.io/lazy-time-conversor/`.
+
+## 13. Later (explicitly out of release 1)
+
+More countries (data-only change) · world-clock "one input, many outputs" view · searchable combobox picker when the catalog exceeds ~10 countries · PWA/offline · keyboard shortcuts (`S` swap, `N` now) · meeting-window finder.
