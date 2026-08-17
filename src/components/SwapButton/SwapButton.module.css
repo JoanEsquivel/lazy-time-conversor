@@ -1,0 +1,2 @@
+.swap { width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--accent-gradient); color: #0e1016; font-size: 18px; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(124, 140, 255, 0.35); transition: transform 0.2s; }
+.swap:hover { transform: rotate(180deg); }
