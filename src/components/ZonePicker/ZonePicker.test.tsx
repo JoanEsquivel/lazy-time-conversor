@@ -47,16 +47,20 @@ describe('ZonePicker', () => {
     expect(input).toHaveValue('🇺🇸 United States · Mountain Time')
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
   })
-  it('keyboard: ArrowDown/Enter selects; Escape restores; aria-activedescendant tracks', async () => {
+  it('keyboard: the top match is pre-highlighted, Enter selects it, Escape restores', async () => {
     const onChange = vi.fn()
     const user = userEvent.setup()
     render(<Harness onChange={onChange} />)
     const input = screen.getByRole('combobox')
     await user.click(input)
     await user.type(input, 'phil')
-    await user.keyboard('{ArrowDown}')
+    // Typing pre-highlights the best match. 'phil' also matches the cities Philipsburg and
+    // Philadelphia, but those score as city-prefix hits, so their continent group ranks below Asia.
     const active = input.getAttribute('aria-activedescendant')!
     expect(document.getElementById(active)).toHaveTextContent('Philippines')
+    await user.keyboard('{ArrowDown}')
+    expect(document.getElementById(input.getAttribute('aria-activedescendant')!)).not.toHaveTextContent('Philippines')
+    await user.keyboard('{ArrowUp}')
     await user.keyboard('{Enter}')
     expect(onChange).toHaveBeenCalledWith('Asia/Manila')
     await user.click(input)

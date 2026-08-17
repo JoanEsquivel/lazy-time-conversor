@@ -52,11 +52,11 @@ export function ZonePicker({ id, label, value, onChange, locale, pinned, now, t,
 
   useEffect(() => {
     if (!open) return
-    // -1 (not 0) when the current value isn't among the filtered options: nothing is highlighted
-    // yet, so the first ArrowDown lands on the top-ranked match (index 0) via (-1 + 1) % length,
-    // instead of pre-highlighting it and having ArrowDown skip past it to the second match.
+    // Highlight the current value while browsing; when a query filters it out, fall back to the
+    // top-ranked match so "type a few letters, press Enter" selects the best match. Never leave
+    // the list with nothing active — Enter would then silently do nothing.
     const i = options.findIndex((o) => o.zoneId === value)
-    setActive(i)
+    setActive(i >= 0 ? i : 0)
   }, [open, options, value])
 
   useEffect(() => {
