@@ -1,0 +1,5348 @@
+{
+  "tzdbVersion": "6.198.0",
+  "countries": [
+    {
+      "code": "AD",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Andorra",
+          "aliases": [],
+          "cities": [
+            "Andorra la Vella",
+            "les Escaldes"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "AE",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Dubai",
+          "aliases": [
+            "Asia/Muscat",
+            "Indian/Mahe",
+            "Indian/Reunion"
+          ],
+          "cities": [
+            "Dubai",
+            "Abu Dhabi",
+            "Sharjah",
+            "Al Ain City"
+          ],
+          "winter": 240,
+          "summer": 240
+        }
+      ]
+    },
+    {
+      "code": "AF",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Kabul",
+          "aliases": [],
+          "cities": [
+            "Kabul",
+            "Herāt",
+            "Mazār-e Sharīf",
+            "Kandahār"
+          ],
+          "winter": 270,
+          "summer": 270
+        }
+      ]
+    },
+    {
+      "code": "AG",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Antigua",
+          "aliases": [],
+          "cities": [
+            "Saint John’s"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "AI",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Anguilla",
+          "aliases": [],
+          "cities": [
+            "The Valley"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "AL",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Tirane",
+          "aliases": [],
+          "cities": [
+            "Tirana",
+            "Durrës",
+            "Vlorë",
+            "Elbasan"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "AM",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Yerevan",
+          "aliases": [],
+          "cities": [
+            "Yerevan",
+            "Malatia-Sebastia",
+            "Shengavit",
+            "Nor Nork"
+          ],
+          "winter": 240,
+          "summer": 240
+        }
+      ]
+    },
+    {
+      "code": "AO",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Luanda",
+          "aliases": [],
+          "cities": [
+            "Luanda",
+            "Lubango",
+            "Huambo",
+            "Benguela"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "AR",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Argentina/Buenos_Aires",
+          "aliases": [
+            "America/Argentina/Catamarca",
+            "America/Argentina/ComodRivadavia",
+            "America/Argentina/Cordoba",
+            "America/Argentina/Jujuy",
+            "America/Argentina/La_Rioja",
+            "America/Argentina/Mendoza",
+            "America/Argentina/Rio_Gallegos",
+            "America/Argentina/Salta",
+            "America/Argentina/San_Juan",
+            "America/Argentina/San_Luis",
+            "America/Argentina/Tucuman",
+            "America/Argentina/Ushuaia",
+            "America/Buenos_Aires",
+            "America/Catamarca",
+            "America/Cordoba",
+            "America/Jujuy",
+            "America/Mendoza",
+            "America/Rosario"
+          ],
+          "cities": [
+            "Buenos Aires",
+            "Córdoba",
+            "Rosario",
+            "Mar del Plata"
+          ],
+          "winter": -180,
+          "summer": -180
+        }
+      ]
+    },
+    {
+      "code": "AS",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Pago_Pago",
+          "aliases": [
+            "Pacific/Midway",
+            "Pacific/Samoa",
+            "US/Samoa"
+          ],
+          "cities": [
+            "Pago Pago"
+          ],
+          "winter": -660,
+          "summer": -660
+        }
+      ]
+    },
+    {
+      "code": "AT",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Vienna",
+          "aliases": [],
+          "cities": [
+            "Vienna",
+            "Graz",
+            "Linz",
+            "Favoriten"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "AU",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Australia/Perth",
+          "aliases": [
+            "Australia/West"
+          ],
+          "cities": [
+            "Perth",
+            "Mandurah",
+            "Bunbury",
+            "Geraldton"
+          ],
+          "winter": 480,
+          "summer": 480
+        },
+        {
+          "id": "Australia/Eucla",
+          "aliases": [],
+          "cities": [
+            "Eucla"
+          ],
+          "winter": 525,
+          "summer": 525
+        },
+        {
+          "id": "Australia/Darwin",
+          "aliases": [
+            "Australia/North"
+          ],
+          "cities": [
+            "Darwin",
+            "Palmerston",
+            "Alice Springs"
+          ],
+          "winter": 570,
+          "summer": 570
+        },
+        {
+          "id": "Australia/Brisbane",
+          "aliases": [
+            "Australia/Lindeman",
+            "Australia/Queensland"
+          ],
+          "cities": [
+            "Brisbane",
+            "Gold Coast",
+            "Sunshine Coast",
+            "Logan City"
+          ],
+          "winter": 600,
+          "summer": 600
+        },
+        {
+          "id": "Australia/Adelaide",
+          "aliases": [
+            "Australia/Broken_Hill",
+            "Australia/South",
+            "Australia/Yancowinna"
+          ],
+          "cities": [
+            "Adelaide",
+            "Adelaide Hills",
+            "Mount Gambier",
+            "Morphett Vale"
+          ],
+          "winter": 630,
+          "summer": 570
+        },
+        {
+          "id": "Australia/Lord_Howe",
+          "aliases": [
+            "Australia/LHI"
+          ],
+          "cities": [
+            "Lord Howe"
+          ],
+          "winter": 660,
+          "summer": 630
+        },
+        {
+          "id": "Australia/Sydney",
+          "aliases": [
+            "Antarctica/Macquarie",
+            "Australia/ACT",
+            "Australia/Canberra",
+            "Australia/Currie",
+            "Australia/Hobart",
+            "Australia/Melbourne",
+            "Australia/NSW",
+            "Australia/Tasmania",
+            "Australia/Victoria"
+          ],
+          "cities": [
+            "Sydney",
+            "Melbourne",
+            "Newcastle",
+            "Canberra"
+          ],
+          "winter": 660,
+          "summer": 600
+        }
+      ]
+    },
+    {
+      "code": "AW",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Aruba",
+          "aliases": [],
+          "cities": [
+            "Oranjestad",
+            "Noord",
+            "Tanki Leendert",
+            "San Nicolas"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "AX",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Mariehamn",
+          "aliases": [],
+          "cities": [
+            "Mariehamn"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "AZ",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Baku",
+          "aliases": [],
+          "cities": [
+            "Baku",
+            "Sumqayıt",
+            "Ganja",
+            "Lankaran"
+          ],
+          "winter": 240,
+          "summer": 240
+        }
+      ]
+    },
+    {
+      "code": "BA",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Sarajevo",
+          "aliases": [],
+          "cities": [
+            "Sarajevo",
+            "Banja Luka",
+            "Zenica",
+            "Tuzla"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "BB",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Barbados",
+          "aliases": [],
+          "cities": [
+            "Bridgetown"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "BD",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Dhaka",
+          "aliases": [
+            "Asia/Dacca"
+          ],
+          "cities": [
+            "Dhaka",
+            "Chattogram",
+            "Gazipur",
+            "Khulna"
+          ],
+          "winter": 360,
+          "summer": 360
+        }
+      ]
+    },
+    {
+      "code": "BE",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Brussels",
+          "aliases": [
+            "CET",
+            "Europe/Amsterdam",
+            "Europe/Luxembourg",
+            "MET"
+          ],
+          "cities": [
+            "Brussels",
+            "Antwerpen",
+            "Gent",
+            "Charleroi"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "BF",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Ouagadougou",
+          "aliases": [],
+          "cities": [
+            "Ouagadougou",
+            "Bobo-Dioulasso",
+            "Koudougou",
+            "Saaba"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "BG",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Sofia",
+          "aliases": [],
+          "cities": [
+            "Sofia",
+            "Plovdiv",
+            "Varna",
+            "Burgas"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "BH",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Bahrain",
+          "aliases": [],
+          "cities": [
+            "Al Muharraq",
+            "Manama",
+            "Madīnat Ḩamad",
+            "Ar Rifā‘"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "BI",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Bujumbura",
+          "aliases": [],
+          "cities": [
+            "Bujumbura",
+            "Gitega",
+            "Ngozi",
+            "Rumonge"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "BJ",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Porto-Novo",
+          "aliases": [],
+          "cities": [
+            "Cotonou",
+            "Abomey-Calavi",
+            "Porto-Novo",
+            "Parakou"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "BL",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/St_Barthelemy",
+          "aliases": [],
+          "cities": [
+            "Gustavia"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "BM",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "Atlantic/Bermuda",
+          "aliases": [],
+          "cities": [
+            "Hamilton"
+          ],
+          "winter": -240,
+          "summer": -180
+        }
+      ]
+    },
+    {
+      "code": "BN",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Brunei",
+          "aliases": [],
+          "cities": [
+            "Bandar Seri Begawan",
+            "Sengkurong",
+            "Mentiri",
+            "Kuala Belait"
+          ],
+          "winter": 480,
+          "summer": 480
+        }
+      ]
+    },
+    {
+      "code": "BO",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/La_Paz",
+          "aliases": [],
+          "cities": [
+            "La Paz",
+            "Santa Cruz de la Sierra",
+            "Cochabamba",
+            "Sucre"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "BQ",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Kralendijk",
+          "aliases": [],
+          "cities": [
+            "Kralendijk"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "BR",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Rio_Branco",
+          "aliases": [
+            "America/Eirunepe",
+            "America/Porto_Acre",
+            "Brazil/Acre"
+          ],
+          "cities": [
+            "Rio Branco",
+            "Cruzeiro do Sul",
+            "Tarauacá",
+            "Sena Madureira"
+          ],
+          "winter": -300,
+          "summer": -300
+        },
+        {
+          "id": "America/Manaus",
+          "aliases": [
+            "America/Boa_Vista",
+            "America/Campo_Grande",
+            "America/Cuiaba",
+            "America/Porto_Velho",
+            "Brazil/West"
+          ],
+          "cities": [
+            "Manaus",
+            "Campo Grande",
+            "Cuiabá",
+            "Porto Velho"
+          ],
+          "winter": -240,
+          "summer": -240
+        },
+        {
+          "id": "America/Sao_Paulo",
+          "aliases": [
+            "America/Araguaina",
+            "America/Bahia",
+            "America/Belem",
+            "America/Fortaleza",
+            "America/Maceio",
+            "America/Recife",
+            "America/Santarem",
+            "Brazil/East"
+          ],
+          "cities": [
+            "São Paulo",
+            "Rio de Janeiro",
+            "Belo Horizonte",
+            "Salvador"
+          ],
+          "winter": -180,
+          "summer": -180
+        },
+        {
+          "id": "America/Noronha",
+          "aliases": [
+            "Brazil/DeNoronha"
+          ],
+          "cities": [
+            "Noronha"
+          ],
+          "winter": -120,
+          "summer": -120
+        }
+      ]
+    },
+    {
+      "code": "BS",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Nassau",
+          "aliases": [],
+          "cities": [
+            "Nassau",
+            "Lucaya",
+            "Freeport",
+            "Killarney"
+          ],
+          "winter": -300,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "BT",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Thimphu",
+          "aliases": [
+            "Asia/Thimbu"
+          ],
+          "cities": [
+            "Thimphu",
+            "Phuntsholing",
+            "Tsirang",
+            "Punākha"
+          ],
+          "winter": 360,
+          "summer": 360
+        }
+      ]
+    },
+    {
+      "code": "BW",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Gaborone",
+          "aliases": [],
+          "cities": [
+            "Gaborone",
+            "Francistown",
+            "Mogoditshane",
+            "Maun"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "BY",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Minsk",
+          "aliases": [],
+          "cities": [
+            "Minsk",
+            "Homyel'",
+            "Hrodna",
+            "Vitebsk"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "BZ",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Belize",
+          "aliases": [],
+          "cities": [
+            "Belize City",
+            "San Pedro",
+            "Orange Walk",
+            "Belmopan"
+          ],
+          "winter": -360,
+          "summer": -360
+        }
+      ]
+    },
+    {
+      "code": "CA",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Vancouver",
+          "aliases": [
+            "Canada/Pacific"
+          ],
+          "cities": [
+            "Vancouver",
+            "Surrey",
+            "Victoria",
+            "Burnaby"
+          ],
+          "winter": -480,
+          "summer": -420
+        },
+        {
+          "id": "America/Edmonton",
+          "aliases": [
+            "America/Cambridge_Bay",
+            "America/Inuvik",
+            "America/Yellowknife",
+            "Canada/Mountain"
+          ],
+          "cities": [
+            "Calgary",
+            "Edmonton",
+            "Lethbridge",
+            "Red Deer"
+          ],
+          "winter": -420,
+          "summer": -360
+        },
+        {
+          "id": "America/Whitehorse",
+          "aliases": [
+            "America/Creston",
+            "America/Dawson",
+            "America/Dawson_Creek",
+            "America/Fort_Nelson",
+            "Canada/Yukon"
+          ],
+          "cities": [
+            "Whitehorse",
+            "Fort St. John",
+            "Creston",
+            "Dawson"
+          ],
+          "winter": -420,
+          "summer": -420
+        },
+        {
+          "id": "America/Regina",
+          "aliases": [
+            "America/Swift_Current",
+            "Canada/Saskatchewan"
+          ],
+          "cities": [
+            "Saskatoon",
+            "Regina",
+            "Prince Albert",
+            "Moose Jaw"
+          ],
+          "winter": -360,
+          "summer": -360
+        },
+        {
+          "id": "America/Winnipeg",
+          "aliases": [
+            "America/Rainy_River",
+            "America/Rankin_Inlet",
+            "America/Resolute",
+            "Canada/Central"
+          ],
+          "cities": [
+            "Winnipeg",
+            "Brandon",
+            "Steinbach",
+            "Kenora"
+          ],
+          "winter": -360,
+          "summer": -300
+        },
+        {
+          "id": "America/Atikokan",
+          "aliases": [],
+          "cities": [
+            "Atikokan"
+          ],
+          "winter": -300,
+          "summer": -300
+        },
+        {
+          "id": "America/Toronto",
+          "aliases": [
+            "America/Iqaluit",
+            "America/Montreal",
+            "America/Nassau",
+            "America/Nipigon",
+            "America/Pangnirtung",
+            "America/Thunder_Bay",
+            "Canada/Eastern"
+          ],
+          "cities": [
+            "Toronto",
+            "Montréal",
+            "Ottawa",
+            "Mississauga"
+          ],
+          "winter": -300,
+          "summer": -240
+        },
+        {
+          "id": "America/Blanc-Sablon",
+          "aliases": [],
+          "cities": [
+            "Blanc-Sablon"
+          ],
+          "winter": -240,
+          "summer": -240
+        },
+        {
+          "id": "America/Halifax",
+          "aliases": [
+            "America/Glace_Bay",
+            "America/Goose_Bay",
+            "America/Moncton",
+            "Canada/Atlantic"
+          ],
+          "cities": [
+            "Halifax",
+            "Sydney",
+            "Dartmouth",
+            "Moncton"
+          ],
+          "winter": -240,
+          "summer": -180
+        },
+        {
+          "id": "America/St_Johns",
+          "aliases": [
+            "Canada/Newfoundland"
+          ],
+          "cities": [
+            "St. John's",
+            "Mount Pearl",
+            "Paradise",
+            "Corner Brook"
+          ],
+          "winter": -210,
+          "summer": -150
+        }
+      ]
+    },
+    {
+      "code": "CC",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Indian/Cocos",
+          "aliases": [],
+          "cities": [
+            "West Island"
+          ],
+          "winter": 390,
+          "summer": 390
+        }
+      ]
+    },
+    {
+      "code": "CD",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Kinshasa",
+          "aliases": [],
+          "cities": [
+            "Kinshasa",
+            "Kikwit",
+            "Masina",
+            "Mbandaka"
+          ],
+          "winter": 60,
+          "summer": 60
+        },
+        {
+          "id": "Africa/Lubumbashi",
+          "aliases": [],
+          "cities": [
+            "Lubumbashi",
+            "Mbuji-Mayi",
+            "Kananga",
+            "Kisangani"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "CF",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Bangui",
+          "aliases": [],
+          "cities": [
+            "Bangui",
+            "Bimbo",
+            "Bégoua",
+            "Carnot"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "CG",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Brazzaville",
+          "aliases": [],
+          "cities": [
+            "Brazzaville",
+            "Pointe-Noire",
+            "Dolisie",
+            "Nkayi"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "CH",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Zurich",
+          "aliases": [
+            "Europe/Busingen",
+            "Europe/Vaduz"
+          ],
+          "cities": [
+            "Zürich",
+            "Genève",
+            "Basel",
+            "Lausanne"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "CI",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Abidjan",
+          "aliases": [
+            "Africa/Accra",
+            "Africa/Bamako",
+            "Africa/Banjul",
+            "Africa/Conakry",
+            "Africa/Dakar",
+            "Africa/Freetown",
+            "Africa/Lome",
+            "Africa/Nouakchott",
+            "Africa/Ouagadougou",
+            "Africa/Timbuktu",
+            "Atlantic/Reykjavik",
+            "Atlantic/St_Helena",
+            "Iceland"
+          ],
+          "cities": [
+            "Abidjan",
+            "Abobo",
+            "Bouaké",
+            "Korhogo"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "CK",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Rarotonga",
+          "aliases": [],
+          "cities": [
+            "Avarua"
+          ],
+          "winter": -600,
+          "summer": -600
+        }
+      ]
+    },
+    {
+      "code": "CL",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "Pacific/Easter",
+          "aliases": [
+            "Chile/EasterIsland"
+          ],
+          "cities": [
+            "Easter"
+          ],
+          "winter": -300,
+          "summer": -360
+        },
+        {
+          "id": "America/Punta_Arenas",
+          "aliases": [
+            "America/Coyhaique"
+          ],
+          "cities": [
+            "Punta Arenas",
+            "Coyhaique",
+            "Puerto Natales",
+            "Puerto Aysén"
+          ],
+          "winter": -180,
+          "summer": -180
+        },
+        {
+          "id": "America/Santiago",
+          "aliases": [
+            "Chile/Continental"
+          ],
+          "cities": [
+            "Santiago",
+            "Puente Alto",
+            "Maipú",
+            "Antofagasta"
+          ],
+          "winter": -180,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "CM",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Douala",
+          "aliases": [],
+          "cities": [
+            "Douala",
+            "Yaoundé",
+            "Bamenda",
+            "Bafoussam"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "CN",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Urumqi",
+          "aliases": [
+            "Asia/Kashgar"
+          ],
+          "cities": [
+            "Ürümqi",
+            "Shihezi",
+            "Korla",
+            "Aqsu"
+          ],
+          "winter": 360,
+          "summer": 360
+        },
+        {
+          "id": "Asia/Shanghai",
+          "aliases": [
+            "Asia/Chongqing",
+            "Asia/Chungking",
+            "Asia/Harbin",
+            "PRC"
+          ],
+          "cities": [
+            "Shanghai",
+            "Beijing",
+            "Shenzhen",
+            "Guangzhou"
+          ],
+          "winter": 480,
+          "summer": 480
+        }
+      ]
+    },
+    {
+      "code": "CO",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Bogota",
+          "aliases": [],
+          "cities": [
+            "Bogotá",
+            "Cali",
+            "Medellín",
+            "Barranquilla"
+          ],
+          "winter": -300,
+          "summer": -300
+        }
+      ]
+    },
+    {
+      "code": "CR",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Costa_Rica",
+          "aliases": [],
+          "cities": [
+            "San José",
+            "Limón",
+            "San Francisco",
+            "Alajuela"
+          ],
+          "winter": -360,
+          "summer": -360
+        }
+      ]
+    },
+    {
+      "code": "CU",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Havana",
+          "aliases": [
+            "Cuba"
+          ],
+          "cities": [
+            "Havana",
+            "Santiago de Cuba",
+            "Camagüey",
+            "Holguín"
+          ],
+          "winter": -300,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "CV",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Atlantic/Cape_Verde",
+          "aliases": [],
+          "cities": [
+            "Praia",
+            "Mindelo",
+            "Espargos",
+            "Assomada"
+          ],
+          "winter": -60,
+          "summer": -60
+        }
+      ]
+    },
+    {
+      "code": "CW",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Curacao",
+          "aliases": [],
+          "cities": [
+            "Willemstad",
+            "Bandariba"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "CX",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Indian/Christmas",
+          "aliases": [],
+          "cities": [
+            "Flying Fish Cove"
+          ],
+          "winter": 420,
+          "summer": 420
+        }
+      ]
+    },
+    {
+      "code": "CY",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Asia/Nicosia",
+          "aliases": [
+            "Asia/Famagusta",
+            "Europe/Nicosia"
+          ],
+          "cities": [
+            "Nicosia",
+            "Limassol",
+            "Larnaca",
+            "Stróvolos"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "CZ",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Prague",
+          "aliases": [
+            "Europe/Bratislava"
+          ],
+          "cities": [
+            "Prague",
+            "Brno",
+            "Ostrava",
+            "Pilsen"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "DE",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Berlin",
+          "aliases": [
+            "Arctic/Longyearbyen",
+            "Atlantic/Jan_Mayen",
+            "Europe/Busingen",
+            "Europe/Copenhagen",
+            "Europe/Oslo",
+            "Europe/Stockholm"
+          ],
+          "cities": [
+            "Berlin",
+            "Hamburg",
+            "Munich",
+            "Köln"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "DJ",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Djibouti",
+          "aliases": [],
+          "cities": [
+            "Djibouti",
+            "Ali Sabih",
+            "Dikhil",
+            "Tadjoura"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "DK",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Copenhagen",
+          "aliases": [],
+          "cities": [
+            "Copenhagen",
+            "Århus",
+            "Odense",
+            "Aalborg"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "DM",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Dominica",
+          "aliases": [],
+          "cities": [
+            "Roseau"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "DO",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Santo_Domingo",
+          "aliases": [],
+          "cities": [
+            "Santo Domingo",
+            "Santiago de los Caballeros",
+            "Santo Domingo Oeste",
+            "Santo Domingo Este"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "DZ",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Algiers",
+          "aliases": [],
+          "cities": [
+            "Algiers",
+            "Oran",
+            "Constantine",
+            "Annaba"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "EC",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "Pacific/Galapagos",
+          "aliases": [],
+          "cities": [
+            "Galapagos"
+          ],
+          "winter": -360,
+          "summer": -360
+        },
+        {
+          "id": "America/Guayaquil",
+          "aliases": [],
+          "cities": [
+            "Quito",
+            "Guayaquil",
+            "Cuenca",
+            "Santo Domingo de los Colorados"
+          ],
+          "winter": -300,
+          "summer": -300
+        }
+      ]
+    },
+    {
+      "code": "EE",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Tallinn",
+          "aliases": [],
+          "cities": [
+            "Tallinn",
+            "Tartu",
+            "Narva",
+            "Pärnu"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "EG",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Cairo",
+          "aliases": [
+            "Egypt"
+          ],
+          "cities": [
+            "Cairo",
+            "Alexandria",
+            "Giza",
+            "Shubrā al Khaymah"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "EH",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/El_Aaiun",
+          "aliases": [],
+          "cities": [
+            "Laayoune",
+            "Dakhla",
+            "Boujdour"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "ER",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Asmara",
+          "aliases": [],
+          "cities": [
+            "Asmara",
+            "Keren",
+            "Himora",
+            "Massawa"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "ES",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Atlantic/Canary",
+          "aliases": [],
+          "cities": [
+            "Las Palmas de Gran Canaria",
+            "Santa Cruz de Tenerife",
+            "La Laguna",
+            "Telde"
+          ],
+          "winter": 0,
+          "summer": 60
+        },
+        {
+          "id": "Europe/Madrid",
+          "aliases": [
+            "Africa/Ceuta"
+          ],
+          "cities": [
+            "Madrid",
+            "Barcelona",
+            "Valencia",
+            "Zaragoza"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "ET",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Addis_Ababa",
+          "aliases": [],
+          "cities": [
+            "Addis Ababa",
+            "Jijiga",
+            "Gonder",
+            "Mek'ele"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "FI",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Helsinki",
+          "aliases": [
+            "Europe/Mariehamn"
+          ],
+          "cities": [
+            "Helsinki",
+            "Espoo",
+            "Tampere",
+            "Vantaa"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "FJ",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Fiji",
+          "aliases": [],
+          "cities": [
+            "Nasinu",
+            "Suva",
+            "Lautoka",
+            "Nadi"
+          ],
+          "winter": 720,
+          "summer": 720
+        }
+      ]
+    },
+    {
+      "code": "FK",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "Atlantic/Stanley",
+          "aliases": [],
+          "cities": [
+            "Stanley"
+          ],
+          "winter": -180,
+          "summer": -180
+        }
+      ]
+    },
+    {
+      "code": "FM",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Chuuk",
+          "aliases": [],
+          "cities": [
+            "Chuuk"
+          ],
+          "winter": 600,
+          "summer": 600
+        },
+        {
+          "id": "Pacific/Kosrae",
+          "aliases": [
+            "Pacific/Pohnpei"
+          ],
+          "cities": [
+            "Kosrae",
+            "Palikir"
+          ],
+          "winter": 660,
+          "summer": 660
+        }
+      ]
+    },
+    {
+      "code": "FO",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Atlantic/Faroe",
+          "aliases": [
+            "Atlantic/Faeroe"
+          ],
+          "cities": [
+            "Tórshavn"
+          ],
+          "winter": 0,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "FR",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Paris",
+          "aliases": [
+            "Europe/Monaco"
+          ],
+          "cities": [
+            "Paris",
+            "Marseille",
+            "Lyon",
+            "Toulouse"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "GA",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Libreville",
+          "aliases": [],
+          "cities": [
+            "Libreville",
+            "Port-Gentil",
+            "Franceville",
+            "Owendo"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "GB",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/London",
+          "aliases": [
+            "Europe/Belfast",
+            "Europe/Guernsey",
+            "Europe/Isle_of_Man",
+            "Europe/Jersey",
+            "GB",
+            "GB-Eire"
+          ],
+          "cities": [
+            "London",
+            "Birmingham",
+            "Glasgow",
+            "Manchester"
+          ],
+          "winter": 0,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "GD",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Grenada",
+          "aliases": [],
+          "cities": [
+            "Saint George's"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "GE",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Tbilisi",
+          "aliases": [],
+          "cities": [
+            "Tbilisi",
+            "Batumi",
+            "Kutaisi",
+            "Rustavi"
+          ],
+          "winter": 240,
+          "summer": 240
+        }
+      ]
+    },
+    {
+      "code": "GF",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Cayenne",
+          "aliases": [],
+          "cities": [
+            "Cayenne",
+            "Matoury",
+            "Saint-Laurent-du-Maroni",
+            "Kourou"
+          ],
+          "winter": -180,
+          "summer": -180
+        }
+      ]
+    },
+    {
+      "code": "GG",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Guernsey",
+          "aliases": [],
+          "cities": [
+            "Saint Peter Port"
+          ],
+          "winter": 0,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "GH",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Accra",
+          "aliases": [],
+          "cities": [
+            "Kumasi",
+            "Accra",
+            "Tamale",
+            "Takoradi"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "GI",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Gibraltar",
+          "aliases": [],
+          "cities": [
+            "Gibraltar"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "GL",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Thule",
+          "aliases": [],
+          "cities": [
+            "Thule"
+          ],
+          "winter": -240,
+          "summer": -180
+        },
+        {
+          "id": "America/Nuuk",
+          "aliases": [
+            "America/Godthab",
+            "America/Scoresbysund"
+          ],
+          "cities": [
+            "Nuuk",
+            "Scoresbysund"
+          ],
+          "winter": -120,
+          "summer": -60
+        },
+        {
+          "id": "America/Danmarkshavn",
+          "aliases": [],
+          "cities": [
+            "Danmarkshavn"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "GM",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Banjul",
+          "aliases": [],
+          "cities": [
+            "Serekunda",
+            "Brikama",
+            "Bununka Kunda",
+            "Sukuta"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "GN",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Conakry",
+          "aliases": [],
+          "cities": [
+            "Conakry",
+            "Camayenne",
+            "Nzérékoré",
+            "Kankan"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "GP",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Guadeloupe",
+          "aliases": [],
+          "cities": [
+            "Les Abymes",
+            "Baie-Mahault",
+            "Le Gosier",
+            "Petit-Bourg"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "GQ",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Malabo",
+          "aliases": [],
+          "cities": [
+            "Bata",
+            "Malabo",
+            "Ebebiyin"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "GR",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Athens",
+          "aliases": [
+            "EET"
+          ],
+          "cities": [
+            "Athens",
+            "Thessaloníki",
+            "Pátra",
+            "Piraeus"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "GT",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Guatemala",
+          "aliases": [],
+          "cities": [
+            "Guatemala City",
+            "Villa Nueva",
+            "Mixco",
+            "Cobán"
+          ],
+          "winter": -360,
+          "summer": -360
+        }
+      ]
+    },
+    {
+      "code": "GU",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Guam",
+          "aliases": [
+            "Pacific/Saipan"
+          ],
+          "cities": [
+            "Dededo Village",
+            "Yigo Village",
+            "Tamuning-Tumon-Harmon Village",
+            "Tamuning"
+          ],
+          "winter": 600,
+          "summer": 600
+        }
+      ]
+    },
+    {
+      "code": "GW",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Bissau",
+          "aliases": [],
+          "cities": [
+            "Bissau",
+            "Gabú",
+            "Bafatá",
+            "Xitole"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "GY",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Guyana",
+          "aliases": [],
+          "cities": [
+            "Georgetown",
+            "Linden",
+            "New Amsterdam"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "HK",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Hong_Kong",
+          "aliases": [
+            "Hongkong"
+          ],
+          "cities": [
+            "Hong Kong",
+            "New Territories",
+            "Kowloon",
+            "Hong Kong Island"
+          ],
+          "winter": 480,
+          "summer": 480
+        }
+      ]
+    },
+    {
+      "code": "HN",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Tegucigalpa",
+          "aliases": [],
+          "cities": [
+            "Tegucigalpa",
+            "San Pedro Sula",
+            "La Ceiba",
+            "Choloma"
+          ],
+          "winter": -360,
+          "summer": -360
+        }
+      ]
+    },
+    {
+      "code": "HR",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Zagreb",
+          "aliases": [],
+          "cities": [
+            "Zagreb",
+            "Split",
+            "Rijeka",
+            "Osijek"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "HT",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Port-au-Prince",
+          "aliases": [],
+          "cities": [
+            "Port-au-Prince",
+            "Carrefour",
+            "Delmas",
+            "Port-de-Paix"
+          ],
+          "winter": -300,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "HU",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Budapest",
+          "aliases": [],
+          "cities": [
+            "Budapest",
+            "Debrecen",
+            "Szeged",
+            "Miskolc"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "ID",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Jakarta",
+          "aliases": [
+            "Asia/Pontianak"
+          ],
+          "cities": [
+            "Jakarta",
+            "Surabaya",
+            "Bekasi",
+            "Bandung"
+          ],
+          "winter": 420,
+          "summer": 420
+        },
+        {
+          "id": "Asia/Makassar",
+          "aliases": [
+            "Asia/Ujung_Pandang"
+          ],
+          "cities": [
+            "Makassar",
+            "Samarinda",
+            "Denpasar",
+            "Balikpapan"
+          ],
+          "winter": 480,
+          "summer": 480
+        },
+        {
+          "id": "Asia/Jayapura",
+          "aliases": [],
+          "cities": [
+            "Jayapura",
+            "Ambon",
+            "Sorong",
+            "Ternate"
+          ],
+          "winter": 540,
+          "summer": 540
+        }
+      ]
+    },
+    {
+      "code": "IE",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Dublin",
+          "aliases": [
+            "Eire"
+          ],
+          "cities": [
+            "Dublin",
+            "South Dublin",
+            "Cork",
+            "Limerick"
+          ],
+          "winter": 0,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "IL",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Jerusalem",
+          "aliases": [
+            "Asia/Tel_Aviv",
+            "Israel"
+          ],
+          "cities": [
+            "Jerusalem",
+            "Tel Aviv",
+            "West Jerusalem",
+            "Haifa"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "IM",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Isle_of_Man",
+          "aliases": [],
+          "cities": [
+            "Douglas"
+          ],
+          "winter": 0,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "IN",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Kolkata",
+          "aliases": [
+            "Asia/Calcutta"
+          ],
+          "cities": [
+            "Mumbai",
+            "Delhi",
+            "Bengaluru",
+            "Hyderabad"
+          ],
+          "winter": 330,
+          "summer": 330
+        }
+      ]
+    },
+    {
+      "code": "IO",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Indian/Chagos",
+          "aliases": [],
+          "cities": [
+            "Chagos"
+          ],
+          "winter": 360,
+          "summer": 360
+        }
+      ]
+    },
+    {
+      "code": "IQ",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Baghdad",
+          "aliases": [],
+          "cities": [
+            "Baghdad",
+            "Al Mawşil al Jadīdah",
+            "Al Başrah al Qadīmah",
+            "Mosul"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "IR",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Tehran",
+          "aliases": [
+            "Iran"
+          ],
+          "cities": [
+            "Tehran",
+            "Mashhad",
+            "Isfahan",
+            "Karaj"
+          ],
+          "winter": 210,
+          "summer": 210
+        }
+      ]
+    },
+    {
+      "code": "IS",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Atlantic/Reykjavik",
+          "aliases": [],
+          "cities": [
+            "Reykjavík",
+            "Kópavogur",
+            "Hafnarfjörður",
+            "Reykjanesbær"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "IT",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Rome",
+          "aliases": [
+            "Europe/San_Marino",
+            "Europe/Vatican"
+          ],
+          "cities": [
+            "Rome",
+            "Milan",
+            "Naples",
+            "Turin"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "JE",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Jersey",
+          "aliases": [],
+          "cities": [
+            "Saint Helier"
+          ],
+          "winter": 0,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "JM",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Jamaica",
+          "aliases": [
+            "Jamaica"
+          ],
+          "cities": [
+            "Kingston",
+            "New Kingston",
+            "Spanish Town",
+            "Portmore"
+          ],
+          "winter": -300,
+          "summer": -300
+        }
+      ]
+    },
+    {
+      "code": "JO",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Amman",
+          "aliases": [],
+          "cities": [
+            "Amman",
+            "Zarqa",
+            "Irbid",
+            "Russeifa"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "JP",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Tokyo",
+          "aliases": [
+            "Japan"
+          ],
+          "cities": [
+            "Tokyo",
+            "Yokohama",
+            "Osaka",
+            "Nagoya"
+          ],
+          "winter": 540,
+          "summer": 540
+        }
+      ]
+    },
+    {
+      "code": "KE",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Nairobi",
+          "aliases": [
+            "Africa/Addis_Ababa",
+            "Africa/Asmara",
+            "Africa/Asmera",
+            "Africa/Dar_es_Salaam",
+            "Africa/Djibouti",
+            "Africa/Kampala",
+            "Africa/Mogadishu",
+            "Indian/Antananarivo",
+            "Indian/Comoro",
+            "Indian/Mayotte"
+          ],
+          "cities": [
+            "Nairobi",
+            "Kakamega",
+            "Mombasa",
+            "Nakuru"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "KG",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Bishkek",
+          "aliases": [],
+          "cities": [
+            "Bishkek",
+            "Osh",
+            "Jalal-Abad",
+            "Karakol"
+          ],
+          "winter": 360,
+          "summer": 360
+        }
+      ]
+    },
+    {
+      "code": "KH",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Phnom_Penh",
+          "aliases": [],
+          "cities": [
+            "Phnom Penh",
+            "Takeo",
+            "Siem Reap",
+            "Battambang"
+          ],
+          "winter": 420,
+          "summer": 420
+        }
+      ]
+    },
+    {
+      "code": "KI",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Tarawa",
+          "aliases": [
+            "Pacific/Funafuti",
+            "Pacific/Majuro",
+            "Pacific/Wake",
+            "Pacific/Wallis"
+          ],
+          "cities": [
+            "Tarawa"
+          ],
+          "winter": 720,
+          "summer": 720
+        },
+        {
+          "id": "Pacific/Kanton",
+          "aliases": [
+            "Pacific/Enderbury"
+          ],
+          "cities": [
+            "Kanton"
+          ],
+          "winter": 780,
+          "summer": 780
+        },
+        {
+          "id": "Pacific/Kiritimati",
+          "aliases": [],
+          "cities": [
+            "Kiritimati"
+          ],
+          "winter": 840,
+          "summer": 840
+        }
+      ]
+    },
+    {
+      "code": "KM",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Indian/Comoro",
+          "aliases": [],
+          "cities": [
+            "Moroni",
+            "Moutsamoudou",
+            "Fomboni"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "KN",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/St_Kitts",
+          "aliases": [],
+          "cities": [
+            "Basseterre"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "KP",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Pyongyang",
+          "aliases": [],
+          "cities": [
+            "Pyongyang",
+            "Hamhŭng",
+            "Namp’o",
+            "Sunch’ŏn"
+          ],
+          "winter": 540,
+          "summer": 540
+        }
+      ]
+    },
+    {
+      "code": "KR",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Seoul",
+          "aliases": [
+            "ROK"
+          ],
+          "cities": [
+            "Seoul",
+            "Busan",
+            "Incheon",
+            "Daegu"
+          ],
+          "winter": 540,
+          "summer": 540
+        }
+      ]
+    },
+    {
+      "code": "KW",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Kuwait",
+          "aliases": [],
+          "cities": [
+            "Al Aḩmadī",
+            "Ḩawallī",
+            "As Sālimīyah",
+            "Şabāḩ as Sālim"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "KY",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Cayman",
+          "aliases": [],
+          "cities": [
+            "George Town",
+            "West Bay"
+          ],
+          "winter": -300,
+          "summer": -300
+        }
+      ]
+    },
+    {
+      "code": "KZ",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Almaty",
+          "aliases": [
+            "Asia/Aqtau",
+            "Asia/Aqtobe",
+            "Asia/Atyrau",
+            "Asia/Oral",
+            "Asia/Qostanay",
+            "Asia/Qyzylorda"
+          ],
+          "cities": [
+            "Almaty",
+            "Shymkent",
+            "Aktobe",
+            "Karagandy"
+          ],
+          "winter": 300,
+          "summer": 300
+        }
+      ]
+    },
+    {
+      "code": "LA",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Vientiane",
+          "aliases": [],
+          "cities": [
+            "Vientiane",
+            "Savannakhet",
+            "Pakse",
+            "Thakhèk"
+          ],
+          "winter": 420,
+          "summer": 420
+        }
+      ]
+    },
+    {
+      "code": "LB",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Beirut",
+          "aliases": [],
+          "cities": [
+            "Beirut",
+            "Ra’s Bayrūt",
+            "Tripoli",
+            "Sidon"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "LC",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/St_Lucia",
+          "aliases": [],
+          "cities": [
+            "Gros Islet",
+            "Castries"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "LI",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Vaduz",
+          "aliases": [],
+          "cities": [
+            "Vaduz"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "LK",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Colombo",
+          "aliases": [],
+          "cities": [
+            "Colombo",
+            "Dehiwala-Mount Lavinia",
+            "Maharagama",
+            "Jaffna"
+          ],
+          "winter": 330,
+          "summer": 330
+        }
+      ]
+    },
+    {
+      "code": "LR",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Monrovia",
+          "aliases": [],
+          "cities": [
+            "Monrovia",
+            "Gbarnga",
+            "Buchanan",
+            "Ganta"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "LS",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Maseru",
+          "aliases": [],
+          "cities": [
+            "Maseru",
+            "Maputsoe",
+            "Mohale's Hoek",
+            "Mafeteng"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "LT",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Vilnius",
+          "aliases": [],
+          "cities": [
+            "Vilnius",
+            "Kaunas",
+            "Klaipėda",
+            "Šiauliai"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "LU",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Luxembourg",
+          "aliases": [],
+          "cities": [
+            "Luxembourg",
+            "Esch-sur-Alzette",
+            "Dudelange"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "LV",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Riga",
+          "aliases": [],
+          "cities": [
+            "Riga",
+            "Daugavpils",
+            "Liepāja",
+            "Jelgava"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "LY",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Tripoli",
+          "aliases": [
+            "Libya"
+          ],
+          "cities": [
+            "Tripoli",
+            "Benghazi",
+            "Misratah",
+            "Zliten"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "MA",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Casablanca",
+          "aliases": [],
+          "cities": [
+            "Casablanca",
+            "Rabat",
+            "Fes",
+            "Tangier"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "MC",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Monaco",
+          "aliases": [],
+          "cities": [
+            "Monaco",
+            "Monte-Carlo"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "MD",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Chisinau",
+          "aliases": [
+            "Europe/Tiraspol"
+          ],
+          "cities": [
+            "Chisinau",
+            "Tiraspol",
+            "Bălţi",
+            "Bender"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "ME",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Podgorica",
+          "aliases": [],
+          "cities": [
+            "Podgorica",
+            "Nikšić",
+            "Herceg Novi",
+            "Pljevlja"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "MF",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Marigot",
+          "aliases": [],
+          "cities": [
+            "Marigot"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "MG",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Indian/Antananarivo",
+          "aliases": [],
+          "cities": [
+            "Antananarivo",
+            "Toamasina",
+            "Antsirabe",
+            "Mahajanga"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "MH",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Majuro",
+          "aliases": [
+            "Kwajalein",
+            "Pacific/Kwajalein"
+          ],
+          "cities": [
+            "Majuro",
+            "Kwajalein"
+          ],
+          "winter": 720,
+          "summer": 720
+        }
+      ]
+    },
+    {
+      "code": "MK",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Skopje",
+          "aliases": [],
+          "cities": [
+            "Skopje",
+            "Kumanovo",
+            "Prilep",
+            "Bitola"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "ML",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Bamako",
+          "aliases": [],
+          "cities": [
+            "Bamako",
+            "Sikasso",
+            "Koutiala",
+            "Ségou"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "MM",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Yangon",
+          "aliases": [
+            "Asia/Rangoon",
+            "Indian/Cocos"
+          ],
+          "cities": [
+            "Yangon",
+            "Mandalay",
+            "Nay Pyi Taw",
+            "Hlaingthaya Township"
+          ],
+          "winter": 390,
+          "summer": 390
+        }
+      ]
+    },
+    {
+      "code": "MN",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Hovd",
+          "aliases": [],
+          "cities": [
+            "Ulaangom",
+            "Khovd",
+            "Ölgii",
+            "Altai"
+          ],
+          "winter": 420,
+          "summer": 420
+        },
+        {
+          "id": "Asia/Ulaanbaatar",
+          "aliases": [
+            "Asia/Choibalsan",
+            "Asia/Ulan_Bator"
+          ],
+          "cities": [
+            "Ulan Bator",
+            "Erdenet",
+            "Darhan",
+            "Choibalsan"
+          ],
+          "winter": 480,
+          "summer": 480
+        }
+      ]
+    },
+    {
+      "code": "MO",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Macau",
+          "aliases": [
+            "Asia/Macao"
+          ],
+          "cities": [
+            "Macau",
+            "Taipa",
+            "Sé",
+            "Luhuan"
+          ],
+          "winter": 480,
+          "summer": 480
+        }
+      ]
+    },
+    {
+      "code": "MP",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Saipan",
+          "aliases": [],
+          "cities": [
+            "Saipan"
+          ],
+          "winter": 600,
+          "summer": 600
+        }
+      ]
+    },
+    {
+      "code": "MQ",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Martinique",
+          "aliases": [],
+          "cities": [
+            "Fort-de-France",
+            "Le Lamentin",
+            "Le Robert",
+            "Sainte-Marie"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "MR",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Nouakchott",
+          "aliases": [],
+          "cities": [
+            "Nouakchott",
+            "Nouadhibou",
+            "Kiffa",
+            "Dar Naim"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "MS",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Montserrat",
+          "aliases": [],
+          "cities": [
+            "Brades",
+            "Plymouth"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "MT",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Malta",
+          "aliases": [],
+          "cities": [
+            "San Pawl il-Baħar",
+            "Birkirkara",
+            "Mosta",
+            "Sliema"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "MU",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Indian/Mauritius",
+          "aliases": [],
+          "cities": [
+            "Port Louis",
+            "Vacoas",
+            "Beau Bassin-Rose Hill",
+            "Curepipe"
+          ],
+          "winter": 240,
+          "summer": 240
+        }
+      ]
+    },
+    {
+      "code": "MV",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Indian/Maldives",
+          "aliases": [
+            "Indian/Kerguelen"
+          ],
+          "cities": [
+            "Male"
+          ],
+          "winter": 300,
+          "summer": 300
+        }
+      ]
+    },
+    {
+      "code": "MW",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Blantyre",
+          "aliases": [],
+          "cities": [
+            "Lilongwe",
+            "Blantyre",
+            "Mzuzu",
+            "Zomba"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "MX",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Tijuana",
+          "aliases": [
+            "America/Ensenada",
+            "America/Santa_Isabel",
+            "Mexico/BajaNorte"
+          ],
+          "cities": [
+            "Tijuana",
+            "Mexicali",
+            "Ensenada",
+            "Rosarito"
+          ],
+          "winter": -480,
+          "summer": -420
+        },
+        {
+          "id": "America/Ciudad_Juarez",
+          "aliases": [],
+          "cities": [
+            "Ciudad Juárez"
+          ],
+          "winter": -420,
+          "summer": -360
+        },
+        {
+          "id": "America/Hermosillo",
+          "aliases": [
+            "America/Mazatlan",
+            "Mexico/BajaSur"
+          ],
+          "cities": [
+            "Hermosillo",
+            "Culiacán",
+            "Mazatlán",
+            "Tepic"
+          ],
+          "winter": -420,
+          "summer": -420
+        },
+        {
+          "id": "America/Matamoros",
+          "aliases": [
+            "America/Ojinaga"
+          ],
+          "cities": [
+            "Reynosa",
+            "Heroica Matamoros",
+            "Nuevo Laredo",
+            "Ciudad Acuña"
+          ],
+          "winter": -360,
+          "summer": -300
+        },
+        {
+          "id": "America/Mexico_City",
+          "aliases": [
+            "America/Bahia_Banderas",
+            "America/Chihuahua",
+            "America/Merida",
+            "America/Monterrey",
+            "Mexico/General"
+          ],
+          "cities": [
+            "Mexico City",
+            "Iztapalapa",
+            "Puebla",
+            "Ecatepec de Morelos"
+          ],
+          "winter": -360,
+          "summer": -360
+        },
+        {
+          "id": "America/Cancun",
+          "aliases": [],
+          "cities": [
+            "Cancún",
+            "Chetumal",
+            "Playa del Carmen",
+            "Cozumel"
+          ],
+          "winter": -300,
+          "summer": -300
+        }
+      ]
+    },
+    {
+      "code": "MY",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Kuala_Lumpur",
+          "aliases": [
+            "Asia/Brunei",
+            "Asia/Kuching"
+          ],
+          "cities": [
+            "Kuala Lumpur",
+            "Johor Bahru",
+            "Kampung Baru Subang",
+            "Petaling Jaya"
+          ],
+          "winter": 480,
+          "summer": 480
+        }
+      ]
+    },
+    {
+      "code": "MZ",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Maputo",
+          "aliases": [
+            "Africa/Blantyre",
+            "Africa/Bujumbura",
+            "Africa/Gaborone",
+            "Africa/Harare",
+            "Africa/Kigali",
+            "Africa/Lubumbashi",
+            "Africa/Lusaka"
+          ],
+          "cities": [
+            "Maputo",
+            "Matola",
+            "Nampula",
+            "Beira"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "NA",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Windhoek",
+          "aliases": [],
+          "cities": [
+            "Windhoek",
+            "Rundu",
+            "Walvis Bay",
+            "Swakopmund"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "NC",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Noumea",
+          "aliases": [],
+          "cities": [
+            "Nouméa",
+            "Mont-Dore",
+            "Dumbéa"
+          ],
+          "winter": 660,
+          "summer": 660
+        }
+      ]
+    },
+    {
+      "code": "NE",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Niamey",
+          "aliases": [],
+          "cities": [
+            "Niamey",
+            "Maradi",
+            "Zinder",
+            "Tahoua"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "NF",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Norfolk",
+          "aliases": [],
+          "cities": [
+            "Kingston"
+          ],
+          "winter": 720,
+          "summer": 660
+        }
+      ]
+    },
+    {
+      "code": "NG",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Lagos",
+          "aliases": [
+            "Africa/Bangui",
+            "Africa/Brazzaville",
+            "Africa/Douala",
+            "Africa/Kinshasa",
+            "Africa/Libreville",
+            "Africa/Luanda",
+            "Africa/Malabo",
+            "Africa/Niamey",
+            "Africa/Porto-Novo"
+          ],
+          "cities": [
+            "Lagos",
+            "Kano",
+            "Ibadan",
+            "Abuja"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "NI",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Managua",
+          "aliases": [],
+          "cities": [
+            "Managua",
+            "León",
+            "Masaya",
+            "Chinandega"
+          ],
+          "winter": -360,
+          "summer": -360
+        }
+      ]
+    },
+    {
+      "code": "NL",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Amsterdam",
+          "aliases": [],
+          "cities": [
+            "Rotterdam",
+            "Amsterdam",
+            "The Hague",
+            "Utrecht"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "NO",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Oslo",
+          "aliases": [],
+          "cities": [
+            "Oslo",
+            "Bergen",
+            "Trondheim",
+            "Stavanger"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "NP",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Kathmandu",
+          "aliases": [
+            "Asia/Katmandu"
+          ],
+          "cities": [
+            "Kathmandu",
+            "Pokhara",
+            "Bharatpur",
+            "Pātan"
+          ],
+          "winter": 345,
+          "summer": 345
+        }
+      ]
+    },
+    {
+      "code": "NR",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Nauru",
+          "aliases": [],
+          "cities": [
+            "Yaren"
+          ],
+          "winter": 720,
+          "summer": 720
+        }
+      ]
+    },
+    {
+      "code": "NU",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Niue",
+          "aliases": [],
+          "cities": [
+            "Alofi"
+          ],
+          "winter": -660,
+          "summer": -660
+        }
+      ]
+    },
+    {
+      "code": "NZ",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Auckland",
+          "aliases": [
+            "Antarctica/McMurdo",
+            "Antarctica/South_Pole",
+            "NZ"
+          ],
+          "cities": [
+            "Auckland",
+            "Christchurch",
+            "Wellington",
+            "Manukau City"
+          ],
+          "winter": 780,
+          "summer": 720
+        },
+        {
+          "id": "Pacific/Chatham",
+          "aliases": [
+            "NZ-CHAT"
+          ],
+          "cities": [
+            "Chatham"
+          ],
+          "winter": 825,
+          "summer": 765
+        }
+      ]
+    },
+    {
+      "code": "OM",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Muscat",
+          "aliases": [],
+          "cities": [
+            "Muscat",
+            "Seeb",
+            "Bawshar",
+            "‘Ibrī"
+          ],
+          "winter": 240,
+          "summer": 240
+        }
+      ]
+    },
+    {
+      "code": "PA",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Panama",
+          "aliases": [
+            "America/Atikokan",
+            "America/Cayman",
+            "America/Coral_Harbour",
+            "EST"
+          ],
+          "cities": [
+            "Panamá",
+            "San Miguelito",
+            "Juan Díaz",
+            "David"
+          ],
+          "winter": -300,
+          "summer": -300
+        }
+      ]
+    },
+    {
+      "code": "PE",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Lima",
+          "aliases": [],
+          "cities": [
+            "Lima",
+            "Callao",
+            "Arequipa",
+            "Trujillo"
+          ],
+          "winter": -300,
+          "summer": -300
+        }
+      ]
+    },
+    {
+      "code": "PF",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Tahiti",
+          "aliases": [],
+          "cities": [
+            "Faaa",
+            "Papeete",
+            "Punaauia"
+          ],
+          "winter": -600,
+          "summer": -600
+        },
+        {
+          "id": "Pacific/Marquesas",
+          "aliases": [],
+          "cities": [
+            "Marquesas"
+          ],
+          "winter": -570,
+          "summer": -570
+        },
+        {
+          "id": "Pacific/Gambier",
+          "aliases": [],
+          "cities": [
+            "Gambier"
+          ],
+          "winter": -540,
+          "summer": -540
+        }
+      ]
+    },
+    {
+      "code": "PG",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Port_Moresby",
+          "aliases": [
+            "Antarctica/DumontDUrville",
+            "Pacific/Chuuk",
+            "Pacific/Truk",
+            "Pacific/Yap"
+          ],
+          "cities": [
+            "Port Moresby",
+            "Lae",
+            "Mount Hagen",
+            "Popondetta"
+          ],
+          "winter": 600,
+          "summer": 600
+        },
+        {
+          "id": "Pacific/Bougainville",
+          "aliases": [],
+          "cities": [
+            "Arawa"
+          ],
+          "winter": 660,
+          "summer": 660
+        }
+      ]
+    },
+    {
+      "code": "PH",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Manila",
+          "aliases": [],
+          "cities": [
+            "Quezon City",
+            "Davao",
+            "Caloocan City",
+            "Manila"
+          ],
+          "winter": 480,
+          "summer": 480
+        }
+      ]
+    },
+    {
+      "code": "PK",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Karachi",
+          "aliases": [],
+          "cities": [
+            "Lahore",
+            "Karachi",
+            "Peshawar",
+            "Faisalabad"
+          ],
+          "winter": 300,
+          "summer": 300
+        }
+      ]
+    },
+    {
+      "code": "PL",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Warsaw",
+          "aliases": [
+            "Poland"
+          ],
+          "cities": [
+            "Warsaw",
+            "Łódź",
+            "Kraków",
+            "Wrocław"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "PM",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Miquelon",
+          "aliases": [],
+          "cities": [
+            "Saint-Pierre"
+          ],
+          "winter": -180,
+          "summer": -120
+        }
+      ]
+    },
+    {
+      "code": "PN",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Pitcairn",
+          "aliases": [],
+          "cities": [
+            "Adamstown"
+          ],
+          "winter": -480,
+          "summer": -480
+        }
+      ]
+    },
+    {
+      "code": "PR",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Puerto_Rico",
+          "aliases": [
+            "America/Anguilla",
+            "America/Antigua",
+            "America/Aruba",
+            "America/Blanc-Sablon",
+            "America/Curacao",
+            "America/Dominica",
+            "America/Grenada",
+            "America/Guadeloupe",
+            "America/Kralendijk",
+            "America/Lower_Princes",
+            "America/Marigot",
+            "America/Montserrat",
+            "America/Port_of_Spain",
+            "America/St_Barthelemy",
+            "America/St_Kitts",
+            "America/St_Lucia",
+            "America/St_Thomas",
+            "America/St_Vincent",
+            "America/Tortola",
+            "America/Virgin"
+          ],
+          "cities": [
+            "San Juan",
+            "Bayamón",
+            "Carolina",
+            "Ponce"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "PS",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Hebron",
+          "aliases": [
+            "Asia/Gaza"
+          ],
+          "cities": [
+            "East Jerusalem",
+            "Gaza",
+            "Khān Yūnis",
+            "Jabālyā"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "PT",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Atlantic/Azores",
+          "aliases": [],
+          "cities": [
+            "Ponta Delgada"
+          ],
+          "winter": -60,
+          "summer": 0
+        },
+        {
+          "id": "Europe/Lisbon",
+          "aliases": [
+            "Atlantic/Madeira",
+            "Portugal",
+            "WET"
+          ],
+          "cities": [
+            "Lisbon",
+            "Porto",
+            "Amadora",
+            "Braga"
+          ],
+          "winter": 0,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "PW",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Palau",
+          "aliases": [],
+          "cities": [
+            "Ngerulmud"
+          ],
+          "winter": 540,
+          "summer": 540
+        }
+      ]
+    },
+    {
+      "code": "PY",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Asuncion",
+          "aliases": [],
+          "cities": [
+            "Asunción",
+            "Ciudad del Este",
+            "San Lorenzo",
+            "Capiatá"
+          ],
+          "winter": -180,
+          "summer": -180
+        }
+      ]
+    },
+    {
+      "code": "QA",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Qatar",
+          "aliases": [
+            "Asia/Bahrain"
+          ],
+          "cities": [
+            "Doha",
+            "Ar Rayyān",
+            "Al Maţār al ‘Atīq",
+            "Al Manşūrah"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "RE",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Indian/Reunion",
+          "aliases": [],
+          "cities": [
+            "Saint-Denis",
+            "Saint-Paul",
+            "Saint-Pierre",
+            "Le Tampon"
+          ],
+          "winter": 240,
+          "summer": 240
+        }
+      ]
+    },
+    {
+      "code": "RO",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Bucharest",
+          "aliases": [],
+          "cities": [
+            "Bucharest",
+            "Sector 3",
+            "Iaşi",
+            "Sector 6"
+          ],
+          "winter": 120,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "RS",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Belgrade",
+          "aliases": [
+            "Europe/Ljubljana",
+            "Europe/Podgorica",
+            "Europe/Sarajevo",
+            "Europe/Skopje",
+            "Europe/Zagreb"
+          ],
+          "cities": [
+            "Belgrade",
+            "Niš",
+            "Novi Sad",
+            "Zemun"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "RU",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Kaliningrad",
+          "aliases": [],
+          "cities": [
+            "Kaliningrad",
+            "Chernyakhovsk",
+            "Sovetsk",
+            "Baltiysk"
+          ],
+          "winter": 120,
+          "summer": 120
+        },
+        {
+          "id": "Europe/Moscow",
+          "aliases": [
+            "Europe/Kirov",
+            "Europe/Volgograd",
+            "W-SU"
+          ],
+          "cities": [
+            "Moscow",
+            "Saint Petersburg",
+            "Nizhniy Novgorod",
+            "Kazan"
+          ],
+          "winter": 180,
+          "summer": 180
+        },
+        {
+          "id": "Europe/Samara",
+          "aliases": [
+            "Europe/Astrakhan",
+            "Europe/Saratov",
+            "Europe/Ulyanovsk"
+          ],
+          "cities": [
+            "Samara",
+            "Saratov",
+            "Tolyatti",
+            "Izhevsk"
+          ],
+          "winter": 240,
+          "summer": 240
+        },
+        {
+          "id": "Asia/Yekaterinburg",
+          "aliases": [],
+          "cities": [
+            "Yekaterinburg",
+            "Chelyabinsk",
+            "Ufa",
+            "Perm"
+          ],
+          "winter": 300,
+          "summer": 300
+        },
+        {
+          "id": "Asia/Omsk",
+          "aliases": [],
+          "cities": [
+            "Omsk",
+            "Tara",
+            "Kalachinsk",
+            "Isil’kul’"
+          ],
+          "winter": 360,
+          "summer": 360
+        },
+        {
+          "id": "Asia/Novosibirsk",
+          "aliases": [
+            "Asia/Barnaul",
+            "Asia/Krasnoyarsk",
+            "Asia/Novokuznetsk",
+            "Asia/Tomsk"
+          ],
+          "cities": [
+            "Novosibirsk",
+            "Krasnoyarsk",
+            "Barnaul",
+            "Tomsk"
+          ],
+          "winter": 420,
+          "summer": 420
+        },
+        {
+          "id": "Asia/Irkutsk",
+          "aliases": [],
+          "cities": [
+            "Irkutsk",
+            "Ulan-Ude",
+            "Bratsk",
+            "Angarsk"
+          ],
+          "winter": 480,
+          "summer": 480
+        },
+        {
+          "id": "Asia/Chita",
+          "aliases": [
+            "Asia/Khandyga",
+            "Asia/Yakutsk"
+          ],
+          "cities": [
+            "Chita",
+            "Yakutsk",
+            "Blagoveshchensk",
+            "Belogorsk"
+          ],
+          "winter": 540,
+          "summer": 540
+        },
+        {
+          "id": "Asia/Vladivostok",
+          "aliases": [
+            "Asia/Ust-Nera"
+          ],
+          "cities": [
+            "Khabarovsk",
+            "Vladivostok",
+            "Khabarovsk Vtoroy",
+            "Komsomolsk-on-Amur"
+          ],
+          "winter": 600,
+          "summer": 600
+        },
+        {
+          "id": "Asia/Sakhalin",
+          "aliases": [
+            "Asia/Magadan",
+            "Asia/Srednekolymsk"
+          ],
+          "cities": [
+            "Yuzhno-Sakhalinsk",
+            "Magadan",
+            "Korsakov",
+            "Kholmsk"
+          ],
+          "winter": 660,
+          "summer": 660
+        },
+        {
+          "id": "Asia/Kamchatka",
+          "aliases": [
+            "Asia/Anadyr"
+          ],
+          "cities": [
+            "Petropavlovsk-Kamchatsky",
+            "Yelizovo",
+            "Vilyuchinsk",
+            "Anadyr"
+          ],
+          "winter": 720,
+          "summer": 720
+        }
+      ]
+    },
+    {
+      "code": "RW",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Kigali",
+          "aliases": [],
+          "cities": [
+            "Kigali",
+            "Gisenyi",
+            "Musanze",
+            "Nyagatare"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "SA",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Riyadh",
+          "aliases": [
+            "Antarctica/Syowa",
+            "Asia/Aden",
+            "Asia/Kuwait"
+          ],
+          "cities": [
+            "Jeddah",
+            "Riyadh",
+            "Makkah",
+            "Madinah"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "SB",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Guadalcanal",
+          "aliases": [
+            "Pacific/Pohnpei",
+            "Pacific/Ponape"
+          ],
+          "cities": [
+            "Honiara",
+            "Panatina",
+            "Nggosi",
+            "Tandai"
+          ],
+          "winter": 660,
+          "summer": 660
+        }
+      ]
+    },
+    {
+      "code": "SC",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Indian/Mahe",
+          "aliases": [],
+          "cities": [
+            "Victoria"
+          ],
+          "winter": 240,
+          "summer": 240
+        }
+      ]
+    },
+    {
+      "code": "SD",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Khartoum",
+          "aliases": [],
+          "cities": [
+            "Khartoum",
+            "Omdurman",
+            "Khartoum North",
+            "Nyala"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "SE",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Stockholm",
+          "aliases": [],
+          "cities": [
+            "Stockholm",
+            "Göteborg",
+            "Malmö",
+            "Uppsala"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "SG",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Singapore",
+          "aliases": [
+            "Asia/Kuala_Lumpur",
+            "Singapore"
+          ],
+          "cities": [
+            "Singapore",
+            "Ulu Bedok",
+            "Bedok New Town",
+            "Tampines Estate"
+          ],
+          "winter": 480,
+          "summer": 480
+        }
+      ]
+    },
+    {
+      "code": "SH",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Atlantic/St_Helena",
+          "aliases": [],
+          "cities": [
+            "Jamestown"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "SI",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Ljubljana",
+          "aliases": [],
+          "cities": [
+            "Ljubljana",
+            "Maribor",
+            "Celje",
+            "Kranj"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "SJ",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Arctic/Longyearbyen",
+          "aliases": [],
+          "cities": [
+            "Longyearbyen"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "SK",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Bratislava",
+          "aliases": [],
+          "cities": [
+            "Bratislava",
+            "Košice",
+            "Petržalka",
+            "Nitra"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "SL",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Freetown",
+          "aliases": [],
+          "cities": [
+            "Freetown",
+            "Bo",
+            "Kenema",
+            "Koidu"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "SM",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/San_Marino",
+          "aliases": [],
+          "cities": [
+            "San Marino"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "SN",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Dakar",
+          "aliases": [],
+          "cities": [
+            "Dakar",
+            "Touba",
+            "Pikine",
+            "Guédiawaye"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "SO",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Mogadishu",
+          "aliases": [],
+          "cities": [
+            "Mogadishu",
+            "Borama",
+            "Hargeysa",
+            "Berbera"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "SR",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Paramaribo",
+          "aliases": [],
+          "cities": [
+            "Paramaribo",
+            "Blauwgrond",
+            "Rainville",
+            "Flora"
+          ],
+          "winter": -180,
+          "summer": -180
+        }
+      ]
+    },
+    {
+      "code": "SS",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Juba",
+          "aliases": [],
+          "cities": [
+            "Juba",
+            "Winejok",
+            "Yei",
+            "Malakal"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "ST",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Sao_Tome",
+          "aliases": [],
+          "cities": [
+            "São Tomé"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "SV",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/El_Salvador",
+          "aliases": [],
+          "cities": [
+            "San Salvador",
+            "Soyapango",
+            "San Miguel",
+            "Santa Ana"
+          ],
+          "winter": -360,
+          "summer": -360
+        }
+      ]
+    },
+    {
+      "code": "SX",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Lower_Princes",
+          "aliases": [],
+          "cities": [
+            "Philipsburg"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "SY",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Damascus",
+          "aliases": [],
+          "cities": [
+            "Aleppo",
+            "Damascus",
+            "Homs",
+            "Latakia"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "SZ",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Mbabane",
+          "aliases": [],
+          "cities": [
+            "Manzini",
+            "Mbabane",
+            "Lobamba"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "TC",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Grand_Turk",
+          "aliases": [],
+          "cities": [
+            "Providenciales",
+            "Cockburn Town"
+          ],
+          "winter": -300,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "TD",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Ndjamena",
+          "aliases": [],
+          "cities": [
+            "N'Djamena",
+            "Moundou",
+            "Abéché",
+            "Sarh"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "TG",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Lome",
+          "aliases": [],
+          "cities": [
+            "Lomé",
+            "Sokodé",
+            "Kara",
+            "Atakpamé"
+          ],
+          "winter": 0,
+          "summer": 0
+        }
+      ]
+    },
+    {
+      "code": "TH",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Bangkok",
+          "aliases": [
+            "Asia/Phnom_Penh",
+            "Asia/Vientiane",
+            "Indian/Christmas"
+          ],
+          "cities": [
+            "Bangkok",
+            "Samut Prakan",
+            "Mueang Nonthaburi",
+            "Chon Buri"
+          ],
+          "winter": 420,
+          "summer": 420
+        }
+      ]
+    },
+    {
+      "code": "TJ",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Dushanbe",
+          "aliases": [],
+          "cities": [
+            "Dushanbe",
+            "Isfara",
+            "Istaravshan",
+            "Kŭlob"
+          ],
+          "winter": 300,
+          "summer": 300
+        }
+      ]
+    },
+    {
+      "code": "TK",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Fakaofo",
+          "aliases": [],
+          "cities": [
+            "Fakaofo"
+          ],
+          "winter": 780,
+          "summer": 780
+        }
+      ]
+    },
+    {
+      "code": "TL",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Asia/Dili",
+          "aliases": [],
+          "cities": [
+            "Dili",
+            "Maliana",
+            "Suai",
+            "Likisá"
+          ],
+          "winter": 540,
+          "summer": 540
+        }
+      ]
+    },
+    {
+      "code": "TM",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Ashgabat",
+          "aliases": [
+            "Asia/Ashkhabad"
+          ],
+          "cities": [
+            "Ashgabat",
+            "Türkmenabat",
+            "Daşoguz",
+            "Mary"
+          ],
+          "winter": 300,
+          "summer": 300
+        }
+      ]
+    },
+    {
+      "code": "TN",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Tunis",
+          "aliases": [],
+          "cities": [
+            "Tunis",
+            "Sfax",
+            "Sousse",
+            "Kairouan"
+          ],
+          "winter": 60,
+          "summer": 60
+        }
+      ]
+    },
+    {
+      "code": "TO",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Tongatapu",
+          "aliases": [],
+          "cities": [
+            "Nuku‘alofa"
+          ],
+          "winter": 780,
+          "summer": 780
+        }
+      ]
+    },
+    {
+      "code": "TR",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Europe/Istanbul",
+          "aliases": [
+            "Asia/Istanbul",
+            "Turkey"
+          ],
+          "cities": [
+            "Istanbul",
+            "Ankara",
+            "Bursa",
+            "İzmir"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "TT",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Port_of_Spain",
+          "aliases": [],
+          "cities": [
+            "Chaguanas",
+            "Mon Repos",
+            "San Fernando",
+            "Port of Spain"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "TV",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Funafuti",
+          "aliases": [],
+          "cities": [
+            "Funafuti"
+          ],
+          "winter": 720,
+          "summer": 720
+        }
+      ]
+    },
+    {
+      "code": "TW",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Taipei",
+          "aliases": [
+            "ROC"
+          ],
+          "cities": [
+            "Taipei",
+            "New Taipei City",
+            "Taichung",
+            "Kaohsiung"
+          ],
+          "winter": 480,
+          "summer": 480
+        }
+      ]
+    },
+    {
+      "code": "TZ",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Dar_es_Salaam",
+          "aliases": [],
+          "cities": [
+            "Dar es Salaam",
+            "Mwanza",
+            "Dodoma",
+            "Zanzibar"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "UA",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Kyiv",
+          "aliases": [
+            "Europe/Kiev",
+            "Europe/Uzhgorod",
+            "Europe/Zaporozhye"
+          ],
+          "cities": [
+            "Kyiv",
+            "Kharkiv",
+            "Odesa",
+            "Dnipro"
+          ],
+          "winter": 120,
+          "summer": 180
+        },
+        {
+          "id": "Europe/Simferopol",
+          "aliases": [],
+          "cities": [
+            "Sevastopol",
+            "Simferopol",
+            "Kerch",
+            "Yevpatoriya"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "UG",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Kampala",
+          "aliases": [],
+          "cities": [
+            "Kampala",
+            "Nansana",
+            "Kira",
+            "Bunamwaya"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "UM",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Midway",
+          "aliases": [],
+          "cities": [
+            "Midway"
+          ],
+          "winter": -660,
+          "summer": -660
+        },
+        {
+          "id": "Pacific/Wake",
+          "aliases": [],
+          "cities": [
+            "Wake"
+          ],
+          "winter": 720,
+          "summer": 720
+        }
+      ]
+    },
+    {
+      "code": "US",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Adak",
+          "aliases": [
+            "America/Atka",
+            "US/Aleutian"
+          ],
+          "cities": [
+            "Adak"
+          ],
+          "winter": -600,
+          "summer": -540
+        },
+        {
+          "id": "Pacific/Honolulu",
+          "aliases": [
+            "HST",
+            "Pacific/Johnston",
+            "US/Hawaii"
+          ],
+          "cities": [
+            "Honolulu",
+            "East Honolulu",
+            "Pearl City",
+            "Makakilo / Kapolei / Honokai Hale"
+          ],
+          "winter": -600,
+          "summer": -600
+        },
+        {
+          "id": "America/Anchorage",
+          "aliases": [
+            "America/Juneau",
+            "America/Metlakatla",
+            "America/Nome",
+            "America/Sitka",
+            "America/Yakutat",
+            "US/Alaska"
+          ],
+          "cities": [
+            "Anchorage",
+            "Fairbanks",
+            "Juneau",
+            "Eagle River"
+          ],
+          "winter": -540,
+          "summer": -480
+        },
+        {
+          "id": "America/Los_Angeles",
+          "aliases": [
+            "PST8PDT",
+            "US/Pacific"
+          ],
+          "cities": [
+            "Los Angeles",
+            "San Diego",
+            "San Jose",
+            "San Francisco"
+          ],
+          "winter": -480,
+          "summer": -420
+        },
+        {
+          "id": "America/Denver",
+          "aliases": [
+            "America/Boise",
+            "America/Shiprock",
+            "MST7MDT",
+            "Navajo",
+            "US/Mountain"
+          ],
+          "cities": [
+            "Denver",
+            "El Paso",
+            "Albuquerque",
+            "Colorado Springs"
+          ],
+          "winter": -420,
+          "summer": -360
+        },
+        {
+          "id": "America/Phoenix",
+          "aliases": [
+            "America/Creston",
+            "MST",
+            "US/Arizona"
+          ],
+          "cities": [
+            "Phoenix",
+            "Tucson",
+            "Mesa",
+            "Chandler"
+          ],
+          "winter": -420,
+          "summer": -420
+        },
+        {
+          "id": "America/Chicago",
+          "aliases": [
+            "America/Indiana/Knox",
+            "America/Indiana/Tell_City",
+            "America/Knox_IN",
+            "America/Menominee",
+            "America/North_Dakota/Beulah",
+            "America/North_Dakota/Center",
+            "America/North_Dakota/New_Salem",
+            "CST6CDT",
+            "US/Central",
+            "US/Indiana-Starke"
+          ],
+          "cities": [
+            "Chicago",
+            "Houston",
+            "San Antonio",
+            "Dallas"
+          ],
+          "winter": -360,
+          "summer": -300
+        },
+        {
+          "id": "America/New_York",
+          "aliases": [
+            "America/Detroit",
+            "America/Fort_Wayne",
+            "America/Indiana/Indianapolis",
+            "America/Indiana/Marengo",
+            "America/Indiana/Petersburg",
+            "America/Indiana/Vevay",
+            "America/Indiana/Vincennes",
+            "America/Indiana/Winamac",
+            "America/Indianapolis",
+            "America/Kentucky/Louisville",
+            "America/Kentucky/Monticello",
+            "America/Louisville",
+            "EST5EDT",
+            "US/East-Indiana",
+            "US/Eastern",
+            "US/Michigan"
+          ],
+          "cities": [
+            "New York City",
+            "Brooklyn",
+            "Queens",
+            "Philadelphia"
+          ],
+          "winter": -300,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "UY",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Montevideo",
+          "aliases": [],
+          "cities": [
+            "Montevideo",
+            "Salto",
+            "Paysandú",
+            "Las Piedras"
+          ],
+          "winter": -180,
+          "summer": -180
+        }
+      ]
+    },
+    {
+      "code": "UZ",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Tashkent",
+          "aliases": [
+            "Asia/Samarkand"
+          ],
+          "cities": [
+            "Tashkent",
+            "Andijon",
+            "Namangan",
+            "Samarkand"
+          ],
+          "winter": 300,
+          "summer": 300
+        }
+      ]
+    },
+    {
+      "code": "VA",
+      "continent": "EU",
+      "zones": [
+        {
+          "id": "Europe/Vatican",
+          "aliases": [],
+          "cities": [
+            "Vatican City"
+          ],
+          "winter": 60,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "VC",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/St_Vincent",
+          "aliases": [],
+          "cities": [
+            "Kingstown",
+            "Calliaqua"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "VE",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Caracas",
+          "aliases": [],
+          "cities": [
+            "Caracas",
+            "Maracaibo",
+            "Valencia",
+            "Barquisimeto"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "VG",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/Tortola",
+          "aliases": [],
+          "cities": [
+            "Road Town"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "VI",
+      "continent": "AM",
+      "zones": [
+        {
+          "id": "America/St_Thomas",
+          "aliases": [],
+          "cities": [
+            "Saint Croix",
+            "Charlotte Amalie"
+          ],
+          "winter": -240,
+          "summer": -240
+        }
+      ]
+    },
+    {
+      "code": "VN",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Ho_Chi_Minh",
+          "aliases": [
+            "Asia/Saigon"
+          ],
+          "cities": [
+            "Ho Chi Minh City",
+            "Cần Thơ",
+            "Da Nang",
+            "Biên Hòa"
+          ],
+          "winter": 420,
+          "summer": 420
+        }
+      ]
+    },
+    {
+      "code": "VU",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Efate",
+          "aliases": [],
+          "cities": [
+            "Port-Vila"
+          ],
+          "winter": 660,
+          "summer": 660
+        }
+      ]
+    },
+    {
+      "code": "WF",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Wallis",
+          "aliases": [],
+          "cities": [
+            "Mata-Utu"
+          ],
+          "winter": 720,
+          "summer": 720
+        }
+      ]
+    },
+    {
+      "code": "WS",
+      "continent": "OC",
+      "zones": [
+        {
+          "id": "Pacific/Apia",
+          "aliases": [],
+          "cities": [
+            "Apia"
+          ],
+          "winter": 780,
+          "summer": 780
+        }
+      ]
+    },
+    {
+      "code": "YE",
+      "continent": "AS",
+      "zones": [
+        {
+          "id": "Asia/Aden",
+          "aliases": [],
+          "cities": [
+            "Sanaa",
+            "Aden",
+            "Taiz",
+            "Ibb"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "YT",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Indian/Mayotte",
+          "aliases": [],
+          "cities": [
+            "Mamoudzou",
+            "Koungou",
+            "Labattoir",
+            "Kaouéni"
+          ],
+          "winter": 180,
+          "summer": 180
+        }
+      ]
+    },
+    {
+      "code": "ZA",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Johannesburg",
+          "aliases": [
+            "Africa/Maseru",
+            "Africa/Mbabane"
+          ],
+          "cities": [
+            "Johannesburg",
+            "Cape Town",
+            "Durban",
+            "Pretoria"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "ZM",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Lusaka",
+          "aliases": [],
+          "cities": [
+            "Lusaka",
+            "Kitwe",
+            "Ndola",
+            "Chipata"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    },
+    {
+      "code": "ZW",
+      "continent": "AF",
+      "zones": [
+        {
+          "id": "Africa/Harare",
+          "aliases": [],
+          "cities": [
+            "Harare",
+            "Bulawayo",
+            "Chitungwiza",
+            "Mutare"
+          ],
+          "winter": 120,
+          "summer": 120
+        }
+      ]
+    }
+  ]
+}
